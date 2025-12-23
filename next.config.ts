@@ -19,9 +19,9 @@ const nextConfig: NextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://pagead2.googlesyndication.com https://adservice.google.com",
+              "script-src 'self' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://pagead2.googlesyndication.com https://adservice.google.com https://googleads.g.doubleclick.net",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-              "img-src 'self' data: blob: https://www.google-analytics.com https://pagead2.googlesyndication.com",
+              "img-src 'self' data: blob: https://www.google-analytics.com https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net",
               "font-src 'self' data: https://fonts.gstatic.com",
               "connect-src 'self' https://www.google-analytics.com https://pagead2.googlesyndication.com",
               "frame-src https://googleads.g.doubleclick.net https://www.google.com",
@@ -66,7 +66,7 @@ const nextConfig: NextConfig = {
           },
           {
             key: 'Cross-Origin-Embedder-Policy',
-            value: 'require-corp'
+            value: 'unsafe-none'
           }
         ]
       }

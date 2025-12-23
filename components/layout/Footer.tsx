@@ -44,19 +44,19 @@ export default function Footer() {
                 href="https://github.com" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="text-muted-foreground hover:text-primary"
+                className="text-muted-foreground hover:text-primary p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
                 aria-label="Visit our GitHub repository"
               >
-                <Github className="h-5 w-5" aria-hidden="true" />
+                <Github className="h-6 w-6" aria-hidden="true" />
               </a>
               <a 
                 href="https://twitter.com" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="text-muted-foreground hover:text-primary"
+                className="text-muted-foreground hover:text-primary p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
                 aria-label="Follow us on Twitter"
               >
-                <Twitter className="h-5 w-5" aria-hidden="true" />
+                <Twitter className="h-6 w-6" aria-hidden="true" />
               </a>
             </div>
           </div>

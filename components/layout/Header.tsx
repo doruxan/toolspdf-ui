@@ -41,7 +41,7 @@ export default function Header() {
         {/* Mobile menu button */}
         <button
           type="button"
-          className="lg:hidden rounded-md p-2 text-foreground hover:bg-muted"
+          className="lg:hidden rounded-md p-3 text-foreground hover:bg-muted min-w-[44px] min-h-[44px] flex items-center justify-center"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileMenuOpen}
@@ -57,14 +57,14 @@ export default function Header() {
           <div className="space-y-1 px-4 pb-3 pt-2">
             <Link
               href="/"
-              className="block rounded-md px-3 py-2 text-base font-medium text-foreground hover:bg-muted"
+              className="block rounded-md px-3 py-3 text-base font-medium text-foreground hover:bg-muted min-h-[44px] flex items-center"
               onClick={() => setMobileMenuOpen(false)}
             >
               All Tools
             </Link>
             <Link
               href="/blog"
-              className="block rounded-md px-3 py-2 text-base font-medium text-foreground hover:bg-muted"
+              className="block rounded-md px-3 py-3 text-base font-medium text-foreground hover:bg-muted min-h-[44px] flex items-center"
               onClick={() => setMobileMenuOpen(false)}
             >
               Blog
@@ -75,7 +75,7 @@ export default function Header() {
               <Link
                 key={tool.href}
                 href={tool.href}
-                className="block rounded-md px-3 py-2 text-sm text-foreground hover:bg-muted"
+                className="block rounded-md px-3 py-3 text-sm text-foreground hover:bg-muted min-h-[44px] flex items-center"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {tool.name}
