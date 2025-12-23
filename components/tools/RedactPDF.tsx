@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { EyeOff, Upload } from 'lucide-react';
+import { EyeOff } from 'lucide-react';
 import FileUpload from '../shared/FileUpload';
 import ProgressBar from '../shared/ProgressBar';
 import { redactPdf, RedactionArea } from '@/lib/pdf/redactPdf';
@@ -95,9 +95,7 @@ export default function RedactPDF() {
           onFilesSelected={handleFileSelect}
           accept=".pdf"
           multiple={false}
-          icon={Upload}
-          title="Upload PDF File"
-          description="Select a PDF file to redact"
+          label="Upload PDF File to redact"
         />
       ) : (
         <div className="space-y-6">

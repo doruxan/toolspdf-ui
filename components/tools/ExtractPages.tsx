@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Scissors, Upload } from 'lucide-react';
+import { Scissors } from 'lucide-react';
 import FileUpload from '../shared/FileUpload';
 import ProgressBar from '../shared/ProgressBar';
 import { extractPages, parsePageNumbers } from '@/lib/pdf/extractPages';
@@ -93,9 +93,7 @@ export default function ExtractPages() {
           onFilesSelected={handleFileSelect}
           accept=".pdf"
           multiple={false}
-          icon={Upload}
-          title="Upload PDF File"
-          description="Select a PDF file to extract pages from"
+          label="Upload PDF File to extract pages"
         />
       ) : (
         <div className="space-y-6">

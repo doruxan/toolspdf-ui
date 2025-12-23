@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Crop, Upload } from 'lucide-react';
+import { Crop } from 'lucide-react';
 import FileUpload from '../shared/FileUpload';
 import ProgressBar from '../shared/ProgressBar';
 import { cropPdf, CropOptions } from '@/lib/pdf/cropPdf';
@@ -73,9 +73,7 @@ export default function CropPDF() {
           onFilesSelected={handleFileSelect}
           accept=".pdf"
           multiple={false}
-          icon={Upload}
-          title="Upload PDF File"
-          description="Select a PDF file to crop"
+          label="Upload PDF File to crop"
         />
       ) : (
         <div className="space-y-6">

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ArrowUpDown, Upload } from 'lucide-react';
+import { ArrowUpDown } from 'lucide-react';
 import FileUpload from '../shared/FileUpload';
 import ProgressBar from '../shared/ProgressBar';
 import { reorderPages, reversePages } from '@/lib/pdf/organizePdf';
@@ -121,9 +121,7 @@ export default function OrganizePDF() {
           onFilesSelected={handleFileSelect}
           accept=".pdf"
           multiple={false}
-          icon={Upload}
-          title="Upload PDF File"
-          description="Select a PDF file to organize"
+          label="Upload PDF File to organize pages"
         />
       ) : (
         <div className="space-y-6">

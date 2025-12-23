@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Hash, Upload } from 'lucide-react';
+import { Hash } from 'lucide-react';
 import FileUpload from '../shared/FileUpload';
 import ProgressBar from '../shared/ProgressBar';
 import { addPageNumbers, PageNumberOptions } from '@/lib/pdf/pageNumbers';
@@ -73,9 +73,7 @@ export default function AddPageNumbers() {
           onFilesSelected={handleFileSelect}
           accept=".pdf"
           multiple={false}
-          icon={Upload}
-          title="Upload PDF File"
-          description="Select a PDF file to add page numbers"
+          label="Upload PDF File to add page numbers"
         />
       ) : (
         <div className="space-y-6">

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Trash2, Upload } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
 import FileUpload from '../shared/FileUpload';
 import ProgressBar from '../shared/ProgressBar';
 import { removePages, parsePageNumbers } from '@/lib/pdf/removePages';
@@ -99,9 +99,7 @@ export default function RemovePages() {
           onFilesSelected={handleFileSelect}
           accept=".pdf"
           multiple={false}
-          icon={Upload}
-          title="Upload PDF File"
-          description="Select a PDF file to remove pages from"
+          label="Upload PDF File to remove pages"
         />
       ) : (
         <div className="space-y-6">
