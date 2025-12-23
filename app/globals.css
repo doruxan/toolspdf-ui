@@ -1,26 +1,100 @@
 @import "tailwindcss";
 
 :root {
+  /* Colorful Brand Colors */
+  --primary: #6366f1; /* Vibrant Indigo */
+  --primary-dark: #4f46e5;
+  --secondary: #ec4899; /* Hot Pink */
+  --secondary-dark: #db2777;
+  --accent: #14b8a6; /* Teal */
+  --accent-dark: #0d9488;
+  --success: #10b981; /* Green */
+  --warning: #f59e0b; /* Amber */
+  --error: #ef4444; /* Red */
+  
+  /* Neutral Colors */
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #1f2937;
+  --muted: #f3f4f6;
+  --border: #e5e7eb;
+  
+  /* Tool Colors (for visual distinction) */
+  --tool-merge: #8b5cf6; /* Purple */
+  --tool-split: #3b82f6; /* Blue */
+  --tool-compress: #10b981; /* Green */
+  --tool-convert: #f59e0b; /* Amber */
+  --tool-rotate: #ec4899; /* Pink */
+  --tool-unlock: #14b8a6; /* Teal */
+  --tool-protect: #ef4444; /* Red */
+  --tool-watermark: #6366f1; /* Indigo */
 }
 
 @theme inline {
+  --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-dark);
+  --color-secondary: var(--secondary);
+  --color-secondary-dark: var(--secondary-dark);
+  --color-accent: var(--accent);
+  --color-accent-dark: var(--accent-dark);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  
+  /* Tool-specific colors */
+  --color-tool-merge: var(--tool-merge);
+  --color-tool-split: var(--tool-split);
+  --color-tool-compress: var(--tool-compress);
+  --color-tool-convert: var(--tool-convert);
+  --color-tool-rotate: var(--tool-rotate);
+  --color-tool-unlock: var(--tool-unlock);
+  --color-tool-protect: var(--tool-protect);
+  --color-tool-watermark: var(--tool-watermark);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0f172a;
+    --foreground: #f1f5f9;
+    --muted: #1e293b;
+    --border: #334155;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--muted);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark);
+}
+
+/* Smooth transitions */
+* {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }

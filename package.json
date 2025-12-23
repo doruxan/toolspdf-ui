@@ -3,13 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "generate-test-pdfs": "tsx scripts/generateTestFixtures.ts",
+    "generate-test-images": "tsx scripts/generateTestImages.ts",
+    "generate-all-tests": "npm run generate-test-pdfs && npm run generate-test-images"
   },
   "dependencies": {
+    "jspdf": "^3.0.4",
+    "lucide-react": "^0.562.0",
     "next": "16.1.1",
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^5.4.449",
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },
