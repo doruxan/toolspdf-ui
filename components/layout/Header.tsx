@@ -43,6 +43,9 @@ export default function Header() {
           type="button"
           className="lg:hidden rounded-md p-2 text-foreground hover:bg-muted"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={mobileMenuOpen}
+          aria-controls="mobile-menu"
         >
           {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
@@ -50,7 +53,7 @@ export default function Header() {
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-border bg-background">
+        <div id="mobile-menu" className="lg:hidden border-t border-border bg-background">
           <div className="space-y-1 px-4 pb-3 pt-2">
             <Link
               href="/"

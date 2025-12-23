@@ -40,11 +40,23 @@ export default function Footer() {
               Your files never leave your device.
             </p>
             <div className="flex gap-4">
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary">
-                <Github className="h-5 w-5" />
+              <a 
+                href="https://github.com" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-muted-foreground hover:text-primary"
+                aria-label="Visit our GitHub repository"
+              >
+                <Github className="h-5 w-5" aria-hidden="true" />
               </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary">
-                <Twitter className="h-5 w-5" />
+              <a 
+                href="https://twitter.com" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-muted-foreground hover:text-primary"
+                aria-label="Follow us on Twitter"
+              >
+                <Twitter className="h-5 w-5" aria-hidden="true" />
               </a>
             </div>
           </div>

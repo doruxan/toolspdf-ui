@@ -4,16 +4,21 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CookieConsent from "@/components/shared/CookieConsent";
-import Script from "next/script";
+import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
+import GoogleAdSense from "@/components/analytics/GoogleAdSense";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
+  preload: true,
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -56,28 +61,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        {/* Google AdSense */}
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
-        {/* Google Analytics */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-XXXXXXXXXX');
-          `}
-        </Script>
-      </head>
       <body
         suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
@@ -88,6 +71,10 @@ export default function RootLayout({
         </main>
         <Footer />
         <CookieConsent />
+        
+        {/* Analytics - Lazy loaded, production only */}
+        <GoogleAnalytics measurementId="G-XXXXXXXXXX" />
+        <GoogleAdSense publisherId="ca-pub-XXXXXXXXXXXXXXXX" />
       </body>
     </html>
   );

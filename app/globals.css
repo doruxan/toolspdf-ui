@@ -16,6 +16,7 @@
   --background: #ffffff;
   --foreground: #1f2937;
   --muted: #f3f4f6;
+  --muted-foreground: #4b5563; /* Darker gray for better contrast (WCAG AA compliant) */
   --border: #e5e7eb;
   
   /* Tool Colors (for visual distinction) */
@@ -42,6 +43,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -62,6 +64,7 @@
     --background: #0f172a;
     --foreground: #f1f5f9;
     --muted: #1e293b;
+    --muted-foreground: #cbd5e1; /* Lighter gray for dark mode (WCAG AA compliant) */
     --border: #334155;
   }
 }

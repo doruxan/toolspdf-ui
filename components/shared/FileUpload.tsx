@@ -88,6 +88,7 @@ export default function FileUpload({
           onChange={handleFileInput}
           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
           id="file-upload"
+          aria-label={label}
         />
         <div className="flex flex-col items-center gap-4">
           <Upload className={`h-12 w-12 ${isDragging ? 'text-primary' : 'text-muted-foreground'}`} />
@@ -122,8 +123,9 @@ export default function FileUpload({
               <button
                 onClick={() => removeFile(index)}
                 className="p-1 hover:bg-background rounded-md transition-colors"
+                aria-label={`Remove ${file.name}`}
               >
-                <X className="h-5 w-5 text-muted-foreground hover:text-error" />
+                <X className="h-5 w-5 text-muted-foreground hover:text-error" aria-hidden="true" />
               </button>
             </div>
           ))}

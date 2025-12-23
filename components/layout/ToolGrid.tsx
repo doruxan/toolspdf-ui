@@ -145,8 +145,8 @@ export default function ToolGrid() {
             className="group relative p-6 bg-background border-2 border-border rounded-xl hover:border-primary hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
           >
             <div className="flex flex-col gap-4">
-              <div className={`w-14 h-14 rounded-lg bg-gradient-to-br from-${tool.color} to-primary/50 flex items-center justify-center group-hover:scale-110 transition-transform`}>
-                <Icon className="h-7 w-7 text-white" />
+              <div className={`w-14 h-14 min-w-[3.5rem] min-h-[3.5rem] rounded-lg bg-gradient-to-br from-${tool.color} to-primary/50 flex items-center justify-center group-hover:scale-110 transition-transform`}>
+                <Icon className="h-7 w-7 text-white" width={28} height={28} aria-hidden="true" />
               </div>
               <div>
                 <h3 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors">

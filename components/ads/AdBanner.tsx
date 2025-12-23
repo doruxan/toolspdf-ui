@@ -25,10 +25,10 @@ export default function AdBanner({
   }, []);
 
   return (
-    <div className={`ad-container ${className}`}>
+    <div className={`ad-container ${className}`} style={{ minHeight: '90px' }}>
       <ins
         className="adsbygoogle"
-        style={{ display: 'block' }}
+        style={{ display: 'block', minHeight: '90px' }}
         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
         data-ad-slot={dataAdSlot}
         data-ad-format={dataAdFormat}
