@@ -101,3 +101,146 @@ body {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
+
+/* Blog Article Styles */
+.blog-content {
+  color: var(--muted-foreground);
+  line-height: 1.8;
+}
+
+.blog-content h2 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.3;
+  scroll-margin-top: 100px;
+}
+
+.blog-content h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+  scroll-margin-top: 100px;
+}
+
+.blog-content h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--foreground);
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.blog-content p {
+  margin-bottom: 1.5rem;
+  font-size: 1.125rem;
+}
+
+.blog-content ul,
+.blog-content ol {
+  margin-bottom: 1.5rem;
+  padding-left: 1.75rem;
+}
+
+.blog-content ul {
+  list-style-type: disc;
+}
+
+.blog-content ol {
+  list-style-type: decimal;
+}
+
+.blog-content li {
+  margin-bottom: 0.75rem;
+  font-size: 1.125rem;
+  line-height: 1.8;
+}
+
+.blog-content li strong {
+  color: var(--foreground);
+  font-weight: 600;
+}
+
+.blog-content strong {
+  color: var(--foreground);
+  font-weight: 600;
+}
+
+.blog-content em {
+  font-style: italic;
+  color: var(--foreground);
+}
+
+.blog-content a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+  transition: all 0.2s;
+}
+
+.blog-content a:hover {
+  color: var(--primary-dark);
+  text-decoration-thickness: 3px;
+}
+
+.blog-content code {
+  background-color: var(--muted);
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.9em;
+  font-family: var(--font-mono), monospace;
+  color: var(--foreground);
+}
+
+.blog-content blockquote {
+  border-left: 4px solid var(--primary);
+  padding-left: 1.5rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: var(--foreground);
+}
+
+.blog-content img {
+  border-radius: 0.5rem;
+  margin: 2rem 0;
+  max-width: 100%;
+  height: auto;
+}
+
+.blog-content hr {
+  border: 0;
+  border-top: 2px solid var(--border);
+  margin: 3rem 0;
+}
+
+/* First paragraph after h2 - make it stand out */
+.blog-content h2 + p {
+  font-size: 1.2rem;
+  color: var(--foreground);
+}
+
+/* List spacing improvements */
+.blog-content ul li,
+.blog-content ol li {
+  padding-left: 0.5rem;
+}
+
+.blog-content ul ul,
+.blog-content ol ol,
+.blog-content ul ol,
+.blog-content ol ul {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Make lists inside lists smaller */
+.blog-content ul ul li,
+.blog-content ol ol li {
+  font-size: 1rem;
+}

@@ -31,22 +31,25 @@ export default function BlogIndexPage() {
             <Link 
               key={post.slug} 
               href={`/blog/${post.slug}`}
-              className="group flex flex-col bg-card border border-border rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 hover:border-primary/50"
+              className="group flex flex-col bg-background border-2 border-border rounded-xl overflow-hidden hover:shadow-2xl hover:shadow-primary/10 transition-all duration-300 hover:border-primary hover:-translate-y-1"
             >
+              <div className="h-2 bg-gradient-to-r from-primary via-secondary to-accent"></div>
               <div className="p-6 flex-1 flex flex-col">
-                <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
-                  <span>{post.date}</span>
-                  <span>•</span>
-                  <span>{post.readingTime} read</span>
+                <div className="flex items-center gap-2 text-xs font-medium mb-4">
+                  <span className="px-3 py-1 bg-primary/10 text-primary rounded-full">{post.keywords[0]}</span>
+                  <span className="text-muted-foreground">{post.readingTime}</span>
                 </div>
-                <h2 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
+                <h2 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors leading-tight">
                   {post.title}
                 </h2>
-                <p className="text-muted-foreground mb-4 flex-1 line-clamp-3">
+                <p className="text-muted-foreground mb-4 flex-1 line-clamp-3 leading-relaxed">
                   {post.excerpt}
                 </p>
-                <div className="mt-auto font-medium text-primary flex items-center gap-1 group-hover:gap-2 transition-all">
-                  Read Article <span>→</span>
+                <div className="mt-auto pt-4 border-t border-border flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">{post.date}</span>
+                  <span className="font-medium text-primary flex items-center gap-1 group-hover:gap-2 transition-all">
+                    Read <span className="group-hover:translate-x-1 transition-transform">→</span>
+                  </span>
                 </div>
               </div>
             </Link>
