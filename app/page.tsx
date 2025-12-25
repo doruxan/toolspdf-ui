@@ -36,7 +36,7 @@ export default function Home() {
     '@type': 'CollectionPage',
     name: 'RawTools - Free Online Tools',
     description:
-      'Professional PDF tools and Shopify calculators. 100% free, works in your browser.',
+      'Free online tools that run in your browser: PDF tools (merge, split, compress), e-commerce calculators, and IBAN validation/parsing. Fast, private, and easy to use.',
     url: 'https://rawtools.io',
     hasPart: toolCategories.flatMap((category) =>
       category.tools.map((tool) => ({

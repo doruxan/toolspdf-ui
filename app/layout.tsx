@@ -26,20 +26,20 @@ export const metadata: Metadata = {
   alternates: {
     canonical: './',
   },
-  title: "RawTools - Free Online PDF & E-Commerce Tools",
-  description: "Free online tools for PDF processing and Shopify calculators. Merge PDFs, calculate profit margins, and more. 100% free, works in your browser.",
-  keywords: "pdf tools, merge pdf, shopify calculator, profit calculator, free online tools",
+  title: "RawTools - Free Online Tools (PDF, Calculators, IBAN)",
+  description: "Free online tools that run in your browser: PDF tools (merge, split, compress), e-commerce calculators, and IBAN validation/parsing. Fast, private, and easy to use.",
+  keywords: "pdf tools, merge pdf, split pdf, compress pdf, ecommerce calculator, iban validator, iban parser, free online tools",
   authors: [{ name: "RawTools" }],
   openGraph: {
-    title: "RawTools - Free Online PDF & E-Commerce Tools",
-    description: "Free online tools for PDF processing and Shopify calculators. 100% free, works in your browser.",
+    title: "RawTools - Free Online Tools (PDF, Calculators, IBAN)",
+    description: "Free online tools that run in your browser: PDF tools, e-commerce calculators, and IBAN validation/parsing. Fast, private, and easy to use.",
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
     title: "RawTools - Free Online Tools",
-    description: "Free online tools for PDF processing and Shopify calculators.",
+    description: "Free online tools that run in your browser: PDF tools, e-commerce calculators, and IBAN tools. Fast and private.",
   },
   robots: {
     index: true,

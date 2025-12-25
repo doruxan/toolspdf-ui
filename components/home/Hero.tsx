@@ -27,7 +27,7 @@ export default function Hero({ onSearch }: HeroProps) {
             - Free Online Tools
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
-            Professional PDF tools and Shopify calculators. 100% free, works in your browser, no signup required.
+            Free online tools that run in your browser: PDF tools (merge, split, compress), e-commerce calculators, and IBAN validation/parsing. Fast, private, and easy to use.
           </p>
 
           {/* Search Bar */}

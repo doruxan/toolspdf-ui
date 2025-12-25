@@ -23,6 +23,15 @@ You are a Senior Next.js Architect and SEO Specialist. You are also an expert Te
 - Always import tool data from `config/tools.ts`.
 - The Homepage and "Related Tools" components must map through this config to render content.
 
+## 2.1 Site Description Must Match Tool Categories (MANDATORY)
+- Whenever you add a **new tool type/category** (i.e., a new top-level entry in `config/tools.ts`), you MUST update the site’s “what this is” copy everywhere it appears so humans + search engines understand the new scope.
+- Update, at minimum:
+  - `app/layout.tsx`: `metadata.title`, `metadata.description`, OpenGraph/Twitter descriptions
+  - `app/page.tsx`: CollectionPage schema `description`
+  - `components/home/Hero.tsx`: hero subtitle/lede
+  - `lib/seo/schemas.ts`: `generateOrganizationSchema().description`
+- Keep the wording consistent (one canonical description) and avoid keyword stuffing.
+
 ## 3. SEO "King" Guidelines
 - **Metadata:** Every `page.tsx` MUST export a dynamic `generateMetadata` function.
   - Include: Title, Description, OpenGraph, and **Canonical URL** (without query params).
