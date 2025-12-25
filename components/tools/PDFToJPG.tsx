@@ -93,7 +93,14 @@ export default function PDFToJPG() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {images.map((image, index) => (
               <div key={index} className="border border-border rounded-lg overflow-hidden">
-                <img src={image} alt={`Page ${index + 1}`} className="w-full" />
+                <img
+                  src={image}
+                  alt={`Page ${index + 1}`}
+                  className="w-full"
+                  width={600}
+                  height={800}
+                  style={{ width: '100%', height: 'auto', aspectRatio: 'auto' }}
+                />
                 <button
                   onClick={() => handleDownload(index)}
                   className="w-full py-2 bg-muted hover:bg-muted/70 text-sm font-medium transition-all"

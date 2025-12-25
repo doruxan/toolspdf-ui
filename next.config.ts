@@ -9,8 +9,8 @@ const nextConfig: NextConfig = {
     removeConsole: process.env.NODE_ENV === 'production',
   },
   
-  // Enable production source maps for debugging
-  productionBrowserSourceMaps: true,
+  // Disable production source maps to avoid warnings (enable for debugging if needed)
+  productionBrowserSourceMaps: false,
   
   // Performance optimizations
   experimental: {
@@ -61,6 +61,24 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/fonts/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/icons/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/:all*.(svg|jpg|jpeg|png|gif|ico|webp|avif)',
         headers: [
           {
             key: 'Cache-Control',

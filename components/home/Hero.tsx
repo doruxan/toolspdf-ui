@@ -36,6 +36,7 @@ export default function Hero({ onSearch }: HeroProps) {
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
               <input
                 type="search"
+                aria-label="Search tools"
                 placeholder="Search for a tool..."
                 value={searchQuery}
                 onChange={handleSearchChange}

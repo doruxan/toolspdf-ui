@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { X } from 'lucide-react';
 
 export default function CookieConsent() {
@@ -32,9 +33,9 @@ export default function CookieConsent() {
           <div className="flex-1">
             <p className="text-sm text-foreground">
               We use cookies to improve your experience and for analytics. By using our site, you agree to our use of cookies.{' '}
-              <a href="/privacy" className="text-primary hover:underline font-medium">
-                Learn more
-              </a>
+              <Link href="/privacy" className="text-primary hover:underline font-medium">
+                Learn more about our privacy policy
+              </Link>
             </p>
           </div>
           <div className="flex gap-3">

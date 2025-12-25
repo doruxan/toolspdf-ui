@@ -16,7 +16,7 @@
   --background: #ffffff;
   --foreground: #1f2937;
   --muted: #f3f4f6;
-  --muted-foreground: #4b5563; /* Darker gray for better contrast (WCAG AA compliant) */
+  --muted-foreground: #1f2937; /* Very dark gray for maximum contrast (WCAG AAA compliant - gray-800) */
   --border: #e5e7eb;
   
   /* Tool Colors (for visual distinction) */
