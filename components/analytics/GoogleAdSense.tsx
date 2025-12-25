@@ -22,7 +22,7 @@ export default function GoogleAdSense({ publisherId }: GoogleAdSenseProps) {
       async
       src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${publisherId}`}
       crossOrigin="anonymous"
-      strategy="lazyOnload"
+      strategy="afterInteractive"
     />
   );
 }

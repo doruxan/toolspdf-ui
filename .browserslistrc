@@ -1,0 +1,9 @@
+# Modern browsers only (ESNext)
+# This reduces bundle size by avoiding legacy polyfills
+
+> 0.5%
+last 2 versions
+not dead
+not IE 11
+not op_mini all
+

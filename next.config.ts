@@ -4,14 +4,67 @@ const nextConfig: NextConfig = {
   // Enable compression
   compress: true,
   
+  // Remove console statements in production
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+  
+  // Enable production source maps for debugging
+  productionBrowserSourceMaps: true,
+  
   // Performance optimizations
   experimental: {
     optimizePackageImports: ['lucide-react'],
+    optimizeCss: true,
+  },
+  
+  // External packages for server components (PDF libraries)
+  serverComponentsExternalPackages: ['pdf-lib', 'pdfjs-dist', 'jspdf'],
+  
+  // Webpack optimizations
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      // Improve tree shaking
+      config.optimization = {
+        ...config.optimization,
+        usedExports: true,
+        sideEffects: false,
+      };
+    }
+    return config;
   },
 
-  // Security headers
+  // Security and caching headers
   async headers() {
     return [
+      // Cache static assets
+      {
+        source: '/pdf-worker/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/_next/static/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/fonts/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
       {
         source: '/:path*',
         headers: [
@@ -19,16 +72,17 @@ const nextConfig: NextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://pagead2.googlesyndication.com https://adservice.google.com https://googleads.g.doubleclick.net",
+              "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://pagead2.googlesyndication.com https://adservice.google.com https://googleads.g.doubleclick.net",
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: blob: https://www.google-analytics.com https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net",
               "font-src 'self' data:",
-              "connect-src 'self' https://www.google-analytics.com https://pagead2.googlesyndication.com",
+              "connect-src 'self' https://www.google-analytics.com https://pagead2.googlesyndication.com https://region1.google-analytics.com https://region1.analytics.google.com",
               "frame-src https://googleads.g.doubleclick.net https://www.google.com",
               "object-src 'none'",
               "base-uri 'self'",
               "form-action 'self'",
-              "frame-ancestors 'none'"
+              "frame-ancestors 'none'",
+              "upgrade-insecure-requests"
             ].join('; ')
           },
           {

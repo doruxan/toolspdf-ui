@@ -16,8 +16,9 @@ export default function Header() {
         <Link
           href="/"
           className="flex items-center gap-2 text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent hover:opacity-80 transition-opacity"
+          aria-label="RawTools Home"
         >
-          <Wrench className="h-8 w-8 text-primary" />
+          <Wrench className="h-8 w-8 text-primary" aria-hidden="true" />
           <span className="hidden sm:inline">RawTools</span>
         </Link>
 
