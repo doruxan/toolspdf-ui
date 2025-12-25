@@ -63,7 +63,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         {/* Google Search Console Verification */}
-        <meta name="google-site-verification" content="PLACEHOLDER_VERIFICATION_CODE" />
+        <meta name="google-site-verification" content="b7OqIkKEhMevyeIBtktOgcFYit7uDdN8br0uH-C" />
       </head>
       <body
         suppressHydrationWarning
