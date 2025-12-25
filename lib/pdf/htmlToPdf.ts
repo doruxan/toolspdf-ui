@@ -1,4 +1,4 @@
-import { jsPDF } from 'jspdf';
+// jsPDF imported dynamically for better performance
 
 export interface HtmlToPdfOptions {
   pageSize: 'a4' | 'letter';
@@ -18,6 +18,7 @@ export async function htmlToPdf(
     lineHeight: 1.5,
   }
 ): Promise<Uint8Array> {
+  const { jsPDF } = await import('jspdf');
   const doc = new jsPDF({
     orientation: options.orientation,
     unit: 'mm',

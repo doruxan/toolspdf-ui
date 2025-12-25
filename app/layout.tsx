@@ -22,24 +22,24 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://toolspdf.io'),
+  metadataBase: new URL('https://rawtools.io'),
   alternates: {
     canonical: './',
   },
-  title: "Free Online PDF Tools - Merge, Split, Compress & Convert PDFs",
-  description: "Free online PDF tools to merge, split, compress, convert, rotate, protect, and watermark PDFs. 100% free, no limits, works in your browser. Your files never leave your device.",
-  keywords: "pdf tools, merge pdf, split pdf, compress pdf, pdf to jpg, jpg to pdf, free pdf tools online",
-  authors: [{ name: "PDF Tools" }],
+  title: "RawTools - Free Online PDF & E-Commerce Tools",
+  description: "Free online tools for PDF processing and Shopify calculators. Merge PDFs, calculate profit margins, and more. 100% free, works in your browser.",
+  keywords: "pdf tools, merge pdf, shopify calculator, profit calculator, free online tools",
+  authors: [{ name: "RawTools" }],
   openGraph: {
-    title: "Free Online PDF Tools - Merge, Split, Compress & Convert PDFs",
-    description: "Free online PDF tools. 100% free, no limits, works in your browser. Your files never leave your device.",
+    title: "RawTools - Free Online PDF & E-Commerce Tools",
+    description: "Free online tools for PDF processing and Shopify calculators. 100% free, works in your browser.",
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Online PDF Tools",
-    description: "Free online PDF tools. 100% free, no limits, works in your browser.",
+    title: "RawTools - Free Online Tools",
+    description: "Free online tools for PDF processing and Shopify calculators.",
   },
   robots: {
     index: true,
@@ -61,6 +61,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* Google Search Console Verification */}
+        <meta name="google-site-verification" content="PLACEHOLDER_VERIFICATION_CODE" />
+      </head>
       <body
         suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
@@ -73,8 +77,8 @@ export default function RootLayout({
         <CookieConsent />
         
         {/* Analytics - Lazy loaded, production only */}
-        <GoogleAnalytics measurementId="G-XXXXXXXXXX" />
-        <GoogleAdSense publisherId="ca-pub-XXXXXXXXXXXXXXXX" />
+        <GoogleAnalytics measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-XXXXXXXXXX"} />
+        <GoogleAdSense publisherId={process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID || "ca-pub-XXXXXXXXXXXXXXXX"} />
       </body>
     </html>
   );

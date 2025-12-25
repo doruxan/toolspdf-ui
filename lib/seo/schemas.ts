@@ -1,18 +1,34 @@
-export interface ToolSchema {
-  name: string;
-  description: string;
-  url: string;
+export function generateOrganizationSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'RawTools',
+    url: 'https://rawtools.io',
+    logo: 'https://rawtools.io/logo.png',
+    description:
+      'Free online PDF tools and Shopify calculators. Process files and calculate metrics directly in your browser.',
+    sameAs: ['https://twitter.com/rawtools', 'https://github.com/rawtools'],
+  };
 }
 
-export function generateSoftwareApplicationSchema(tool: ToolSchema) {
+export function generateSoftwareAppSchema(tool: {
+  title?: string;
+  name?: string;
+  description: string;
+  href?: string;
+  url?: string;
+}) {
+  const toolName = tool.title || tool.name || 'Tool';
+  const toolUrl = tool.url || (tool.href ? `https://rawtools.io${tool.href}` : 'https://rawtools.io');
+  
   return {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    name: tool.name,
+    name: toolName,
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Web',
     description: tool.description,
-    url: tool.url,
-    applicationCategory: 'UtilitiesApplication',
-    operatingSystem: 'Any',
+    url: toolUrl,
     offers: {
       '@type': 'Offer',
       price: '0',
@@ -26,21 +42,23 @@ export function generateSoftwareApplicationSchema(tool: ToolSchema) {
   };
 }
 
-export function generateHowToSchema(tool: ToolSchema, steps: string[]) {
+export function generateBreadcrumbSchema(
+  items: Array<{ name: string; url: string }>,
+  siteUrl: string = 'https://rawtools.io'
+) {
   return {
     '@context': 'https://schema.org',
-    '@type': 'HowTo',
-    name: `How to ${tool.name}`,
-    description: tool.description,
-    step: steps.map((step, index) => ({
-      '@type': 'HowToStep',
-      position: index + 1,
-      text: step,
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, idx) => ({
+      '@type': 'ListItem',
+      position: idx + 1,
+      name: item.name,
+      item: `${siteUrl}${item.url}`,
     })),
   };
 }
 
-export function generateFAQSchema(faqs: { question: string; answer: string }[]) {
+export function generateFAQSchema(faqs: Array<{ question: string; answer: string }>) {
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -55,52 +73,109 @@ export function generateFAQSchema(faqs: { question: string; answer: string }[]) 
   };
 }
 
+export function generateHowToSchema(
+  tool: {
+    name: string;
+    description: string;
+    url?: string;
+  },
+  steps: string[]
+) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: `How to ${tool.name}`,
+    description: tool.description,
+    step: steps.map((step, index) => ({
+      '@type': 'HowToStep',
+      position: index + 1,
+      text: step,
+    })),
+  };
+}
+
+// Alias for backwards compatibility
+export const generateSoftwareApplicationSchema = generateSoftwareAppSchema;
+
 export function generateArticleSchema(article: {
   title: string;
   description: string;
-  url: string;
-  datePublished: string;
-  author: string;
-  image?: string;
+  slug: string;
+  date: string;
+  author?: string;
+  category?: string;
 }) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: article.title,
     description: article.description,
-    image: article.image || 'https://toolspdf.io/og-image.jpg',
-    datePublished: article.datePublished,
+    url: `https://rawtools.io/blog/${article.slug}`,
+    datePublished: article.date,
+    dateModified: article.date,
     author: {
       '@type': 'Person',
-      name: article.author,
+      name: article.author || 'RawTools Team',
     },
     publisher: {
       '@type': 'Organization',
-      name: 'PDF Tools',
+      name: 'RawTools',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://toolspdf.io/logo.png',
+        url: 'https://rawtools.io/logo.png',
       },
     },
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': article.url,
+    articleSection: article.category || 'Tools',
+  };
+}
+
+export function generateBlogPostingSchema(post: {
+  title: string;
+  excerpt: string;
+  slug: string;
+  date: string;
+  author?: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.excerpt,
+    url: `https://rawtools.io/blog/${post.slug}`,
+    datePublished: post.date,
+    dateModified: post.date,
+    author: {
+      '@type': 'Person',
+      name: post.author || 'RawTools Team',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'RawTools',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://rawtools.io/logo.png',
+      },
     },
   };
 }
 
-export function generateOrganizationSchema() {
+export function generateCollectionPageSchema(collection: {
+  name: string;
+  description: string;
+  url: string;
+  items: Array<{ name: string; description: string; url: string }>;
+}) {
   return {
     '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: 'PDF Tools',
-    url: 'https://toolspdf.io',
-    logo: 'https://toolspdf.io/logo.png',
-    description: 'Free online PDF tools to merge, split, compress, and convert PDFs',
-    sameAs: [
-      'https://twitter.com/toolspdf_io',
-      'https://github.com/toolspdf',
-    ],
+    '@type': 'CollectionPage',
+    name: collection.name,
+    description: collection.description,
+    url: collection.url,
+    hasPart: collection.items.map((item) => ({
+      '@type': 'WebPage',
+      name: item.name,
+      description: item.description,
+      url: item.url,
+    })),
   };
 }
-

@@ -1,4 +1,4 @@
-import { PDFDocument, rgb } from 'pdf-lib';
+// pdf-lib imported dynamically for better performance
 
 export interface RedactionArea {
   pageNumber: number;
@@ -9,6 +9,7 @@ export interface RedactionArea {
 }
 
 export async function redactPdf(file: File, redactions: RedactionArea[]): Promise<Uint8Array> {
+  const { PDFDocument, rgb } = await import('pdf-lib');
   const arrayBuffer = await file.arrayBuffer();
   const pdfDoc = await PDFDocument.load(arrayBuffer);
   const pages = pdfDoc.getPages();
@@ -44,6 +45,7 @@ export async function redactPdf(file: File, redactions: RedactionArea[]): Promis
 
 // Simplified version: redact entire text matches
 export async function redactText(file: File, searchText: string): Promise<Uint8Array> {
+  const { PDFDocument } = await import('pdf-lib');
   // Note: This is a placeholder. True text redaction requires text extraction
   // which is complex with pdf-lib. This would draw black boxes over specified areas.
   // For a full implementation, you'd need pdf.js for text extraction.

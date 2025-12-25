@@ -23,8 +23,8 @@ export default function PDFViewer({ file, className = '' }: PDFViewerProps) {
         // Dynamic import of pdfjs-dist
         const pdfjsLib = await import('pdfjs-dist');
         
-        // Set worker path
-        pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+        // Use worker from public folder
+        pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf-worker/pdf.worker.min.mjs';
 
         const arrayBuffer = await file.arrayBuffer();
         const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });

@@ -1,42 +1,37 @@
 import { MetadataRoute } from 'next';
+import { toolCategories } from '@/config/tools';
 import { getAllBlogPosts } from '@/lib/blog/posts';
+import { blogCategories } from '@/config/blog';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://toolspdf.io'; // Updated to the chosen domain
+  const baseUrl = 'https://rawtools.io';
   const currentDate = new Date();
 
-  const tools = [
-    'merge-pdf',
-    'split-pdf',
-    'compress-pdf',
-    'pdf-to-jpg',
-    'jpg-to-pdf',
-    'rotate-pdf',
-    'unlock-pdf',
-    'protect-pdf',
-    'watermark-pdf',
-    'remove-pages',
-    'extract-pages',
-    'add-page-numbers',
-    'organize-pdf',
-    'html-to-pdf',
-    'crop-pdf',
-    'redact-pdf',
-  ];
+  // Generate tool pages from config
+  const toolPages = toolCategories.flatMap((category) =>
+    category.tools.map((tool) => ({
+      url: `${baseUrl}${tool.href}`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.9,
+    }))
+  );
 
-  const toolPages = tools.map((tool) => ({
-    url: `${baseUrl}/${tool}`,
-    lastModified: currentDate,
-    changeFrequency: 'monthly' as const,
-    priority: 0.9,
-  }));
-
+  // Generate blog post pages
   const blogPosts = getAllBlogPosts();
   const blogPages = blogPosts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: new Date(post.date),
     changeFrequency: 'monthly' as const,
     priority: 0.8,
+  }));
+
+  // Generate blog category pages
+  const blogCategoryPages = Object.keys(blogCategories).map((categoryId) => ({
+    url: `${baseUrl}/blog/category/${categoryId}`,
+    lastModified: currentDate,
+    changeFrequency: 'weekly' as const,
+    priority: 0.7,
   }));
 
   return [
@@ -54,6 +49,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...toolPages,
     ...blogPages,
+    ...blogCategoryPages,
     {
       url: `${baseUrl}/privacy`,
       lastModified: currentDate,
@@ -72,6 +68,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.5,
     },
+    {
+      url: `${baseUrl}/contact`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.4,
+    },
   ];
 }
-

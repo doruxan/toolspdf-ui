@@ -1,5 +1,5 @@
 {
-  "name": "webtools",
+  "name": "rawtools",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,11 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "postinstall": "mkdir -p public/pdf-worker && cp node_modules/pdfjs-dist/build/pdf.worker.min.mjs public/pdf-worker/ || true",
     "generate-test-pdfs": "tsx scripts/generateTestFixtures.ts",
     "generate-test-images": "tsx scripts/generateTestImages.ts",
     "generate-all-tests": "npm run generate-test-pdfs && npm run generate-test-images"
   },
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.19",
     "jspdf": "^3.0.4",
     "lucide-react": "^0.562.0",
     "next": "16.1.1",

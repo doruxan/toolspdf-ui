@@ -1,6 +1,7 @@
-import { PDFDocument, StandardFonts } from 'pdf-lib';
+// pdf-lib imported dynamically for better performance
 
 export async function protectPDF(file: File, password: string): Promise<Uint8Array> {
+  const { PDFDocument } = await import('pdf-lib');
   const arrayBuffer = await file.arrayBuffer();
   const pdf = await PDFDocument.load(arrayBuffer);
 
@@ -16,6 +17,7 @@ export async function protectPDF(file: File, password: string): Promise<Uint8Arr
 }
 
 export async function unlockPDF(file: File, password: string): Promise<Uint8Array> {
+  const { PDFDocument } = await import('pdf-lib');
   // Note: pdf-lib has limited support for encrypted PDFs
   // This is a placeholder implementation
   // In production, you'd need a library that can decrypt PDFs
@@ -33,6 +35,7 @@ export async function unlockPDF(file: File, password: string): Promise<Uint8Arra
 }
 
 export async function removePDFPassword(file: File): Promise<Uint8Array> {
+  const { PDFDocument } = await import('pdf-lib');
   const arrayBuffer = await file.arrayBuffer();
   const pdf = await PDFDocument.load(arrayBuffer, { 
     ignoreEncryption: true 

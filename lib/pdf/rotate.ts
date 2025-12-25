@@ -1,10 +1,11 @@
-import { PDFDocument, degrees } from 'pdf-lib';
+// pdf-lib imported dynamically for better performance
 
 export async function rotatePDF(
   file: File,
   rotation: 90 | 180 | 270,
   pageNumbers?: number[]
 ): Promise<Uint8Array> {
+  const { PDFDocument, degrees } = await import('pdf-lib');
   const arrayBuffer = await file.arrayBuffer();
   const pdf = await PDFDocument.load(arrayBuffer);
   const pages = pdf.getPages();

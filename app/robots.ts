@@ -9,7 +9,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/test', '/private'],
       },
     ],
-    sitemap: 'https://toolspdf.io/sitemap.xml',
+    sitemap: 'https://rawtools.io/sitemap.xml',
   };
 }
 

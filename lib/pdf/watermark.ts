@@ -1,4 +1,4 @@
-import { PDFDocument, rgb, StandardFonts, degrees } from 'pdf-lib';
+// pdf-lib imported dynamically for better performance
 
 export interface WatermarkOptions {
   text: string;
@@ -12,6 +12,7 @@ export async function addTextWatermark(
   file: File,
   options: WatermarkOptions
 ): Promise<Uint8Array> {
+  const { PDFDocument, rgb, StandardFonts, degrees } = await import('pdf-lib');
   const arrayBuffer = await file.arrayBuffer();
   const pdf = await PDFDocument.load(arrayBuffer);
   const pages = pdf.getPages();
@@ -49,6 +50,7 @@ export async function addImageWatermark(
   imageFile: File,
   options: { opacity?: number; scale?: number }
 ): Promise<Uint8Array> {
+  const { PDFDocument } = await import('pdf-lib');
   const arrayBuffer = await file.arrayBuffer();
   const pdf = await PDFDocument.load(arrayBuffer);
   const pages = pdf.getPages();

@@ -24,9 +24,9 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   }
 
   return {
-    title: `${post.title} - PDF Tools Blog`,
+    title: `${post.title} - RawTools Blog`,
     description: post.excerpt,
-    keywords: post.keywords.join(', '),
+    keywords: post.keywords?.join(', '),
     openGraph: {
       title: post.title,
       description: post.excerpt,
@@ -55,8 +55,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const articleSchema = generateArticleSchema({
     title: post.title,
     description: post.excerpt,
-    url: `https://toolspdf.io/blog/${post.slug}`,
-    datePublished: post.date,
+    slug: post.slug,
+    date: post.date,
     author: post.author,
   });
 
@@ -70,8 +70,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <Link href="/blog" className="hover:text-primary transition-colors font-medium">← Back to Blog</Link>
             <span>•</span>
             <span>{post.date}</span>
-            <span>•</span>
-            <span>{post.readingTime} read</span>
+            {post.readingTime && (
+              <>
+                <span>•</span>
+                <span>{post.readingTime} read</span>
+              </>
+            )}
           </div>
           <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
             {post.title}
@@ -81,9 +85,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </p>
           <div className="mt-6 flex items-center gap-3 text-sm">
             <span className="text-foreground font-medium">By {post.author}</span>
-            <span className="px-3 py-1 bg-primary/10 text-primary rounded-full font-medium">
-              {post.keywords[0]}
-            </span>
+            {post.keywords && post.keywords.length > 0 && (
+              <span className="px-3 py-1 bg-primary/10 text-primary rounded-full font-medium">
+                {post.keywords[0]}
+              </span>
+            )}
           </div>
         </div>
       </div>
@@ -94,19 +100,31 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <AdBanner dataAdSlot="1234567890" className="mb-8" />
             
             <article className="blog-content bg-background p-8 rounded-xl border border-border shadow-sm">
-              <div dangerouslySetInnerHTML={{ __html: post.content }} />
+              <div dangerouslySetInnerHTML={{ __html: post.content || '' }} />
             </article>
 
-            <div className="mt-16 p-8 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-xl border border-border">
-              <h3 className="text-2xl font-bold text-foreground mb-6">Explore Our Tools</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <Link href="/merge-pdf" className="group p-6 border-2 border-border rounded-xl hover:border-primary hover:shadow-lg transition-all bg-background">
-                  <div className="font-bold text-lg text-foreground group-hover:text-primary transition-colors">Merge PDF</div>
-                  <div className="text-sm text-muted-foreground mt-1">Combine multiple PDFs into one</div>
+            {post.relatedToolHref && (
+              <div className="mt-16 p-8 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-xl border border-border">
+                <h3 className="text-2xl font-bold text-foreground mb-6">Try the Related Tool</h3>
+                <Link href={post.relatedToolHref} className="group p-6 border-2 border-primary rounded-xl hover:shadow-xl transition-all bg-background block">
+                  <div className="font-bold text-xl text-foreground group-hover:text-primary transition-colors mb-2">
+                    {post.relatedToolHref.split('/').pop()?.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+                  </div>
+                  <div className="text-sm text-muted-foreground">Try this tool now →</div>
                 </Link>
-                <Link href="/compress-pdf" className="group p-6 border-2 border-border rounded-xl hover:border-primary hover:shadow-lg transition-all bg-background">
-                  <div className="font-bold text-lg text-foreground group-hover:text-primary transition-colors">Compress PDF</div>
-                  <div className="text-sm text-muted-foreground mt-1">Reduce PDF file size</div>
+              </div>
+            )}
+            
+            <div className="mt-8 p-8 bg-gradient-to-br from-secondary/5 to-accent/5 rounded-xl border border-border">
+              <h3 className="text-2xl font-bold text-foreground mb-6">Explore More Tools</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <Link href="/" className="group p-6 border-2 border-border rounded-xl hover:border-primary hover:shadow-lg transition-all bg-background">
+                  <div className="font-bold text-lg text-foreground group-hover:text-primary transition-colors">All Tools</div>
+                  <div className="text-sm text-muted-foreground mt-1">Browse our complete toolkit</div>
+                </Link>
+                <Link href="/blog" className="group p-6 border-2 border-border rounded-xl hover:border-primary hover:shadow-lg transition-all bg-background">
+                  <div className="font-bold text-lg text-foreground group-hover:text-primary transition-colors">More Articles</div>
+                  <div className="text-sm text-muted-foreground mt-1">Read more helpful guides</div>
                 </Link>
               </div>
             </div>
@@ -125,13 +143,15 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     <div className="text-muted-foreground">{post.date}</div>
                   </div>
                 </div>
-                <div className="flex items-start gap-2">
-                  <span className="text-primary">⏱️</span>
-                  <div>
-                    <div className="font-medium text-foreground">Reading Time</div>
-                    <div className="text-muted-foreground">{post.readingTime}</div>
+                {post.readingTime && (
+                  <div className="flex items-start gap-2">
+                    <span className="text-primary">⏱️</span>
+                    <div>
+                      <div className="font-medium text-foreground">Reading Time</div>
+                      <div className="text-muted-foreground">{post.readingTime}</div>
+                    </div>
                   </div>
-                </div>
+                )}
                 <div className="flex items-start gap-2">
                   <span className="text-primary">✍️</span>
                   <div>

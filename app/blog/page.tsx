@@ -36,8 +36,12 @@ export default function BlogIndexPage() {
               <div className="h-2 bg-gradient-to-r from-primary via-secondary to-accent"></div>
               <div className="p-6 flex-1 flex flex-col">
                 <div className="flex items-center gap-2 text-xs font-medium mb-4">
-                  <span className="px-3 py-1 bg-primary/10 text-primary rounded-full">{post.keywords[0]}</span>
-                  <span className="text-muted-foreground">{post.readingTime}</span>
+                  {post.keywords && post.keywords.length > 0 && (
+                    <span className="px-3 py-1 bg-primary/10 text-primary rounded-full">{post.keywords[0]}</span>
+                  )}
+                  {post.readingTime && (
+                    <span className="text-muted-foreground">{post.readingTime}</span>
+                  )}
                 </div>
                 <h2 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors leading-tight">
                   {post.title}

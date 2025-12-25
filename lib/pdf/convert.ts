@@ -1,8 +1,8 @@
-import { PDFDocument } from 'pdf-lib';
-import { jsPDF } from 'jspdf';
+// pdf-lib and jspdf imported dynamically for better performance
 
 // Convert images to PDF
 export async function imagesToPDF(imageFiles: File[]): Promise<Uint8Array> {
+  const { jsPDF } = await import('jspdf');
   const pdf = new jsPDF();
   let isFirstPage = true;
 
@@ -41,7 +41,9 @@ export async function imagesToPDF(imageFiles: File[]): Promise<Uint8Array> {
 // Convert PDF to images
 export async function pdfToImages(file: File): Promise<string[]> {
   const pdfjsLib = await import('pdfjs-dist');
-  pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+  
+  // Use worker from public folder
+  pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf-worker/pdf.worker.min.mjs';
 
   const arrayBuffer = await file.arrayBuffer();
   const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;

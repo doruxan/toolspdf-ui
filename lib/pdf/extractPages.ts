@@ -1,6 +1,7 @@
-import { PDFDocument } from 'pdf-lib';
+// pdf-lib imported dynamically for better performance
 
 export async function extractPages(file: File, pagesToExtract: number[]): Promise<Uint8Array> {
+  const { PDFDocument } = await import('pdf-lib');
   const arrayBuffer = await file.arrayBuffer();
   const sourcePdf = await PDFDocument.load(arrayBuffer);
   const newPdf = await PDFDocument.create();

@@ -1,4 +1,4 @@
-import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
+// pdf-lib imported dynamically for better performance
 
 export interface PageNumberOptions {
   position: 'bottom-center' | 'bottom-right' | 'bottom-left' | 'top-center' | 'top-right' | 'top-left';
@@ -16,6 +16,7 @@ export async function addPageNumbers(
     startPage: 1,
   }
 ): Promise<Uint8Array> {
+  const { PDFDocument, rgb, StandardFonts } = await import('pdf-lib');
   const arrayBuffer = await file.arrayBuffer();
   const pdfDoc = await PDFDocument.load(arrayBuffer);
   const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
