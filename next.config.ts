@@ -21,7 +21,10 @@ const nextConfig: NextConfig = {
   // External packages for server components (PDF libraries)
   serverComponentsExternalPackages: ['pdf-lib', 'pdfjs-dist', 'jspdf'],
   
-  // Webpack optimizations
+  // Turbopack config (empty to silence warning, Turbopack already optimizes well)
+  turbopack: {},
+  
+  // Webpack optimizations (fallback when using --webpack flag)
   webpack: (config, { isServer }) => {
     if (!isServer) {
       // Improve tree shaking
