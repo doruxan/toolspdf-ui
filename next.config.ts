@@ -19,7 +19,7 @@ const nextConfig: NextConfig = {
   },
   
   // External packages for server components (PDF libraries)
-  serverComponentsExternalPackages: ['pdf-lib', 'pdfjs-dist', 'jspdf'],
+  serverExternalPackages: ['pdf-lib', 'pdfjs-dist', 'jspdf'],
   
   // Turbopack config (empty to silence warning, Turbopack already optimizes well)
   turbopack: {},
