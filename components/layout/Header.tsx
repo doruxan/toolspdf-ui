@@ -26,7 +26,7 @@ export default function Header() {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden lg:flex lg:gap-x-8 lg:items-center">
+        <div className="hidden xl:flex xl:gap-x-8 xl:items-center">
           <Link
             href="/"
             className="text-sm font-semibold leading-6 text-foreground hover:text-primary transition-colors"
@@ -37,7 +37,7 @@ export default function Header() {
           {/* Tools Dropdown with Categories Only */}
           <div className="relative">
             <button
-              className="flex items-center gap-1 text-sm font-semibold leading-6 text-foreground hover:text-primary transition-colors pb-2"
+              className="flex items-center gap-1 text-sm font-semibold leading-6 text-foreground hover:text-primary transition-colors"
               onMouseEnter={() => setToolsDropdownOpen(true)}
               onMouseLeave={() => setToolsDropdownOpen(false)}
             >
@@ -46,11 +46,11 @@ export default function Header() {
             </button>
             {toolsDropdownOpen && (
               <div
-                className="absolute left-0 top-full w-64 bg-background border-2 border-border rounded-xl shadow-xl pt-2"
+                className="absolute left-0 top-full pt-2 w-64"
                 onMouseEnter={() => setToolsDropdownOpen(true)}
                 onMouseLeave={() => setToolsDropdownOpen(false)}
               >
-                <div className="space-y-2 p-4">
+                <div className="bg-background border-2 border-border rounded-xl shadow-xl p-4 space-y-2">
                   {toolCategories.map((category) => {
                     const categoryLabel = category.name.replace(/^Free Online\s+/i, '').replace(/\s+Tools?$/i, '');
                     const href = isHomePage ? `#${category.id}` : `/#${category.id}`;
@@ -91,7 +91,7 @@ export default function Header() {
         {/* Mobile menu button */}
         <button
           type="button"
-          className="lg:hidden rounded-md p-3 text-foreground hover:bg-muted min-w-[44px] min-h-[44px] flex items-center justify-center"
+          className="xl:hidden rounded-md p-3 text-foreground hover:bg-muted min-w-[44px] min-h-[44px] flex items-center justify-center"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={mobileMenuOpen}
@@ -103,7 +103,7 @@ export default function Header() {
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div id="mobile-menu" className="lg:hidden border-t-2 border-border bg-background">
+        <div id="mobile-menu" className="xl:hidden border-t-2 border-border bg-background">
           <div className="space-y-1 px-4 pb-3 pt-2">
             <Link
               href="/"
