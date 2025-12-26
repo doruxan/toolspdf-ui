@@ -79,14 +79,14 @@ export function SpeedChecklist() {
       <Card title="Progress">
         <div className="space-y-2">
           <div className="flex justify-between items-center">
-            <span className="text-sm font-medium text-gray-700">
+            <span className="text-sm font-medium text-foreground">
               {completedCount} of {items.length} tasks completed
             </span>
-            <span className="text-2xl font-bold text-primary-600">{progressPercent}%</span>
+            <span className="text-2xl font-bold text-primary">{progressPercent}%</span>
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-3">
+          <div className="w-full bg-muted rounded-full h-3">
             <div
-              className="bg-primary-600 h-3 rounded-full transition-all"
+              className="bg-primary h-3 rounded-full transition-all"
               style={{ width: `${progressPercent}%` }}
             />
           </div>
@@ -103,16 +103,18 @@ export function SpeedChecklist() {
               {categoryItems.map(item => (
                 <div
                   key={item.id}
-                  className="flex items-start gap-3 p-3 border border-gray-200 rounded-md hover:bg-gray-50"
+                  onClick={() => toggleItem(item.id)}
+                  className="flex items-start gap-3 p-3 border-2 border-border rounded-md hover:bg-muted/50 cursor-pointer transition-colors"
                 >
                   <input
                     type="checkbox"
                     checked={item.checked}
                     onChange={() => toggleItem(item.id)}
-                    className="mt-1 w-5 h-5 rounded"
+                    onClick={(e) => e.stopPropagation()}
+                    className="mt-1 w-5 h-5 rounded cursor-pointer"
                   />
                   <div className="flex-1">
-                    <p className={`text-sm ${item.checked ? 'line-through text-gray-500' : 'text-gray-900'}`}>
+                    <p className={`text-sm ${item.checked ? 'line-through text-muted-foreground' : 'text-foreground'}`}>
                       {item.task}
                     </p>
                   </div>
@@ -126,7 +128,7 @@ export function SpeedChecklist() {
                   </Badge>
                 </div>
               ))}
-              <div className="text-xs text-gray-500 pt-2">
+              <div className="text-xs text-muted-foreground pt-2">
                 {categoryCompleted} / {categoryItems.length} completed
               </div>
             </div>
