@@ -1,13 +1,15 @@
 'use client';
 
 import Link from 'next/link';
-import { Wrench, Menu, X, ChevronDown } from 'lucide-react';
+import { Wrench, Menu, X } from 'lucide-react';
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { toolCategories } from '@/config/tools';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [toolsDropdownOpen, setToolsDropdownOpen] = useState(false);
+  const pathname = usePathname();
+  const isHomePage = pathname === '/';
 
   return (
     <header className="sticky top-0 z-50 w-full border-b-2 border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm">
@@ -23,7 +25,7 @@ export default function Header() {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden lg:flex lg:gap-x-8 lg:items-center">
+        <div className="hidden lg:flex lg:gap-x-6 lg:items-center">
           <Link
             href="/"
             className="text-sm font-semibold leading-6 text-foreground hover:text-primary transition-colors"
@@ -31,45 +33,30 @@ export default function Header() {
             Home
           </Link>
 
-          {/* Tools Dropdown */}
-          <div className="relative">
-            <button
-              className="flex items-center gap-1 text-sm font-semibold leading-6 text-foreground hover:text-primary transition-colors"
-              onMouseEnter={() => setToolsDropdownOpen(true)}
-              onMouseLeave={() => setToolsDropdownOpen(false)}
-            >
-              Tools
-              <ChevronDown className="h-4 w-4" />
-            </button>
-            {toolsDropdownOpen && (
-              <div
-                className="absolute left-0 top-full mt-2 w-[600px] bg-background border-2 border-border rounded-xl shadow-xl p-6 max-h-[80vh] overflow-y-auto"
-                onMouseEnter={() => setToolsDropdownOpen(true)}
-                onMouseLeave={() => setToolsDropdownOpen(false)}
+          {/* Category Links */}
+          {toolCategories.map((category) => {
+            const categoryLabel = category.name.replace(/^Free Online\s+/i, '').replace(/\s+Tools?$/i, '');
+            const href = isHomePage ? `#${category.id}` : `/#${category.id}`;
+            
+            return (
+              <Link
+                key={category.id}
+                href={href}
+                onClick={(e) => {
+                  if (isHomePage) {
+                    e.preventDefault();
+                    document.getElementById(category.id)?.scrollIntoView({
+                      behavior: 'smooth',
+                      block: 'start',
+                    });
+                  }
+                }}
+                className="text-sm font-semibold leading-6 text-foreground hover:text-primary transition-colors"
               >
-                <div className="grid grid-cols-2 gap-6">
-                  {toolCategories.map((category) => (
-                    <div key={category.id}>
-                      <h4 className="text-xs font-bold text-muted-foreground uppercase mb-3 sticky top-0 bg-background">
-                        {category.name}
-                      </h4>
-                      <div className="space-y-1">
-                        {category.tools.map((tool) => (
-                          <Link
-                            key={tool.href}
-                            href={tool.href}
-                            className="block text-sm text-foreground hover:text-primary hover:bg-muted px-2 py-1.5 rounded transition-colors"
-                          >
-                            {tool.title}
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
+                {categoryLabel}
+              </Link>
+            );
+          })}
 
           <Link
             href="/blog"
@@ -103,6 +90,34 @@ export default function Header() {
             >
               Home
             </Link>
+            <div className="border-t-2 border-border my-2"></div>
+            {toolCategories.map((category) => {
+              const categoryLabel = category.name.replace(/^Free Online\s+/i, '').replace(/\s+Tools?$/i, '');
+              const href = isHomePage ? `#${category.id}` : `/#${category.id}`;
+              
+              return (
+                <Link
+                  key={category.id}
+                  href={href}
+                  onClick={(e) => {
+                    setMobileMenuOpen(false);
+                    if (isHomePage) {
+                      e.preventDefault();
+                      setTimeout(() => {
+                        document.getElementById(category.id)?.scrollIntoView({
+                          behavior: 'smooth',
+                          block: 'start',
+                        });
+                      }, 100);
+                    }
+                  }}
+                  className="block rounded-md px-3 py-3 text-base font-medium text-foreground hover:bg-muted min-h-[44px] flex items-center"
+                >
+                  {categoryLabel}
+                </Link>
+              );
+            })}
+            <div className="border-t-2 border-border my-2"></div>
             <Link
               href="/blog"
               className="block rounded-md px-3 py-3 text-base font-medium text-foreground hover:bg-muted min-h-[44px] flex items-center"
@@ -110,24 +125,6 @@ export default function Header() {
             >
               Blog
             </Link>
-            <div className="border-t-2 border-border my-2"></div>
-            {toolCategories.map((category) => (
-              <div key={category.id} className="py-2">
-                <div className="text-xs font-bold text-muted-foreground uppercase px-3 py-2">
-                  {category.name}
-                </div>
-                {category.tools.slice(0, 5).map((tool) => (
-                  <Link
-                    key={tool.href}
-                    href={tool.href}
-                    className="block rounded-md px-3 py-3 text-sm text-foreground hover:bg-muted min-h-[44px] flex items-center"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {tool.title}
-                  </Link>
-                ))}
-              </div>
-            ))}
           </div>
         </div>
       )}

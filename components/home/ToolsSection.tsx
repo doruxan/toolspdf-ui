@@ -7,7 +7,7 @@ interface ToolsSectionProps {
 
 export default function ToolsSection({ category }: ToolsSectionProps) {
   return (
-    <section className="py-12 md:py-16">
+    <section id={category.id} className="py-12 md:py-16 scroll-mt-20">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-foreground mb-4">{category.name}</h2>
