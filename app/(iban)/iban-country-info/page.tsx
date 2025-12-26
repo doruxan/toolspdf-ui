@@ -21,15 +21,15 @@ export default function IBANCountryInfoPage() {
     <>
       <StructuredData data={schema} />
       
-      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      <div className="min-h-screen">
         <div className="max-w-7xl mx-auto px-4 py-8">
           <Breadcrumbs category="IBAN Tools" toolName="Country Lookup" />
           
           <div className="text-center mb-8">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
               IBAN Country Lookup
             </h1>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Comprehensive database of IBAN format specifications for 80+ countries. 
               View examples, validation rules, structure breakdowns, and SEPA membership information.
             </p>
