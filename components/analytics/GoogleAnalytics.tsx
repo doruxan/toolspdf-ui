@@ -30,7 +30,10 @@ export default function GoogleAnalytics({ measurementId }: GoogleAnalyticsProps)
           gtag('js', new Date());
           gtag('config', '${measurementId}', {
             page_path: window.location.pathname,
-            send_page_view: false
+            send_page_view: false,
+            storage: 'none',
+            client_storage: 'none',
+            anonymize_ip: true
           });
         `}
       </Script>

@@ -1,9 +1,20 @@
-# Modern browsers only (ESNext)
-# This reduces bundle size by avoiding legacy polyfills
+# Target modern browsers only to reduce JavaScript bundle size
+# and avoid unnecessary polyfills
 
+# Modern browsers with >0.5% market share
 > 0.5%
+
+# Last 2 versions of major browsers
 last 2 versions
+
+# Exclude dead browsers
 not dead
+
+# Exclude IE 11
 not IE 11
+
+# Exclude Opera Mini (doesn't support modern JS)
 not op_mini all
 
+# Include browsers that support ES6+ features
+supports es6-module

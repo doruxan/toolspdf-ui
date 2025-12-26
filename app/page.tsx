@@ -1,35 +1,11 @@
-'use client';
-
-import { useState, useMemo } from 'react';
 import Hero from '@/components/home/Hero';
 import ToolsSection from '@/components/home/ToolsSection';
-import ToolCard from '@/components/home/ToolCard';
+import ClientSearch from '@/components/home/ClientSearch';
 import StructuredData from '@/components/seo/StructuredData';
 import { toolCategories } from '@/config/tools';
 import { Shield, Zap, Lock } from 'lucide-react';
 
 export default function Home() {
-  const [searchQuery, setSearchQuery] = useState('');
-
-  // Filter tools based on search query
-  const filteredCategories = useMemo(() => {
-    if (!searchQuery.trim()) {
-      return toolCategories;
-    }
-
-    const query = searchQuery.toLowerCase();
-    return toolCategories
-      .map((category) => ({
-        ...category,
-        tools: category.tools.filter(
-          (tool) =>
-            tool.title.toLowerCase().includes(query) ||
-            tool.description.toLowerCase().includes(query)
-        ),
-      }))
-      .filter((category) => category.tools.length > 0);
-  }, [searchQuery]);
-
   // Collection Page Schema
   const collectionSchema = {
     '@context': 'https://schema.org',
@@ -52,42 +28,21 @@ export default function Home() {
     <div className="w-full">
       <StructuredData data={collectionSchema} />
 
-      {/* Hero Section with Search */}
-      <Hero onSearch={setSearchQuery} />
+      {/* Hero Section */}
+      <Hero />
 
-      {/* Tools Sections */}
-      {searchQuery.trim() ? (
-        // Search Results
-        <section className="py-12 md:py-16">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-foreground mb-4">
-                Search Results for "{searchQuery}"
-              </h2>
-              <p className="text-lg text-muted-foreground">
-                Found {filteredCategories.reduce((acc, cat) => acc + cat.tools.length, 0)} tools
-              </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredCategories.flatMap((category) =>
-                category.tools.map((tool) => <ToolCard key={tool.href} {...tool} />)
-              )}
-            </div>
-          </div>
-        </section>
-      ) : (
-        // All Categories
-        <>
-          {toolCategories.map((category, index) => (
-            <div key={category.id}>
-              <ToolsSection category={category} />
-              {index < toolCategories.length - 1 && (
-                <div className="border-t-2 border-border mx-auto max-w-7xl" />
-              )}
-            </div>
-          ))}
-        </>
-      )}
+      {/* Client Search Component */}
+      <ClientSearch />
+
+      {/* All Categories */}
+      {toolCategories.map((category, index) => (
+        <div key={category.id}>
+          <ToolsSection category={category} />
+          {index < toolCategories.length - 1 && (
+            <div className="border-t-2 border-border mx-auto max-w-7xl" />
+          )}
+        </div>
+      ))}
 
       {/* Features Section */}
       <section className="py-16 bg-gradient-to-br from-muted/30 to-muted/10 border-y-2 border-border">

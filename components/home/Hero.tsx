@@ -1,21 +1,4 @@
-'use client';
-
-import { useState } from 'react';
-import { Search } from 'lucide-react';
-
-interface HeroProps {
-  onSearch: (query: string) => void;
-}
-
-export default function Hero({ onSearch }: HeroProps) {
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const query = e.target.value;
-    setSearchQuery(query);
-    onSearch(query);
-  };
-
+export default function Hero() {
   return (
     <section className="bg-gradient-to-br from-primary/10 via-secondary/5 to-accent/10 py-16 md:py-24 border-b-2 border-border">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -29,21 +12,6 @@ export default function Hero({ onSearch }: HeroProps) {
           <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
             Free online tools that run in your browser: PDF tools, JSON converters (CSV/Excel, formatter, validator), IBAN validators, and Shopify calculators. Fast, private, and easy to use.
           </p>
-
-          {/* Search Bar */}
-          <div className="max-w-2xl mx-auto pt-4">
-            <div className="relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-              <input
-                type="search"
-                aria-label="Search tools"
-                placeholder="Search for a tool..."
-                value={searchQuery}
-                onChange={handleSearchChange}
-                className="w-full pl-12 pr-4 py-4 text-lg border-2 border-border rounded-xl bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200"
-              />
-            </div>
-          </div>
 
           {/* Trust Badges */}
           <div className="flex flex-wrap justify-center gap-4 pt-4">
@@ -65,4 +33,3 @@ export default function Hero({ onSearch }: HeroProps) {
     </section>
   );
 }
-

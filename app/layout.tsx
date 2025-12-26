@@ -4,10 +4,8 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CookieConsent from "@/components/shared/CookieConsent";
-import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
-import GoogleAdSense from "@/components/analytics/GoogleAdSense";
+import AnalyticsProvider from "@/components/analytics/AnalyticsProvider";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -76,6 +74,14 @@ export default function RootLayout({
         <meta name="google-site-verification" content="b7OqIkKEhMevyeIBtktOgcFYit7uDdN8br0uH-C" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
         
+        {/* Performance: Preconnect to third-party domains */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://www.google-analytics.com" />
+        <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+        <link rel="dns-prefetch" href="https://va.vercel-scripts.com" />
+        
         {/* Prevent flash of unstyled content (FOUC) for dark mode */}
         <script
           dangerouslySetInnerHTML={{
@@ -107,9 +113,10 @@ export default function RootLayout({
           <CookieConsent />
           
           {/* Analytics - Lazy loaded, production only */}
-          <GoogleAnalytics measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-XXXXXXXXXX"} />
-          <GoogleAdSense publisherId={process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID || "ca-pub-XXXXXXXXXXXXXXXX"} />
-          <SpeedInsights />
+          <AnalyticsProvider 
+            measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-XXXXXXXXXX"}
+            publisherId={process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID || "ca-pub-XXXXXXXXXXXXXXXX"}
+          />
         </ThemeProvider>
       </body>
     </html>

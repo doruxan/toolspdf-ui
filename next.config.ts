@@ -40,6 +40,32 @@ const nextConfig: NextConfig = {
   // Security and caching headers
   async headers() {
     return [
+      // Cache HTML pages with revalidation
+      {
+        source: '/',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, s-maxage=3600, stale-while-revalidate=86400',
+          },
+        ],
+      },
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'header',
+            key: 'content-type',
+            value: 'text/html.*',
+          },
+        ],
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, s-maxage=1800, stale-while-revalidate=43200',
+          },
+        ],
+      },
       // Cache static assets
       {
         source: '/pdf-worker/:path*',
@@ -93,11 +119,11 @@ const nextConfig: NextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://pagead2.googlesyndication.com https://adservice.google.com https://googleads.g.doubleclick.net",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://pagead2.googlesyndication.com https://adservice.google.com https://googleads.g.doubleclick.net https://va.vercel-scripts.com",
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: blob: https://www.google-analytics.com https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net",
               "font-src 'self' data:",
-              "connect-src 'self' https://www.google-analytics.com https://pagead2.googlesyndication.com https://region1.google-analytics.com https://region1.analytics.google.com",
+              "connect-src 'self' https://www.google-analytics.com https://pagead2.googlesyndication.com https://region1.google-analytics.com https://region1.analytics.google.com https://*.vercel-insights.com https://va.vercel-scripts.com",
               "frame-src https://googleads.g.doubleclick.net https://www.google.com",
               "object-src 'none'",
               "base-uri 'self'",
