@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Indexing API - Request Indexing</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .setup-instructions {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 6px;
+            margin: 20px 0;
+            border-left: 4px solid #2196f3;
+        }
+        .setup-instructions h3 {
+            margin-top: 0;
+            color: #1976d2;
+        }
+        .setup-instructions ol {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .setup-instructions code {
+            background: #fff;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 13px;
+        }
+        .token-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: monospace;
+            margin: 10px 0;
+        }
+        .token-input:focus {
+            outline: none;
+            border-color: #2196f3;
+        }
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background: #2196f3;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #1976d2;
+        }
+        .btn-primary:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #333;
+        }
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+        .progress {
+            margin: 20px 0;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 24px;
+            background: #f5f5f5;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2196f3, #1976d2);
+            transition: width 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .log {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 6px;
+            max-height: 500px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            margin: 20px 0;
+        }
+        .log-entry {
+            margin: 4px 0;
+            padding: 4px 0;
+        }
+        .log-success {
+            color: #4caf50;
+        }
+        .log-error {
+            color: #f44336;
+        }
+        .log-info {
+            color: #2196f3;
+        }
+        .log-warning {
+            color: #ff9800;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 6px;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Google Indexing API - Request Indexing</h1>
+        <p>Submit all rawtools.io URLs to Google for indexing using the Indexing API.</p>
+
+        <div class="setup-instructions">
+            <h3>📋 Setup Instructions (First Time Only)</h3>
+            <ol>
+                <li>Go to <a href="https://console.cloud.google.com/" target="_blank">Google Cloud Console</a></li>
+                <li>Enable the <strong>Web Search Indexing API</strong></li>
+                <li>Create a Service Account and download the JSON key</li>
+                <li>Add the service account email to your Google Search Console property as an Owner</li>
+                <li>Get an access token:
+                    <ul>
+                        <li><strong>Option 1:</strong> Use <code>gcloud auth application-default print-access-token</code></li>
+                        <li><strong>Option 2:</strong> Use <a href="https://developers.google.com/oauthplayground/" target="_blank">OAuth 2.0 Playground</a> with scope: <code>https://www.googleapis.com/auth/indexing</code></li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <div>
+            <label for="accessToken"><strong>Access Token:</strong></label>
+            <input 
+                type="password" 
+                id="accessToken" 
+                class="token-input" 
+                placeholder="Paste your access token here..."
+            >
+        </div>
+
+        <div class="controls">
+            <button class="btn-primary" id="startBtn" onclick="startIndexing()">
+                Start Indexing
+            </button>
+            <button class="btn-secondary" id="stopBtn" onclick="stopIndexing()" disabled>
+                Stop
+            </button>
+            <button class="btn-secondary" onclick="clearLog()">
+                Clear Log
+            </button>
+            <label>
+                <input type="checkbox" id="delayCheckbox" checked>
+                Add delay between requests (recommended)
+            </label>
+        </div>
+
+        <div class="progress" id="progressContainer" style="display: none;">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill">0%</div>
+            </div>
+        </div>
+
+        <div class="stats" id="stats" style="display: none;">
+            <div class="stat-card">
+                <div class="stat-label">Total URLs</div>
+                <div class="stat-value" id="totalUrls">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Successful</div>
+                <div class="stat-value" style="color: #4caf50;" id="successCount">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Failed</div>
+                <div class="stat-value" style="color: #f44336;" id="failCount">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Remaining</div>
+                <div class="stat-value" style="color: #2196f3;" id="remainingCount">0</div>
+            </div>
+        </div>
+
+        <div class="log" id="log"></div>
+    </div>
+
+    <script>
+        const URLS = [
+            'https://rawtools.io/',
+            'https://rawtools.io/merge-pdf',
+            'https://rawtools.io/split-pdf',
+            'https://rawtools.io/compress-pdf',
+            'https://rawtools.io/pdf-to-jpg',
+            'https://rawtools.io/jpg-to-pdf',
+            'https://rawtools.io/rotate-pdf',
+            'https://rawtools.io/unlock-pdf',
+            'https://rawtools.io/protect-pdf',
+            'https://rawtools.io/watermark-pdf',
+            'https://rawtools.io/remove-pages',
+            'https://rawtools.io/extract-pages',
+            'https://rawtools.io/add-page-numbers',
+            'https://rawtools.io/organize-pdf',
+            'https://rawtools.io/html-to-pdf',
+            'https://rawtools.io/crop-pdf',
+            'https://rawtools.io/redact-pdf',
+            'https://rawtools.io/shopify-profit-calculator',
+            'https://rawtools.io/shopify-fees-calculator',
+            'https://rawtools.io/shopify-ltv-cac-calculator',
+            'https://rawtools.io/shopify-bundle-pricing-calculator',
+            'https://rawtools.io/shopify-break-even-roas-calculator',
+            'https://rawtools.io/shopify-return-refund-impact-calculator',
+            'https://rawtools.io/shopify-invoice-generator',
+            'https://rawtools.io/shopify-speed-checklist',
+            'https://rawtools.io/iban-validator',
+            'https://rawtools.io/iban-generator',
+            'https://rawtools.io/iban-parser',
+            'https://rawtools.io/iban-formatter',
+            'https://rawtools.io/batch-iban-validator',
+            'https://rawtools.io/iban-check-calculator',
+            'https://rawtools.io/iban-country-info',
+            'https://rawtools.io/blog',
+            'https://rawtools.io/blog/how-shopify-stores-actually-calculate-profit',
+            'https://rawtools.io/blog/how-to-create-shopify-invoices-that-look-professional',
+            'https://rawtools.io/blog/shopify-fees-explained-what-shopify-actually-takes-per-sale',
+            'https://rawtools.io/blog/ltv-cac-for-shopify-what-to-model-before-you-scale-ads',
+            'https://rawtools.io/blog/shopify-bundle-pricing-how-to-price-multipacks-without-killing-margin',
+            'https://rawtools.io/blog/break-even-roas-shopify-how-to-set-real-roas-targets',
+            'https://rawtools.io/blog/returns-and-refunds-shopify-how-to-model-the-real-profit-impact',
+            'https://rawtools.io/blog/shopify-store-name-how-to-pick-a-name-you-wont-regret',
+            'https://rawtools.io/blog/shopify-product-descriptions-how-to-write-ones-that-convert-without-hype',
+            'https://rawtools.io/blog/shopify-speed-checklist-what-to-fix-before-you-buy-another-app',
+            'https://rawtools.io/blog/shopify-theme-detector-what-you-can-and-cant-detect',
+            'https://rawtools.io/blog/how-to-merge-pdf-files-free-2025',
+            'https://rawtools.io/blog/how-to-compress-pdf-files-free-secure',
+            'https://rawtools.io/blog/iban-vs-swift-bic-vs-account-number-what-you-need-for-international-transfers',
+            'https://rawtools.io/blog/how-to-parse-an-iban-extract-bank-code-branch-and-account-number',
+            'https://rawtools.io/blog/iban-check-digits-mod-97-explained-what-it-detects-and-how-to-fix-failures',
+            'https://rawtools.io/blog/category/pdf',
+            'https://rawtools.io/blog/category/ecommerce',
+            'https://rawtools.io/blog/category/productivity',
+            'https://rawtools.io/about',
+            'https://rawtools.io/contact',
+            'https://rawtools.io/privacy',
+            'https://rawtools.io/terms'
+        ];
+
+        let isRunning = false;
+        let shouldStop = false;
+        let successCount = 0;
+        let failCount = 0;
+
+        function log(message, type = 'info') {
+            const logEl = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            const entry = document.createElement('div');
+            entry.className = `log-entry log-${type}`;
+            entry.textContent = `[${timestamp}] ${message}`;
+            logEl.appendChild(entry);
+            logEl.scrollTop = logEl.scrollHeight;
+        }
+
+        function updateProgress(current, total) {
+            const percent = Math.round((current / total) * 100);
+            const progressFill = document.getElementById('progressFill');
+            progressFill.style.width = percent + '%';
+            progressFill.textContent = `${current}/${total} (${percent}%)`;
+        }
+
+        function updateStats(current, total) {
+            document.getElementById('totalUrls').textContent = total;
+            document.getElementById('successCount').textContent = successCount;
+            document.getElementById('failCount').textContent = failCount;
+            document.getElementById('remainingCount').textContent = total - current;
+        }
+
+        async function requestIndexing(url, accessToken) {
+            const endpoint = 'https://indexing.googleapis.com/v3/urlNotifications:publish';
+            
+            try {
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${accessToken}`
+                    },
+                    body: JSON.stringify({
+                        url: url,
+                        type: 'URL_UPDATED'
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    return { success: true, data };
+                } else {
+                    return { success: false, error: data.error || 'Unknown error' };
+                }
+            } catch (error) {
+                return { success: false, error: error.message };
+            }
+        }
+
+        async function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function startIndexing() {
+            const accessToken = document.getElementById('accessToken').value.trim();
+            
+            if (!accessToken) {
+                alert('Please enter an access token');
+                return;
+            }
+
+            if (isRunning) {
+                return;
+            }
+
+            isRunning = true;
+            shouldStop = false;
+            successCount = 0;
+            failCount = 0;
+
+            document.getElementById('startBtn').disabled = true;
+            document.getElementById('stopBtn').disabled = false;
+            document.getElementById('progressContainer').style.display = 'block';
+            document.getElementById('stats').style.display = 'grid';
+
+            log('🚀 Starting indexing process...', 'info');
+            log(`📊 Total URLs to process: ${URLS.length}`, 'info');
+
+            const useDelay = document.getElementById('delayCheckbox').checked;
+            const delayMs = 1000; // 1 second between requests
+
+            for (let i = 0; i < URLS.length; i++) {
+                if (shouldStop) {
+                    log('⏸️  Process stopped by user', 'warning');
+                    break;
+                }
+
+                const url = URLS[i];
+                log(`Processing: ${url}`, 'info');
+
+                const result = await requestIndexing(url, accessToken);
+
+                if (result.success) {
+                    successCount++;
+                    log(`✅ Success: ${url}`, 'success');
+                } else {
+                    failCount++;
+                    log(`❌ Failed: ${url} - ${result.error.message || result.error}`, 'error');
+                }
+
+                updateProgress(i + 1, URLS.length);
+                updateStats(i + 1, URLS.length);
+
+                // Add delay between requests to avoid rate limiting
+                if (useDelay && i < URLS.length - 1) {
+                    await sleep(delayMs);
+                }
+            }
+
+            if (!shouldStop) {
+                log('', 'info');
+                log('✨ Indexing process completed!', 'success');
+                log(`📈 Results: ${successCount} successful, ${failCount} failed`, 'info');
+            }
+
+            isRunning = false;
+            document.getElementById('startBtn').disabled = false;
+            document.getElementById('stopBtn').disabled = true;
+        }
+
+        function stopIndexing() {
+            shouldStop = true;
+            document.getElementById('stopBtn').disabled = true;
+        }
+
+        function clearLog() {
+            document.getElementById('log').innerHTML = '';
+            successCount = 0;
+            failCount = 0;
+            updateStats(0, URLS.length);
+        }
+
+        // Initialize
+        updateStats(0, URLS.length);
+        log('👋 Ready to submit URLs for indexing', 'info');
+        log(`📝 Make sure you've completed the setup instructions above`, 'warning');
+    </script>
+</body>
+</html>
+

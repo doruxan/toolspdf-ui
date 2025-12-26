@@ -7,6 +7,7 @@ import CookieConsent from "@/components/shared/CookieConsent";
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
 import GoogleAdSense from "@/components/analytics/GoogleAdSense";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -100,6 +101,7 @@ export default function RootLayout({
           {/* Analytics - Lazy loaded, production only */}
           <GoogleAnalytics measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-XXXXXXXXXX"} />
           <GoogleAdSense publisherId={process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID || "ca-pub-XXXXXXXXXXXXXXXX"} />
+          <SpeedInsights />
         </ThemeProvider>
       </body>
     </html>
