@@ -36,7 +36,7 @@ export default function Home() {
     '@type': 'CollectionPage',
     name: 'RawTools - Free Online Tools',
     description:
-      'Free online tools that run in your browser: PDF tools (merge, split, compress), e-commerce calculators, and IBAN validation/parsing. Fast, private, and easy to use.',
+      'Free online tools that run in your browser: PDF tools (merge, split, compress), JSON tools (CSV/Excel converters, formatter, validator), IBAN validation/parsing, and e-commerce calculators. Fast, private, and easy to use.',
     url: 'https://rawtools.io',
     hasPart: toolCategories.flatMap((category) =>
       category.tools.map((tool) => ({

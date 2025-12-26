@@ -4,6 +4,7 @@ import { toolCategories } from '@/config/tools';
 
 export default function Footer() {
   const pdfTools = toolCategories.find((cat) => cat.id === 'pdf-tools')?.tools.slice(0, 5) || [];
+  const jsonTools = toolCategories.find((cat) => cat.id === 'json-tools')?.tools.slice(0, 5) || [];
   const ecommerceTools =
     toolCategories.find((cat) => cat.id === 'ecommerce-tools')?.tools.slice(0, 5) || [];
   const ibanTools = toolCategories.find((cat) => cat.id === 'iban-tools')?.tools.slice(0, 5) || [];
@@ -19,7 +20,7 @@ export default function Footer() {
   return (
     <footer className="border-t-2 border-border bg-gradient-to-br from-muted/30 to-muted/10">
       <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-6">
           {/* Brand */}
           <div className="space-y-4">
             <Link
@@ -30,7 +31,7 @@ export default function Footer() {
               <span>RawTools</span>
             </Link>
             <p className="text-sm text-muted-foreground">
-              Free online PDF tools, Shopify calculators, and IBAN validation tools. Process files and calculate metrics
+              Free online PDF tools, JSON converters, IBAN validators, and Shopify calculators. Process files and convert data
               directly in your browser. Your data never leaves your device.
             </p>
             <div className="flex gap-4">
@@ -60,6 +61,23 @@ export default function Footer() {
             <h3 className="text-sm font-bold text-foreground mb-4">PDF Tools</h3>
             <ul className="space-y-2">
               {pdfTools.map((tool) => (
+                <li key={tool.href}>
+                  <Link
+                    href={tool.href}
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    {tool.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* JSON Tools */}
+          <div>
+            <h3 className="text-sm font-bold text-foreground mb-4">JSON Tools</h3>
+            <ul className="space-y-2">
+              {jsonTools.map((tool) => (
                 <li key={tool.href}>
                   <Link
                     href={tool.href}

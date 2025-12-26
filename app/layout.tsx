@@ -28,13 +28,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: './',
   },
-  title: "RawTools - Free PDF, IBAN & Shopify Calculator Tools",
-  description: "Free online tools: 16 PDF tools (merge, split, compress), 7 IBAN validators & parsers, 8 Shopify calculators. 100% free, works in your browser, your data never leaves your device.",
-  keywords: "pdf tools, merge pdf, split pdf, compress pdf, iban validator, iban parser, shopify calculator, profit calculator, free online tools",
+  title: "RawTools - Free PDF, JSON, IBAN & Shopify Tools",
+  description: "40 free online tools: 16 PDF tools, 9 JSON tools (CSV/Excel converters, formatter, validator), 7 IBAN validators, 8 Shopify calculators. 100% free, works in your browser, your data never leaves your device.",
+  keywords: "pdf tools, json tools, csv to json, json formatter, iban validator, shopify calculator, free online tools",
   authors: [{ name: "RawTools" }],
   openGraph: {
-    title: "RawTools - Free PDF, IBAN & Shopify Calculator Tools",
-    description: "31 free online tools: PDF processing, IBAN validation, and Shopify calculators. Works in your browser, 100% private.",
+    title: "RawTools - Free PDF, JSON, IBAN & Shopify Tools",
+    description: "40 free online tools: PDF processing, JSON converters, IBAN validation, and Shopify calculators. Works in your browser, 100% private.",
     type: "website",
     locale: "en_US",
     images: [
@@ -42,14 +42,14 @@ export const metadata: Metadata = {
         url: '/og-image.svg',
         width: 1200,
         height: 630,
-        alt: 'RawTools - Free PDF, IBAN & Shopify Calculator Tools',
+        alt: 'RawTools - Free PDF, JSON, IBAN & Shopify Tools',
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "RawTools - Free PDF, IBAN & Shopify Tools",
-    description: "31 free tools: merge PDFs, validate IBANs, calculate Shopify profit. Browser-based, private, no signup required.",
+    title: "RawTools - Free PDF, JSON, IBAN & Shopify Tools",
+    description: "40 free tools: PDFs, JSON converters, IBAN validators, Shopify calculators. Browser-based, private, no signup.",
   },
   robots: {
     index: true,

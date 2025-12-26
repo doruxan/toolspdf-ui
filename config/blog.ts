@@ -24,6 +24,12 @@ export const blogCategories: Record<string, BlogCategory> = {
     toolCategory: null,
     description: 'General productivity tips and workflows',
   },
+  json: {
+    id: 'json',
+    name: 'JSON Tools',
+    toolCategory: 'json-tools',
+    description: 'Guides for working with JSON data: conversion, validation, and manipulation',
+  },
 };
 
 export function getBlogCategory(categoryId: string): BlogCategory | undefined {

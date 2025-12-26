@@ -12,6 +12,18 @@
 # - New post created: (yes/no, slug)
 # - Notes for next week (1–2 lines): what NOT to repeat, what to do next
 
+# - Week of: 2025-12-26
+# - Strategy: A (New category addition)
+# - Pages changed: [/, /csv-to-json, /excel-to-json, /json-formatter, /json-minifier, /json-mapper, /json-schema-validator, /json-diff, /json-escape, /json-query, layout.tsx, Hero.tsx, Footer.tsx, schemas.ts, config/blog.ts]
+# - What changed (3 bullets max)
+#   - Added complete JSON tools category with 9 production-grade tools: CSV/Excel converters, formatter, minifier, mapper, schema validator, diff, escape/unescape, and JSONPath query
+#   - Updated all global SEO metadata to reflect 40 total tools (16 PDF + 9 JSON + 7 IBAN + 8 Shopify)
+#   - Added JSON tools column to footer navigation, updated hero description, organization schema, and collection schema
+# - Internal links added: 9 (footer)
+# - New FAQs added: 0
+# - New post created: no
+# - Notes for next week (1–2 lines): Create JSON-focused blog posts for key use cases (CSV import/export, API data parsing, JSON validation best practices). Consider adding "data transformation" category or merging with existing tools.
+
 # - Week of: 2025-12-25
 # - Strategy: D
 # - Pages changed: [rawtools/lib/blog/posts.ts, /blog/iban-vs-swift-bic-vs-account-number-what-you-need-for-international-transfers, /blog/how-to-parse-an-iban-extract-bank-code-branch-and-account-number, /blog/iban-check-digits-mod-97-explained-what-it-detects-and-how-to-fix-failures]
