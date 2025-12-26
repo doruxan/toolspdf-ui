@@ -108,9 +108,112 @@ You are a Senior Next.js Architect and SEO Specialist. You are also an expert Te
 - `lib/`: Business logic, utility functions.
 - `config/`: Static configuration files.
 
-# Final Checklist for generated code
+# Adding New Tools - Complete Checklist (MANDATORY)
+
+When adding a **new tool category** or **significant number of new tools**, follow this comprehensive checklist:
+
+## 1. Code & Configuration Updates
+- [ ] Add tools to `config/tools.ts` in the appropriate category
+- [ ] Create tool pages in `app/(category)/[tool-name]/page.tsx`
+- [ ] Create tool components in `components/tools/[category]/`
+- [ ] Add business logic to `lib/[category]/` (if needed)
+- [ ] Ensure flat URL structure (NO nested paths!)
+
+## 2. SEO & Metadata Updates (CRITICAL)
+- [ ] **Update `app/layout.tsx`:**
+  - [ ] `metadata.title` - mention all tool types
+  - [ ] `metadata.description` - include specific numbers (e.g., "16 PDF, 7 IBAN, 8 Shopify tools")
+  - [ ] `metadata.keywords` - add new tool category keywords
+  - [ ] OpenGraph `title` and `description`
+  - [ ] Twitter card `title` and `description`
+- [ ] **Update `app/page.tsx`:**
+  - [ ] Hero subtitle to mention new tools
+  - [ ] CollectionPage schema `description`
+  - [ ] FAQ section - "What tools are available?" answer
+- [ ] **Update `components/home/Hero.tsx`:**
+  - [ ] Hero description/subtitle
+- [ ] **Update `lib/seo/schemas.ts`:**
+  - [ ] `generateOrganizationSchema().description`
+- [ ] **Update `components/layout/Footer.tsx`:**
+  - [ ] Add new tool category column
+  - [ ] List top 5 tools from the new category
+  - [ ] Update brand description if needed
+
+## 3. Dynamic Systems Verification
+- [ ] **Sitemap (`app/sitemap.ts`):**
+  - Verify it auto-generates from `config/tools.ts`
+  - Test locally: `http://localhost:3001/sitemap.xml`
+- [ ] **Robots.txt (`app/robots.ts`):**
+  - Ensure new tools aren't blocked
+- [ ] **Blog categories (`config/blog.ts`):**
+  - Add category for new tool type if writing related content
+
+## 4. Content & Blog (If Applicable)
+- [ ] Write blog posts for top 3-5 most important new tools
+- [ ] Add to `content/blog/` with proper structure
+- [ ] Link related tools within blog posts
+- [ ] Update `seo-log.md` with what was added
+
+## 5. Visual & Branding (One-Time)
+- [ ] If this is a major expansion, consider updating:
+  - [ ] OG image (`public/og-image.svg`) if tool categories changed significantly
+  - [ ] Logo if brand direction changed
+  - [ ] Color scheme in Tailwind config (rare)
+
+## 6. Testing (Before Deploy)
+- [ ] Build locally: `npm run build`
+- [ ] Check for TypeScript errors
+- [ ] Verify all new tool pages render
+- [ ] Test on mobile viewport
+- [ ] Verify heavy libraries are lazy-loaded
+- [ ] Check sitemap includes all new URLs
+
+## 7. Deployment & Google Indexing
+- [ ] Deploy to Vercel (push to main)
+- [ ] **Request indexing for new URLs:**
+  - [ ] Use Google Indexing API tool (`scripts/request-indexing.html`)
+  - [ ] Or manually submit top 5 URLs in Search Console
+- [ ] **If you removed tools/blogs:**
+  - [ ] Request URL removal in Search Console (Removals → New Request)
+- [ ] **Force homepage re-indexing:**
+  - [ ] Search Console → URL Inspection → Request Indexing (for updated meta description)
+
+## 8. Post-Deploy Monitoring
+- [ ] Verify new pages are live on production
+- [ ] Check Search Console for crawl errors (after 24-48 hours)
+- [ ] Monitor Core Web Vitals in Vercel Speed Insights
+- [ ] Verify OG images work on social media (Facebook Debugger, Twitter Card Validator)
+- [ ] Update `seo-log.md` with deployment date and summary
+
+## 9. Analytics & SEO Tracking
+- [ ] Add new tool pages to Google Analytics events (if custom tracking needed)
+- [ ] Monitor impressions/clicks in Search Console after 1-2 weeks
+- [ ] Track CTR for new meta descriptions
+- [ ] Check for any 404s or redirect issues
+
+## Quick Reference: Files That MUST Be Updated When Adding Tool Categories
+```
+Essential (Always):
+- config/tools.ts
+- app/layout.tsx (title, description, OG, Twitter)
+- app/page.tsx (hero, schema, FAQ)
+- components/home/Hero.tsx
+- components/layout/Footer.tsx
+- lib/seo/schemas.ts
+- seo-log.md
+
+Situational:
+- content/blog/ (if writing content)
+- config/blog.ts (if new blog category)
+- public/og-image.svg (if major brand change)
+```
+
+---
+
+# Final Checklist for Generated Code
 1. Is the URL flat?
 2. Is the content tone human and hype-free?
 3. Is metadata and schema present?
 4. Is the heavy logic lazy-loaded?
 5. Did you update `seo-log.md` if content was changed?
+6. Did you follow the "Adding New Tools" checklist above?
