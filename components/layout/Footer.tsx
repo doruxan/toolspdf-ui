@@ -6,6 +6,7 @@ export default function Footer() {
   const pdfTools = toolCategories.find((cat) => cat.id === 'pdf-tools')?.tools.slice(0, 5) || [];
   const ecommerceTools =
     toolCategories.find((cat) => cat.id === 'ecommerce-tools')?.tools.slice(0, 5) || [];
+  const ibanTools = toolCategories.find((cat) => cat.id === 'iban-tools')?.tools.slice(0, 5) || [];
 
   const legalLinks = [
     { name: 'Blog', href: '/blog' },
@@ -18,7 +19,7 @@ export default function Footer() {
   return (
     <footer className="border-t-2 border-border bg-gradient-to-br from-muted/30 to-muted/10">
       <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5">
           {/* Brand */}
           <div className="space-y-4">
             <Link
@@ -29,7 +30,7 @@ export default function Footer() {
               <span>RawTools</span>
             </Link>
             <p className="text-sm text-muted-foreground">
-              Free online PDF tools and Shopify calculators. Process files and calculate metrics
+              Free online PDF tools, Shopify calculators, and IBAN validation tools. Process files and calculate metrics
               directly in your browser. Your data never leaves your device.
             </p>
             <div className="flex gap-4">
@@ -76,6 +77,23 @@ export default function Footer() {
             <h3 className="text-sm font-bold text-foreground mb-4">Shopify Tools</h3>
             <ul className="space-y-2">
               {ecommerceTools.map((tool) => (
+                <li key={tool.href}>
+                  <Link
+                    href={tool.href}
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    {tool.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* IBAN Tools */}
+          <div>
+            <h3 className="text-sm font-bold text-foreground mb-4">IBAN Tools</h3>
+            <ul className="space-y-2">
+              {ibanTools.map((tool) => (
                 <li key={tool.href}>
                   <Link
                     href={tool.href}
