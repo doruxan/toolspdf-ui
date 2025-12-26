@@ -28,20 +28,28 @@ export const metadata: Metadata = {
   alternates: {
     canonical: './',
   },
-  title: "RawTools - Free Online Tools (PDF, Calculators, IBAN)",
-  description: "Free online tools that run in your browser: PDF tools (merge, split, compress), e-commerce calculators, and IBAN validation/parsing. Fast, private, and easy to use.",
-  keywords: "pdf tools, merge pdf, split pdf, compress pdf, ecommerce calculator, iban validator, iban parser, free online tools",
+  title: "RawTools - Free PDF, IBAN & Shopify Calculator Tools",
+  description: "Free online tools: 16 PDF tools (merge, split, compress), 7 IBAN validators & parsers, 8 Shopify calculators. 100% free, works in your browser, your data never leaves your device.",
+  keywords: "pdf tools, merge pdf, split pdf, compress pdf, iban validator, iban parser, shopify calculator, profit calculator, free online tools",
   authors: [{ name: "RawTools" }],
   openGraph: {
-    title: "RawTools - Free Online Tools (PDF, Calculators, IBAN)",
-    description: "Free online tools that run in your browser: PDF tools, e-commerce calculators, and IBAN validation/parsing. Fast, private, and easy to use.",
+    title: "RawTools - Free PDF, IBAN & Shopify Calculator Tools",
+    description: "31 free online tools: PDF processing, IBAN validation, and Shopify calculators. Works in your browser, 100% private.",
     type: "website",
     locale: "en_US",
+    images: [
+      {
+        url: '/og-image.svg',
+        width: 1200,
+        height: 630,
+        alt: 'RawTools - Free PDF, IBAN & Shopify Calculator Tools',
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "RawTools - Free Online Tools",
-    description: "Free online tools that run in your browser: PDF tools, e-commerce calculators, and IBAN tools. Fast and private.",
+    title: "RawTools - Free PDF, IBAN & Shopify Tools",
+    description: "31 free tools: merge PDFs, validate IBANs, calculate Shopify profit. Browser-based, private, no signup required.",
   },
   robots: {
     index: true,

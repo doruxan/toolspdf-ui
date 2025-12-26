@@ -1,0 +1,45 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg-gradient)"/>
+  
+  <!-- Grid pattern for texture -->
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="0.5" opacity="0.1"/>
+    </pattern>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e40af;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2563eb;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  
+  <!-- Logo -->
+  <circle cx="300" cy="315" r="120" fill="white" opacity="0.15"/>
+  <circle cx="300" cy="315" r="90" fill="white" opacity="0.2"/>
+  
+  <!-- Hexagon -->
+  <path d="M300 240 L345 265 L345 315 L300 340 L255 315 L255 265 Z" fill="white" opacity="0.9"/>
+  
+  <!-- Grid -->
+  <rect x="265" y="355" width="25" height="25" rx="3" fill="white" opacity="0.85"/>
+  <rect x="295" y="355" width="25" height="25" rx="3" fill="white" opacity="0.85"/>
+  <rect x="325" y="355" width="25" height="25" rx="3" fill="white" opacity="0.85"/>
+  <rect x="280" y="385" width="25" height="25" rx="3" fill="white" opacity="0.85"/>
+  <rect x="310" y="385" width="25" height="25" rx="3" fill="white" opacity="0.85"/>
+  
+  <circle cx="300" cy="290" r="5" fill="white"/>
+  
+  <!-- Text -->
+  <text x="480" y="280" font-family="system-ui, -apple-system, sans-serif" font-size="72" font-weight="700" fill="white">
+    RawTools
+  </text>
+  <text x="480" y="340" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="400" fill="white" opacity="0.9">
+    Free PDF, IBAN &amp; Shopify Tools
+  </text>
+  <text x="480" y="400" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="300" fill="white" opacity="0.75">
+    31 tools • 100% free • Works in your browser
+  </text>
+</svg>
+
