@@ -5,6 +5,7 @@ import { Wrench, Menu, X, ChevronDown } from 'lucide-react';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { toolCategories } from '@/config/tools';
+import ThemeToggle from '@/components/theme/ThemeToggle';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -86,19 +87,24 @@ export default function Header() {
           >
             Blog
           </Link>
+
+          <ThemeToggle />
         </div>
 
-        {/* Mobile menu button */}
-        <button
-          type="button"
-          className="xl:hidden rounded-md p-3 text-foreground hover:bg-muted min-w-[44px] min-h-[44px] flex items-center justify-center"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
-          aria-expanded={mobileMenuOpen}
-          aria-controls="mobile-menu"
-        >
-          {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
+        {/* Mobile menu button & theme toggle */}
+        <div className="xl:hidden flex items-center gap-2">
+          <ThemeToggle />
+          <button
+            type="button"
+            className="rounded-md p-3 text-foreground hover:bg-muted min-w-[44px] min-h-[44px] flex items-center justify-center"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-menu"
+          >
+            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
       </nav>
 
       {/* Mobile menu */}

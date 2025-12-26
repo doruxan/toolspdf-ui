@@ -59,6 +59,7 @@
   --color-tool-watermark: var(--tool-watermark);
 }
 
+/* Dark mode - both class-based and system preference */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0f172a;
@@ -67,6 +68,24 @@
     --muted-foreground: #cbd5e1; /* Lighter gray for dark mode (WCAG AA compliant) */
     --border: #334155;
   }
+}
+
+/* Class-based dark mode (overrides system preference) */
+.dark {
+  --background: #0f172a;
+  --foreground: #f1f5f9;
+  --muted: #1e293b;
+  --muted-foreground: #cbd5e1;
+  --border: #334155;
+}
+
+/* Light mode class (explicit light mode) */
+.light {
+  --background: #ffffff;
+  --foreground: #1f2937;
+  --muted: #f3f4f6;
+  --muted-foreground: #1f2937;
+  --border: #e5e7eb;
 }
 
 html {
