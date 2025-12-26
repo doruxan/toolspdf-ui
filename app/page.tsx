@@ -169,8 +169,8 @@ export default function Home() {
                 What tools are available?
               </h3>
               <p className="text-muted-foreground">
-                We offer 16 PDF tools (merge, split, compress, convert, etc.) and 8 Shopify
-                calculators (profit, fees, LTV/CAC, etc.). All tools are professional-grade and
+                We offer 16 PDF tools (merge, split, compress, convert, etc.), 8 Shopify
+                calculators (profit, fees, LTV/CAC, etc.), and 7 IBAN tools (validator, generator, parser, etc.). All tools are professional-grade and
                 constantly updated.
               </p>
             </div>

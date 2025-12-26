@@ -27,10 +27,11 @@ You are a Senior Next.js Architect and SEO Specialist. You are also an expert Te
 - Whenever you add a **new tool type/category** (i.e., a new top-level entry in `config/tools.ts`), you MUST update the site's "what this is" copy everywhere it appears so humans + search engines understand the new scope.
 - Update, at minimum:
   - `app/layout.tsx`: `metadata.title`, `metadata.description`, OpenGraph/Twitter descriptions
-  - `app/page.tsx`: CollectionPage schema `description`
+  - `app/page.tsx`: CollectionPage schema `description` AND "What tools are available?" FAQ answer
   - `components/home/Hero.tsx`: hero subtitle/lede
   - `lib/seo/schemas.ts`: `generateOrganizationSchema().description`
   - `components/layout/Footer.tsx`: brand description text AND add new tool category column with top 5 tools
+  - `app/blog/page.tsx`: blog page title and description
 - Keep the wording consistent (one canonical description) and avoid keyword stuffing.
 - **Footer Structure:** The footer must dynamically display ALL tool categories (not hardcoded). Each category gets its own column with top 5 tools.
 
