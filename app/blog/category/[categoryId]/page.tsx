@@ -1,25 +1,62 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import { getAllBlogPosts } from '@/lib/blog/posts';
+import { blogCategories } from '@/config/blog';
 import AdBanner from '@/components/ads/AdBanner';
 
-export const metadata: Metadata = {
-  title: 'RawTools Blog - PDF, Shopify, IBAN & JSON Guides',
-  description: 'Practical guides for PDF tools, Shopify calculators, IBAN validation, and JSON workflows. Clear examples, common pitfalls, and fast checklists.',
-  keywords: 'pdf tools guide, shopify calculator tutorial, iban validation, json tools, json schema, json diff, jsonpath, ecommerce tips, pdf management, banking tools',
+type Props = {
+  params: Promise<{ categoryId: string }>;
 };
 
-export default function BlogIndexPage() {
-  const posts = getAllBlogPosts();
+export async function generateStaticParams() {
+  return Object.keys(blogCategories).map((categoryId) => ({
+    categoryId,
+  }));
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { categoryId } = await params;
+  const category = blogCategories[categoryId];
+
+  if (!category) {
+    return {
+      title: 'Category Not Found',
+    };
+  }
+
+  return {
+    title: `${category.name} - RawTools Blog`,
+    description: category.description,
+    keywords: `${category.name}, ${category.description}`,
+  };
+}
+
+export default async function BlogCategoryPage({ params }: Props) {
+  const { categoryId } = await params;
+  const category = blogCategories[categoryId];
+
+  if (!category) {
+    notFound();
+  }
+
+  const allPosts = getAllBlogPosts();
+  const categoryPosts = allPosts.filter((post) => post.category === categoryId);
 
   return (
     <div className="w-full">
       <div className="bg-gradient-to-br from-primary/10 via-secondary/5 to-accent/10 py-12 md:py-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">RawTools Blog</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">{category.name}</h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Practical guides for PDF tools, Shopify calculators, IBAN validation, and JSON workflows.
+            {category.description}
           </p>
+          <Link 
+            href="/blog" 
+            className="inline-block mt-6 text-primary hover:underline"
+          >
+            ← Back to all posts
+          </Link>
         </div>
       </div>
 
@@ -27,7 +64,7 @@ export default function BlogIndexPage() {
         <AdBanner dataAdSlot="1234567890" className="mb-12" />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {posts.map((post) => (
+          {categoryPosts.map((post) => (
             <Link 
               key={post.slug} 
               href={`/blog/${post.slug}`}
@@ -60,9 +97,9 @@ export default function BlogIndexPage() {
           ))}
         </div>
 
-        {posts.length === 0 && (
+        {categoryPosts.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-xl text-muted-foreground">Check back soon for our first articles!</p>
+            <p className="text-xl text-muted-foreground">No posts yet in this category. Check back soon!</p>
           </div>
         )}
       </div>

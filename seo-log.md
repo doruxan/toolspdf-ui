@@ -12,6 +12,18 @@
 # - New post created: (yes/no, slug)
 # - Notes for next week (1–2 lines): what NOT to repeat, what to do next
 
+- Week of: 2025-12-26
+- Strategy: F
+- Pages changed: [rawtools/lib/blog/posts.ts, rawtools/app/blog/page.tsx, /blog/json-schema-validation-how-to-catch-bad-api-payloads, /blog/how-to-diff-two-json-files-and-see-what-changed, /blog/jsonpath-in-practice-query-json-with-jsonpath]
+- What changed (3 bullets max)
+  - Added 3 JSON-focused blog posts targeting schema validation, JSON diffs, and JSONPath querying
+  - Each post links to the relevant JSON tool and related utilities (formatter/minifier/escape/mapper/converters) to form an internal “JSON workflows” cluster
+  - Updated blog index metadata to include JSON guides for better topical coverage
+- Internal links added: 34
+- New FAQs added: 21
+- New post created: yes, json-schema-validation-how-to-catch-bad-api-payloads; how-to-diff-two-json-files-and-see-what-changed; jsonpath-in-practice-query-json-with-jsonpath
+- Notes for next week (1–2 lines): Don’t repeat JSON schema/diff/JSONPath angles; next JSON angles could be “CSV to JSON for Shopify exports” or “safe JSON escaping for logging/config”.
+
 # - Week of: 2025-12-26
 # - Strategy: A (New category addition)
 # - Pages changed: [/, /csv-to-json, /excel-to-json, /json-formatter, /json-minifier, /json-mapper, /json-schema-validator, /json-diff, /json-escape, /json-query, layout.tsx, Hero.tsx, Footer.tsx, schemas.ts, config/blog.ts]

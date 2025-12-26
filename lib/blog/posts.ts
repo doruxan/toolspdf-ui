@@ -9,7 +9,7 @@ export interface BlogPost {
   author: string;
   readingTime?: string;
   keywords?: string[];
-  category: 'pdf' | 'ecommerce' | 'productivity';
+  category: 'pdf' | 'ecommerce' | 'productivity' | 'json';
   image?: string;
   relatedToolHref?: string;
 }
@@ -457,10 +457,312 @@ const pdfBlogPosts: BlogPost[] = [
   },
 ];
 
+// JSON blog posts with full content
+const jsonBlogPosts: BlogPost[] = [
+  {
+    slug: 'json-schema-validation-how-to-catch-bad-api-payloads',
+    title: 'JSON Schema validation: how to catch bad API payloads before they break you',
+    excerpt:
+      'A practical workflow for validating JSON payloads with JSON Schema: what it catches, how to read errors, and how to debug common failures.',
+    date: '2025-12-26',
+    author: 'RawTools Team',
+    readingTime: '9 min',
+    keywords: ['json schema validator', 'validate json schema', 'api payload validation', 'json schema best practices'],
+    category: 'json',
+    content: `
+      <h2>When “valid JSON” isn’t enough</h2>
+      <p>A JSON payload can be syntactically valid and still break your app. The classic failure modes aren’t about missing commas; they’re about shape: a field is missing, a number arrives as a string, an array contains the wrong object type, or a nested field has a different name.</p>
+      <p><strong>JSON Schema</strong> is a way to make the shape explicit. It gives you a contract you can validate against before a payload hits the business logic.</p>
+
+      <h2>What JSON Schema validation actually catches</h2>
+      <ul>
+        <li><strong>Required fields:</strong> missing properties that your code assumes exist.</li>
+        <li><strong>Types:</strong> string vs number vs boolean vs object vs array.</li>
+        <li><strong>Allowed values:</strong> enums for known states (e.g., <code>"pending" | "paid" | "failed"</code>).</li>
+        <li><strong>Formats and patterns:</strong> emails, URIs, regex patterns (with caveats).</li>
+        <li><strong>Extra properties:</strong> optionally disallow unknown fields to catch typos early.</li>
+      </ul>
+      <p>What it does <em>not</em> catch: whether an ID exists in your database, whether a SKU is sellable, or whether a timestamp is in the future. Schema is structural validation, not business validation.</p>
+
+      <h2>A small schema example you can adapt</h2>
+      <p>Here’s a realistic “create customer” payload example that covers the cases people trip over: required fields, nested objects, arrays, and optional metadata.</p>
+      <pre><code>{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "email", "createdAt"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "email": { "type": "string", "format": "email" },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": []
+    },
+    "marketing": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "consent": { "type": "boolean" },
+        "source": { "type": "string", "enum": ["checkout", "signup", "import"] }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}</code></pre>
+      <p>If you want to test this quickly against real payloads, use the <a href="/json-schema-validator">JSON Schema Validator</a>. If your input JSON is messy, run it through <a href="/json-formatter">JSON Formatter</a> first so errors are easier to locate.</p>
+
+      <h2>How to read schema validation errors without guessing</h2>
+      <p>The key is to focus on two locations:</p>
+      <ul>
+        <li><strong>Instance path:</strong> where in the JSON the problem occurred.</li>
+        <li><strong>Schema path:</strong> which rule was violated.</li>
+      </ul>
+      <p>Most teams waste time because they only read the error message text. The path tells you what to fix, and which rule you actually wrote.</p>
+
+      <h2>Debug workflow that stays fast in real projects</h2>
+      <ol>
+        <li><strong>Format the payload</strong> so you can see the actual structure (<a href="/json-formatter">JSON Formatter</a>).</li>
+        <li><strong>Validate against the schema</strong> and copy the first error (<a href="/json-schema-validator">JSON Schema Validator</a>).</li>
+        <li><strong>Isolate the failing subtree</strong> (copy just that object/array) so you stop scanning the whole payload.</li>
+        <li><strong>Confirm type assumptions</strong> (strings coming from CSV imports are the most common issue).</li>
+        <li><strong>Re-run validation</strong> until the first error disappears; don’t chase the fifth error first.</li>
+      </ol>
+      <p>If your payload is deeply nested and you’re trying to confirm a value exists at a path, it’s often faster to query it than to scroll. Use <a href="/json-query">JSON Query</a> for that, or visually pick fields with <a href="/json-mapper">JSON Mapper</a>.</p>
+
+      <h2>Common schema mistakes that create false confidence</h2>
+      <ul>
+        <li><strong>Forgetting <code>additionalProperties</code>:</strong> you miss typos like <code>emali</code> that silently pass through.</li>
+        <li><strong>Using <code>type: "number"</code> when inputs are strings:</strong> many sources (CSV, HTML forms) deliver strings. Decide whether you coerce or reject.</li>
+        <li><strong>Overusing <code>anyOf</code>/<code>oneOf</code>:</strong> powerful, but can make errors harder to interpret. Start simple.</li>
+        <li><strong>Not modeling nullability:</strong> if you allow <code>null</code>, say so explicitly (e.g., <code>type: ["string","null"]</code>).</li>
+      </ul>
+
+      <h2>Keep the contract readable</h2>
+      <p>Schemas tend to rot when they become unreadable. Two practical habits help:</p>
+      <ul>
+        <li><strong>Use definitions</strong> for repeated objects (addresses, money fields, identifiers).</li>
+        <li><strong>Prefer small, composable schemas</strong> over one massive schema that tries to cover every endpoint.</li>
+      </ul>
+      <p>When you need to ship schemas over the wire or store them, minify them (<a href="/json-minifier">JSON Minifier</a>) and keep the formatted version for humans.</p>
+
+      <h2>FAQs</h2>
+      <h3>Does JSON Schema validate that an ID exists?</h3>
+      <p>No. Schema validates structure and basic constraints. Existence checks are business logic (e.g., database lookups).</p>
+
+      <h3>Why does validation fail when a number is in quotes?</h3>
+      <p>Because <code>"12.50"</code> is a string, not a number. Decide whether you want to coerce inputs before validation or reject and fix the source.</p>
+
+      <h3>Should I set <code>additionalProperties</code> to false?</h3>
+      <p>If you want a strict contract, yes—especially for public APIs. For internal payloads, you may allow extra fields in <code>metadata</code> while keeping the top-level strict.</p>
+
+      <h3>What’s the fastest way to debug a failing schema?</h3>
+      <p>Fix the <em>first</em> error reported, then re-run validation. Many later errors disappear once the structure is correct.</p>
+
+      <h3>Can I validate arrays of objects?</h3>
+      <p>Yes. Use <code>type: "array"</code> and define the <code>items</code> schema as an object. If each item must be unique, add <code>uniqueItems</code> (with performance caveats for large arrays).</p>
+
+      <h3>Do I need JSON Schema if I already have TypeScript types?</h3>
+      <p>Types help at compile time. Schema helps at runtime when data crosses a boundary (HTTP, queue, file import). They solve different problems.</p>
+
+      <h3>How do I quickly check a nested value exists before validating?</h3>
+      <p>Use <a href="/json-query">JSON Query</a> to test a JSONPath expression against the payload, or use <a href="/json-mapper">JSON Mapper</a> to pick the path visually.</p>
+    `,
+    relatedToolHref: '/json-schema-validator',
+  },
+  {
+    slug: 'how-to-diff-two-json-files-and-see-what-changed',
+    title: 'How to diff two JSON files (and see what actually changed)',
+    excerpt:
+      'JSON diffs get confusing fast. Here’s how to compare two JSON documents reliably, handle key order, and debug array changes without getting lost.',
+    date: '2025-12-26',
+    author: 'RawTools Team',
+    readingTime: '8 min',
+    keywords: ['json diff', 'compare json files', 'diff api responses', 'json change detection'],
+    category: 'json',
+    content: `
+      <h2>Why JSON diffs feel harder than code diffs</h2>
+      <p>Code diffs assume line order is meaningful. JSON diffs often don’t. Two JSON objects can be identical even if their keys appear in a different order, and a small array reordering can look like a massive change.</p>
+      <p>The goal is to answer a simple question: <strong>what changed in the data</strong>, not what changed in whitespace.</p>
+
+      <h2>Step 1: normalize formatting so you’re not diffing whitespace</h2>
+      <p>If one JSON file is minified and the other is formatted, the diff will be noise. Format both first:</p>
+      <ul>
+        <li>Beautify them with <a href="/json-formatter">JSON Formatter</a> (so structure is readable).</li>
+        <li>If you need to ship or store a stable compact version, use <a href="/json-minifier">JSON Minifier</a> after you finish debugging.</li>
+      </ul>
+
+      <h2>Step 2: compare the normalized documents</h2>
+      <p>Once both sides are readable, use a JSON-aware compare tool so object key ordering doesn’t distract you. The <a href="/json-diff">JSON Diff</a> tool is built for side-by-side comparisons with structural highlighting.</p>
+
+      <h2>Common diff scenarios (and how to interpret them)</h2>
+      <h3>1) A field disappeared</h3>
+      <p>This is usually a contract change (API removed a property) or a conditional field that now only appears when some other condition is true. Check if the field is genuinely absent or nested under a different key.</p>
+
+      <h3>2) A field changed type</h3>
+      <p>Example: <code>total</code> was <code>12.5</code> (number) and became <code>"12.5"</code> (string). That can happen when data passes through CSV export/import, form submissions, or a loosely typed upstream service.</p>
+      <p>If you’re validating payload shape, pair this with <a href="/json-schema-validator">JSON Schema Validator</a> so type regressions get caught automatically.</p>
+
+      <h3>3) Arrays changed and everything looks “replaced”</h3>
+      <p>Arrays are the hardest part of JSON diffs. If the array is reordered, line-based diffs often show every element as changed. Two practical fixes:</p>
+      <ul>
+        <li><strong>Diff by identity:</strong> if items have IDs, focus on matching IDs rather than positions.</li>
+        <li><strong>Extract and compare subsets:</strong> if you only care about one field, pull it out and compare that list.</li>
+      </ul>
+      <p>For quick subset checks, use <a href="/json-query">JSON Query</a> to extract values (for example, all IDs) and compare those outputs.</p>
+
+      <h2>A practical workflow for API response debugging</h2>
+      <ol>
+        <li><strong>Capture both versions</strong> (before and after a deploy, or staging vs prod).</li>
+        <li><strong>Format both</strong> so you can navigate quickly (<a href="/json-formatter">JSON Formatter</a>).</li>
+        <li><strong>Run the structured diff</strong> (<a href="/json-diff">JSON Diff</a>) and note the top 3 changes.</li>
+        <li><strong>Validate the new response</strong> against your expected schema (<a href="/json-schema-validator">JSON Schema Validator</a>).</li>
+        <li><strong>Confirm critical paths</strong> (IDs, totals, statuses) by querying them (<a href="/json-query">JSON Query</a>).</li>
+      </ol>
+
+      <h2>Common mistakes when comparing JSON</h2>
+      <ul>
+        <li><strong>Assuming key order means anything:</strong> object property order is not a reliable contract.</li>
+        <li><strong>Comparing minified vs formatted:</strong> this creates noise and hides the real change.</li>
+        <li><strong>Ignoring null vs missing:</strong> <code>null</code> and “not present” are different semantics; many APIs treat them differently.</li>
+        <li><strong>Not checking the boundary:</strong> sometimes JSON changes because the transport layer changed (serialization settings, locale, rounding).</li>
+      </ul>
+
+      <h2>FAQs</h2>
+      <h3>Why do two “equal” JSON objects show as different?</h3>
+      <p>Usually because of formatting differences, key order differences, or subtle type differences (number vs string). Normalize formatting and check types.</p>
+
+      <h3>How do I compare two large JSON files without scrolling forever?</h3>
+      <p>Use a structural diff tool like <a href="/json-diff">JSON Diff</a>. If you need to zoom into a specific path, extract it with <a href="/json-query">JSON Query</a> first.</p>
+
+      <h3>Does JSON Diff ignore whitespace automatically?</h3>
+      <p>Structural diffs focus on the parsed JSON, not the raw text. But formatting still matters for readability, which is why formatting first helps.</p>
+
+      <h3>What’s the best way to handle arrays that reorder?</h3>
+      <p>When possible, compare arrays by stable IDs rather than by index. If you don’t have IDs, consider sorting by a deterministic key before comparison.</p>
+
+      <h3>Is there a standard “canonical JSON” format?</h3>
+      <p>There are canonicalization approaches (including sorting keys), but many systems don’t enforce them. In practice, format for humans during debugging, and enforce schema/type rules for stability.</p>
+
+      <h3>Can I diff two JSON strings (escaped JSON) inside logs?</h3>
+      <p>Yes, but first unescape the string so it becomes valid JSON. Use <a href="/json-escape">JSON Escape/Unescape</a>, then format and diff.</p>
+
+      <h3>Should I validate before or after diffing?</h3>
+      <p>If you suspect one side may be malformed, validate first (formatter/schema validator). Otherwise, diffing can show you what changed, then validation tells you which changes are breaking.</p>
+    `,
+    relatedToolHref: '/json-diff',
+  },
+  {
+    slug: 'jsonpath-in-practice-query-json-with-jsonpath',
+    title: 'JSONPath in practice: querying JSON without writing code',
+    excerpt:
+      'A hands-on guide to JSONPath: selecting nested fields, filtering arrays, and debugging “why is this empty?” with practical examples.',
+    date: '2025-12-26',
+    author: 'RawTools Team',
+    readingTime: '10 min',
+    keywords: ['jsonpath examples', 'json query', 'query json data', 'jsonpath filter'],
+    category: 'json',
+    content: `
+      <h2>What JSONPath is good for</h2>
+      <p>JSONPath is a query language for JSON. It’s useful when you have a large JSON document and you want one slice of it: all IDs, the first matching object, a nested field across items, or a filtered list.</p>
+      <p>It’s not a replacement for a data pipeline, but it’s a fast way to answer “what’s in here?” without writing code.</p>
+
+      <h2>Start with a mental model</h2>
+      <ul>
+        <li><strong><code>$</code></strong> is the root.</li>
+        <li><strong>Dot notation</strong> selects object keys: <code>$.user.email</code></li>
+        <li><strong>Bracket notation</strong> selects keys or indices: <code>$['user']['email']</code>, <code>$.items[0]</code></li>
+        <li><strong>Wildcards</strong> select “all”: <code>$.items[*].id</code></li>
+      </ul>
+      <p>If you want to test expressions quickly, use <a href="/json-query">JSON Query</a>. If your JSON isn’t readable yet, format it first with <a href="/json-formatter">JSON Formatter</a>.</p>
+
+      <h2>A small example JSON to follow along</h2>
+      <pre><code>{
+  "order": {
+    "id": "ord_1001",
+    "total": 129.5,
+    "currency": "USD",
+    "customer": { "id": "cus_55", "email": "a@example.com" },
+    "items": [
+      { "sku": "TEE-BLK-M", "qty": 1, "price": 39.5, "tags": ["apparel"] },
+      { "sku": "CAP-NVY", "qty": 2, "price": 45.0, "tags": ["accessory", "gift"] }
+    ]
+  }
+}</code></pre>
+
+      <h2>Useful JSONPath patterns you’ll reuse</h2>
+      <h3>Select a single nested field</h3>
+      <p><code>$.order.customer.email</code></p>
+
+      <h3>Select all values from an array</h3>
+      <p><code>$.order.items[*].sku</code></p>
+
+      <h3>Filter an array</h3>
+      <p>Get items where <code>qty</code> is greater than 1:</p>
+      <p><code>$.order.items[?(@.qty &gt; 1)]</code></p>
+
+      <h3>Pick a field from filtered results</h3>
+      <p>Get SKUs where <code>qty</code> is greater than 1:</p>
+      <p><code>$.order.items[?(@.qty &gt; 1)].sku</code></p>
+
+      <h3>Find items containing a tag</h3>
+      <p><code>$.order.items[?(@.tags && @.tags.indexOf('gift') &gt; -1)].sku</code></p>
+
+      <h2>Why does my query return an empty result?</h2>
+      <p>Empty results usually come from one of these:</p>
+      <ul>
+        <li><strong>Wrong root:</strong> you’re querying <code>$.items</code> but the document has <code>$.order.items</code>.</li>
+        <li><strong>Key mismatch:</strong> <code>customerEmail</code> vs <code>customer.email</code>.</li>
+        <li><strong>Unexpected types:</strong> you’re filtering with numeric comparisons, but the field is a string (common after CSV imports).</li>
+        <li><strong>Null vs missing:</strong> some items don’t have the field at all.</li>
+      </ul>
+      <p>When the document is large, it can help to pick the path visually first. Use <a href="/json-mapper">JSON Mapper</a> to discover the exact key names and nesting, then translate that into a JSONPath expression.</p>
+
+      <h2>Two practical workflows</h2>
+      <h3>1) Debugging API responses</h3>
+      <ol>
+        <li>Format the response (<a href="/json-formatter">JSON Formatter</a>).</li>
+        <li>Query the critical fields (status, totals, IDs) (<a href="/json-query">JSON Query</a>).</li>
+        <li>If you need to compare responses, diff them (<a href="/json-diff">JSON Diff</a>).</li>
+      </ol>
+
+      <h3>2) Cleaning data before transforming it</h3>
+      <p>If the JSON came from a spreadsheet or CSV, you often start with strings everywhere. Convert with <a href="/csv-to-json">CSV to JSON</a> or <a href="/excel-to-json">Excel to JSON</a>, then validate or query.</p>
+
+      <h2>FAQs</h2>
+      <h3>Is JSONPath standardized?</h3>
+      <p>There are common conventions, but implementations differ slightly. If an expression behaves unexpectedly, test a simpler version and build up.</p>
+
+      <h3>How do I select a key that contains special characters?</h3>
+      <p>Use bracket notation: <code>$['weird-key']</code> instead of dot notation.</p>
+
+      <h3>Can I query multiple fields at once?</h3>
+      <p>Many implementations support it, but results can vary. A reliable approach is to extract one field at a time, or query whole objects and then inspect.</p>
+
+      <h3>Why does my filter fail even though the value is “10”?</h3>
+      <p>Because it may be a string, not a number. Coerce in your pipeline, or adjust your comparisons. If you want to enforce types, validate with <a href="/json-schema-validator">JSON Schema Validator</a>.</p>
+
+      <h3>How do I work with escaped JSON strings?</h3>
+      <p>Unescape them first with <a href="/json-escape">JSON Escape/Unescape</a>, then format and query.</p>
+
+      <h3>What’s the fastest way to discover paths in unfamiliar JSON?</h3>
+      <p>Use <a href="/json-mapper">JSON Mapper</a> to browse the structure, then switch to <a href="/json-query">JSON Query</a> when you’re ready to extract specific fields.</p>
+
+      <h3>Can JSONPath replace writing code for transformations?</h3>
+      <p>It’s great for selection and filtering. For reshaping data into a new structure, tools like <a href="/json-mapper">JSON Mapper</a> (or a real transform step) are better.</p>
+    `,
+    relatedToolHref: '/json-query',
+  },
+];
+
 // Merged blog posts from both projects
 export const blogPosts: BlogPost[] = [
   ...shopifyBlogPosts,
   ...pdfBlogPosts,
+  ...jsonBlogPosts,
 ];
 
 export function getAllBlogPosts(): BlogPost[] {
