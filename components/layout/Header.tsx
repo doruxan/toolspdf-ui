@@ -1,13 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import { Wrench, Menu, X } from 'lucide-react';
+import { Wrench, Menu, X, ChevronDown } from 'lucide-react';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { toolCategories } from '@/config/tools';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [toolsDropdownOpen, setToolsDropdownOpen] = useState(false);
   const pathname = usePathname();
   const isHomePage = pathname === '/';
 
@@ -25,7 +26,7 @@ export default function Header() {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden lg:flex lg:gap-x-6 lg:items-center">
+        <div className="hidden lg:flex lg:gap-x-8 lg:items-center">
           <Link
             href="/"
             className="text-sm font-semibold leading-6 text-foreground hover:text-primary transition-colors"
@@ -33,30 +34,51 @@ export default function Header() {
             Home
           </Link>
 
-          {/* Category Links */}
-          {toolCategories.map((category) => {
-            const categoryLabel = category.name.replace(/^Free Online\s+/i, '').replace(/\s+Tools?$/i, '');
-            const href = isHomePage ? `#${category.id}` : `/#${category.id}`;
-            
-            return (
-              <Link
-                key={category.id}
-                href={href}
-                onClick={(e) => {
-                  if (isHomePage) {
-                    e.preventDefault();
-                    document.getElementById(category.id)?.scrollIntoView({
-                      behavior: 'smooth',
-                      block: 'start',
-                    });
-                  }
-                }}
-                className="text-sm font-semibold leading-6 text-foreground hover:text-primary transition-colors"
+          {/* Tools Dropdown with Categories Only */}
+          <div className="relative">
+            <button
+              className="flex items-center gap-1 text-sm font-semibold leading-6 text-foreground hover:text-primary transition-colors"
+              onMouseEnter={() => setToolsDropdownOpen(true)}
+              onMouseLeave={() => setToolsDropdownOpen(false)}
+            >
+              Tools
+              <ChevronDown className="h-4 w-4" />
+            </button>
+            {toolsDropdownOpen && (
+              <div
+                className="absolute left-0 top-full mt-2 w-64 bg-background border-2 border-border rounded-xl shadow-xl p-4"
+                onMouseEnter={() => setToolsDropdownOpen(true)}
+                onMouseLeave={() => setToolsDropdownOpen(false)}
               >
-                {categoryLabel}
-              </Link>
-            );
-          })}
+                <div className="space-y-2">
+                  {toolCategories.map((category) => {
+                    const categoryLabel = category.name.replace(/^Free Online\s+/i, '').replace(/\s+Tools?$/i, '');
+                    const href = isHomePage ? `#${category.id}` : `/#${category.id}`;
+                    
+                    return (
+                      <Link
+                        key={category.id}
+                        href={href}
+                        onClick={(e) => {
+                          setToolsDropdownOpen(false);
+                          if (isHomePage) {
+                            e.preventDefault();
+                            document.getElementById(category.id)?.scrollIntoView({
+                              behavior: 'smooth',
+                              block: 'start',
+                            });
+                          }
+                        }}
+                        className="block text-sm text-foreground hover:text-primary hover:bg-muted px-3 py-2.5 rounded-lg transition-colors font-medium"
+                      >
+                        {categoryLabel}
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
 
           <Link
             href="/blog"
@@ -91,6 +113,9 @@ export default function Header() {
               Home
             </Link>
             <div className="border-t-2 border-border my-2"></div>
+            <div className="text-xs font-bold text-muted-foreground uppercase px-3 py-2">
+              Tool Categories
+            </div>
             {toolCategories.map((category) => {
               const categoryLabel = category.name.replace(/^Free Online\s+/i, '').replace(/\s+Tools?$/i, '');
               const href = isHomePage ? `#${category.id}` : `/#${category.id}`;
