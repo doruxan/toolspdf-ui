@@ -4,9 +4,9 @@ import { getAllBlogPosts } from '@/lib/blog/posts';
 import AdBanner from '@/components/ads/AdBanner';
 
 export const metadata: Metadata = {
-  title: 'PDF Tools Blog - Tips, Tutorials & Guides',
-  description: 'Learn how to manage your PDF files efficiently. Tutorials on merging, splitting, compressing PDFs, and more.',
-  keywords: 'pdf tips, pdf tutorials, how to edit pdf, pdf management guides',
+  title: 'RawTools Blog - PDF, E-commerce & IBAN Guides',
+  description: 'Expert guides and tutorials for PDF tools, Shopify calculators, and IBAN validation. Learn best practices, tips, and tricks from industry professionals.',
+  keywords: 'pdf tools guide, shopify calculator tutorial, iban validation, ecommerce tips, pdf management, banking tools',
 };
 
 export default function BlogIndexPage() {
@@ -16,9 +16,9 @@ export default function BlogIndexPage() {
     <div className="w-full">
       <div className="bg-gradient-to-br from-primary/10 via-secondary/5 to-accent/10 py-12 md:py-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">PDF Tools Blog</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">RawTools Blog</h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Tips, tricks, and comprehensive guides for managing your PDF documents.
+            Expert guides for PDF tools, Shopify calculators, and IBAN validation. Learn best practices and advanced techniques.
           </p>
         </div>
       </div>

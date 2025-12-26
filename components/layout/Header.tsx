@@ -37,7 +37,7 @@ export default function Header() {
           {/* Tools Dropdown with Categories Only */}
           <div className="relative">
             <button
-              className="flex items-center gap-1 text-sm font-semibold leading-6 text-foreground hover:text-primary transition-colors"
+              className="flex items-center gap-1 text-sm font-semibold leading-6 text-foreground hover:text-primary transition-colors pb-2"
               onMouseEnter={() => setToolsDropdownOpen(true)}
               onMouseLeave={() => setToolsDropdownOpen(false)}
             >
@@ -46,11 +46,11 @@ export default function Header() {
             </button>
             {toolsDropdownOpen && (
               <div
-                className="absolute left-0 top-full mt-2 w-64 bg-background border-2 border-border rounded-xl shadow-xl p-4"
+                className="absolute left-0 top-full w-64 bg-background border-2 border-border rounded-xl shadow-xl pt-2"
                 onMouseEnter={() => setToolsDropdownOpen(true)}
                 onMouseLeave={() => setToolsDropdownOpen(false)}
               >
-                <div className="space-y-2">
+                <div className="space-y-2 p-4">
                   {toolCategories.map((category) => {
                     const categoryLabel = category.name.replace(/^Free Online\s+/i, '').replace(/\s+Tools?$/i, '');
                     const href = isHomePage ? `#${category.id}` : `/#${category.id}`;
