@@ -1,35 +1,33 @@
 'use client';
 
 import { useState, useCallback, JSX } from 'react';
-import { extractProperties, buildJsonTree, TreeNode } from '@/lib/json/mapper';
-import FileUpload from '@/components/shared/FileUpload';
+import { extractPropertiesWithWildcard, buildMergedSchemaTree, SchemaNode } from '@/lib/json/mapper';
+import { JSONTextarea } from '@/components/shared/JSONTextarea';
 import { Button } from '@/components/shared/Button';
 import { Alert } from '@/components/shared/Alert';
-import { ChevronDown, ChevronRight, Check } from 'lucide-react';
+import { ChevronDown, ChevronRight, AlertTriangle } from 'lucide-react';
 
 export default function JSONMapper() {
   const [inputData, setInputData] = useState('');
   const [outputData, setOutputData] = useState('');
-  const [mode, setMode] = useState<'text' | 'visual'>('text');
+  const [mode, setMode] = useState<'text' | 'visual'>('visual');
   const [pathsText, setPathsText] = useState('');
-  const [tree, setTree] = useState<TreeNode[]>([]);
+  const [tree, setTree] = useState<SchemaNode[]>([]);
   const [selectedPaths, setSelectedPaths] = useState<Set<string>>(new Set());
   const [error, setError] = useState('');
 
-  const handleFileUpload = useCallback(async (files: File[]) => {
-    if (files.length === 0) return;
-    const file = files[0];
-    const text = await file.text();
-    setInputData(text);
+  const handleFileUpload = useCallback((value: string) => {
+    setInputData(value);
     setOutputData('');
     setError('');
     
     try {
-      const jsonData = JSON.parse(text);
-      const treeNodes = buildJsonTree(jsonData);
+      const jsonData = JSON.parse(value);
+      const treeNodes = buildMergedSchemaTree(jsonData);
       setTree(treeNodes);
     } catch (e) {
       setError('Invalid JSON');
+      setTree([]);
     }
   }, []);
 
@@ -59,7 +57,7 @@ export default function JSONMapper() {
         return;
       }
 
-      const result = extractProperties(jsonData, paths);
+      const result = extractPropertiesWithWildcard(jsonData, paths);
 
       if (!result.success) {
         setError(result.error || 'Failed to extract properties');
@@ -72,7 +70,7 @@ export default function JSONMapper() {
     }
   }, [inputData, mode, pathsText, selectedPaths]);
 
-  const toggleExpand = (path: string, nodes: TreeNode[]): TreeNode[] => {
+  const toggleExpand = (path: string, nodes: SchemaNode[]): SchemaNode[] => {
     return nodes.map((node) => {
       if (node.path === path) {
         return { ...node, isExpanded: !node.isExpanded };
@@ -94,7 +92,7 @@ export default function JSONMapper() {
     setSelectedPaths(newSelected);
   };
 
-  const renderTree = (nodes: TreeNode[], level: number = 0): JSX.Element[] => {
+  const renderTree = (nodes: SchemaNode[], level: number = 0): JSX.Element[] => {
     return nodes.map((node) => (
       <div key={node.path} style={{ marginLeft: `${level * 20}px` }}>
         <div className="flex items-center gap-2 py-1 hover:bg-muted rounded px-2 cursor-pointer">
@@ -118,9 +116,21 @@ export default function JSONMapper() {
           />
           <span className="text-sm font-medium">{node.key}</span>
           <span className="text-xs text-muted-foreground">({node.type})</span>
-          {node.value !== undefined && (
-            <span className="text-xs text-muted-foreground truncate max-w-xs">
-              = {JSON.stringify(node.value)}
+          
+          {node.arrayCount !== undefined && (
+            <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded">
+              [{node.arrayCount} items]
+            </span>
+          )}
+          
+          {node.frequency && (
+            <span className={`text-xs px-2 py-0.5 rounded ${
+              node.isOptional 
+                ? 'bg-yellow-100 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-300'
+                : 'bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-300'
+            }`}>
+              {node.frequency.present}/{node.frequency.total}
+              {node.isOptional && <AlertTriangle className="inline h-3 w-3 ml-1" />}
             </span>
           )}
         </div>
@@ -147,69 +157,63 @@ export default function JSONMapper() {
         </Button>
       </div>
 
-      <FileUpload
-        accept=".json,.txt"
-        onFilesSelected={handleFileUpload}
-        label="Upload JSON file"
-      />
-
-      <div>
-        <label className="block text-sm font-medium mb-2">JSON Input</label>
-        <textarea
+      {/* Input and Selector Side by Side */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <JSONTextarea
           value={inputData}
-          onChange={(e) => {
-            setInputData(e.target.value);
-            setError('');
-            try {
-              const jsonData = JSON.parse(e.target.value);
-              const treeNodes = buildJsonTree(jsonData);
-              setTree(treeNodes);
-            } catch (e) {
-              // Ignore parsing errors while typing
-            }
-          }}
-          placeholder="Paste your JSON here..."
-          className="w-full h-48 p-4 border rounded-lg font-mono text-sm"
-          spellCheck={false}
+          onChange={handleFileUpload}
+          label="JSON Input"
+          placeholder="Paste your JSON here or drag and drop a file..."
+          accept=".json,.txt"
+          minHeight="min-h-96"
         />
+
+        {mode === 'text' ? (
+          <div>
+            <label className="block text-sm font-medium mb-2">
+              Property Paths (comma or newline separated)
+            </label>
+            <textarea
+              value={pathsText}
+              onChange={(e) => setPathsText(e.target.value)}
+              placeholder={`users[*].name\nusers[*].email\nitems[*].price\naddress.city`}
+              className="w-full min-h-96 p-4 border-2 rounded-lg font-mono text-sm bg-background text-foreground border-border focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary resize-y"
+              spellCheck={false}
+            />
+            <p className="text-sm text-muted-foreground mt-2">
+              Use [*] for arrays. Examples: users[*].name, items[*].id
+            </p>
+          </div>
+        ) : (
+          <div>
+            <label className="block text-sm font-medium mb-2">
+              Select Properties from Schema
+            </label>
+            <div className="border-2 rounded-lg p-4 min-h-96 max-h-96 overflow-y-auto bg-muted/50 border-border">
+              {tree.length > 0 ? (
+                renderTree(tree)
+              ) : (
+                <p className="text-sm text-muted-foreground">
+                  Enter valid JSON to see the merged schema tree
+                </p>
+              )}
+            </div>
+            <p className="text-sm text-muted-foreground mt-2">
+              Selected: {selectedPaths.size} properties
+              {selectedPaths.size > 0 && (
+                <button
+                  onClick={() => setSelectedPaths(new Set())}
+                  className="ml-2 text-primary hover:underline"
+                >
+                  Clear all
+                </button>
+              )}
+            </p>
+          </div>
+        )}
       </div>
 
-      {mode === 'text' ? (
-        <div>
-          <label className="block text-sm font-medium mb-2">
-            Property Paths (comma or newline separated)
-          </label>
-          <textarea
-            value={pathsText}
-            onChange={(e) => setPathsText(e.target.value)}
-            placeholder={`user.name\nuser.email\nitems[0].price\naddress.city`}
-            className="w-full h-32 p-4 border rounded-lg font-mono text-sm"
-            spellCheck={false}
-          />
-          <p className="text-sm text-muted-foreground mt-2">
-            Examples: user.name, items[0].id, address.city
-          </p>
-        </div>
-      ) : (
-        <div>
-          <label className="block text-sm font-medium mb-2">
-            Select Properties
-          </label>
-          <div className="border rounded-lg p-4 max-h-96 overflow-y-auto bg-muted/50">
-            {tree.length > 0 ? (
-              renderTree(tree)
-            ) : (
-              <p className="text-sm text-muted-foreground">
-                Enter valid JSON to see the tree
-              </p>
-            )}
-          </div>
-          <p className="text-sm text-muted-foreground mt-2">
-            Selected: {selectedPaths.size} properties
-          </p>
-        </div>
-      )}
-
+      {/* Extract Button */}
       <div className="flex gap-4">
         <Button onClick={handleExtract} disabled={!inputData.trim()}>
           Extract Properties
@@ -222,6 +226,7 @@ export default function JSONMapper() {
             setPathsText('');
             setSelectedPaths(new Set());
             setError('');
+            setTree([]);
           }}
         >
           Clear
@@ -230,27 +235,28 @@ export default function JSONMapper() {
 
       {error && <Alert variant="error">{error}</Alert>}
 
+      {/* Output */}
       {outputData && (
         <div>
           <div className="flex items-center justify-between mb-2">
-            <label className="block text-sm font-medium">Extracted JSON</label>
+            <label className="block text-sm font-medium">Extracted JSON Output</label>
             <Button
               variant="secondary"
               size="sm"
               onClick={() => navigator.clipboard.writeText(outputData)}
             >
-              Copy to Clipboard
+              Copy Output
             </Button>
           </div>
-          <textarea
+          <JSONTextarea
             value={outputData}
+            onChange={() => {}}
+            placeholder="Extracted JSON will appear here..."
             readOnly
-            className="w-full h-48 p-4 border rounded-lg font-mono text-sm bg-muted"
-            spellCheck={false}
+            minHeight="min-h-96"
           />
         </div>
       )}
     </div>
   );
 }
-

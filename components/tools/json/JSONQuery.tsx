@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { queryJson, queryExamples, explainJsonPath } from '@/lib/json/query';
-import FileUpload from '@/components/shared/FileUpload';
+import { JSONTextarea } from '@/components/shared/JSONTextarea';
+import { SideBySideLayout } from '@/components/shared/SideBySideLayout';
 import { Button } from '@/components/shared/Button';
-import { Alert } from '@/components/shared/Alert';
-import { Search, HelpCircle, Copy } from 'lucide-react';
+import { HelpCircle, Search } from 'lucide-react';
 
 export default function JSONQuery() {
   const [inputData, setInputData] = useState('');
@@ -16,57 +16,58 @@ export default function JSONQuery() {
   const [explanation, setExplanation] = useState('');
   const [showExamples, setShowExamples] = useState(false);
 
-  const handleFileUpload = useCallback(async (files: File[]) => {
-    if (files.length === 0) return;
-    const file = files[0];
-    const text = await file.text();
-    setInputData(text);
-    setResults([]);
-    setCount(0);
-    setError('');
-  }, []);
-
-  const handleQuery = useCallback(() => {
-    setError('');
-    setResults([]);
-    setCount(0);
-    setExplanation('');
-
-    try {
-      if (!inputData.trim()) {
-        setError('Please provide JSON input');
-        return;
-      }
-
-      if (!queryPath.trim()) {
-        setError('Please provide a JSONPath expression');
-        return;
-      }
-
-      const jsonData = JSON.parse(inputData);
-      const result = queryJson(jsonData, queryPath);
-
-      if (!result.success) {
-        setError(result.error || 'Query failed');
-        return;
-      }
-
-      setResults(result.results || []);
-      setCount(result.count || 0);
-      setExplanation(explainJsonPath(queryPath));
-    } catch (e) {
-      setError(e instanceof Error ? e.message : 'Query failed');
+  // Real-time query execution with debounce
+  useEffect(() => {
+    if (!inputData.trim() || !queryPath.trim()) {
+      setResults([]);
+      setCount(0);
+      setError('');
+      setExplanation('');
+      return;
     }
+
+    const timer = setTimeout(() => {
+      try {
+        const jsonData = JSON.parse(inputData);
+        const result = queryJson(jsonData, queryPath);
+
+        if (result.success) {
+          setResults(result.results || []);
+          setCount(result.count || 0);
+          setError('');
+          setExplanation(explainJsonPath(queryPath));
+        } else {
+          setError(result.error || 'Query failed');
+          setResults([]);
+          setCount(0);
+        }
+      } catch (e) {
+        setError('Invalid JSON input');
+        setResults([]);
+        setCount(0);
+      }
+    }, 500);
+
+    return () => clearTimeout(timer);
   }, [inputData, queryPath]);
 
   const loadExample = (example: typeof queryExamples[0]) => {
     setQueryPath(example.expression);
-    setExplanation(example.description);
+    setShowExamples(false);
+  };
+
+  const handleClear = () => {
+    setInputData('');
+    setQueryPath('$.*');
+    setResults([]);
+    setCount(0);
+    setError('');
+    setExplanation('');
   };
 
   return (
     <div className="space-y-6">
-      {/* Examples */}
+      {/* Examples Section */}
       <div>
         <Button
           variant="secondary"
@@ -85,7 +86,7 @@ export default function JSONQuery() {
                 <button
                   key={idx}
                   onClick={() => loadExample(example)}
-                  className="text-left p-3 bg-background hover:bg-muted rounded border text-sm"
+                  className="text-left p-3 bg-background hover:bg-muted rounded border text-sm transition-colors"
                 >
                   <p className="font-medium font-mono">{example.expression}</p>
                   <p className="text-xs text-muted-foreground mt-1">{example.description}</p>
@@ -96,111 +97,79 @@ export default function JSONQuery() {
         )}
       </div>
 
-      <FileUpload
-        accept=".json,.txt"
-        onFilesSelected={handleFileUpload}
-        label="Upload JSON file"
-      />
-
-      <div>
-        <label className="block text-sm font-medium mb-2">JSON Data</label>
-        <textarea
-          value={inputData}
-          onChange={(e) => {
-            setInputData(e.target.value);
-            setResults([]);
-            setError('');
-          }}
-          placeholder="Paste your JSON here..."
-          className="w-full h-48 p-4 border rounded-lg font-mono text-sm"
-          spellCheck={false}
-        />
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium mb-2">JSONPath Expression</label>
-        <div className="flex gap-2">
-          <input
-            type="text"
-            value={queryPath}
-            onChange={(e) => {
-              setQueryPath(e.target.value);
-              setResults([]);
-            }}
-            placeholder="$.users[0].email"
-            className="flex-1 p-2 border rounded-lg font-mono text-sm"
-          />
-          <Button onClick={handleQuery} disabled={!inputData.trim() || !queryPath.trim()}>
-            <Search className="h-4 w-4 mr-2" />
-            Query
-          </Button>
-        </div>
-        {explanation && (
-          <p className="text-sm text-muted-foreground mt-2">{explanation}</p>
-        )}
-      </div>
-
-      <div className="flex gap-4">
-        <Button
-          variant="secondary"
-          onClick={() => {
-            setInputData('');
-            setQueryPath('$.*');
-            setResults([]);
-            setCount(0);
-            setError('');
-            setExplanation('');
-          }}
-        >
-          Clear
-        </Button>
-      </div>
-
-      {error && <Alert variant="error">{error}</Alert>}
-
-      {results.length > 0 && (
-        <div>
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h3 className="text-lg font-semibold">Query Results</h3>
-              <p className="text-sm text-muted-foreground">{count} result(s) found</p>
+      <SideBySideLayout
+        options={
+          <div className="space-y-2">
+            <label className="block text-sm font-medium">JSONPath Expression</label>
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={queryPath}
+                onChange={(e) => setQueryPath(e.target.value)}
+                placeholder="$.users[0].email"
+                className="flex-1 p-2 border-2 rounded-lg font-mono text-sm bg-background text-foreground border-border focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+              />
             </div>
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={() => navigator.clipboard.writeText(JSON.stringify(results, null, 2))}
-            >
-              Copy All Results
+            {explanation && (
+              <p className="text-sm text-muted-foreground">{explanation}</p>
+            )}
+          </div>
+        }
+        leftPanel={
+          <div>
+            <div className="flex items-center justify-between mb-2 min-h-[36px]">
+              <label className="block text-sm font-medium">JSON Data</label>
+            </div>
+            <JSONTextarea
+              value={inputData}
+              onChange={setInputData}
+              placeholder="Paste your JSON data here or drag and drop a file..."
+              accept=".json,.txt"
+              minHeight="min-h-96"
+            />
+          </div>
+        }
+        rightPanel={
+          <div>
+            <div className="flex items-center justify-between mb-2 min-h-[36px]">
+              <label className="block text-sm font-medium">
+                Query Results {count > 0 && `(${count})`}
+              </label>
+              {results.length > 0 && (
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  onClick={() => navigator.clipboard.writeText(JSON.stringify(results, null, 2))}
+                >
+                  Copy All Results
+                </Button>
+              )}
+            </div>
+            <div className="min-h-96 max-h-96 overflow-y-auto p-4 border-2 rounded-lg bg-background border-border">
+              {error ? (
+                <div className="px-4 py-2 bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-300 rounded-lg text-sm">
+                  {error}
+                </div>
+              ) : results.length > 0 ? (
+                <pre className="font-mono text-sm whitespace-pre-wrap">
+                  {JSON.stringify(results, null, 2)}
+                </pre>
+              ) : (
+                <p className="text-sm text-muted-foreground">
+                  {inputData ? 'Enter a JSONPath expression to query the data' : 'Waiting for JSON input...'}
+                </p>
+              )}
+            </div>
+          </div>
+        }
+        actions={
+          <div className="flex flex-wrap gap-4">
+            <Button variant="secondary" onClick={handleClear}>
+              Clear
             </Button>
           </div>
-
-          <div className="space-y-2 max-h-96 overflow-y-auto">
-            {results.map((result, idx) => (
-              <div key={idx} className="p-4 bg-muted rounded-lg">
-                <div className="flex items-start justify-between gap-2">
-                  <div className="flex-1">
-                    <p className="text-xs text-muted-foreground mb-1">Result {idx + 1}</p>
-                    <pre className="font-mono text-sm overflow-x-auto">
-                      {JSON.stringify(result, null, 2)}
-                    </pre>
-                  </div>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => {
-                      navigator.clipboard.writeText(JSON.stringify(result, null, 2));
-                    }}
-                    title="Copy result"
-                  >
-                    <Copy className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+        }
+      />
     </div>
   );
 }
-

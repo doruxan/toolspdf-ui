@@ -1,12 +1,12 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { formatJson, validateJson, sortJsonKeys } from '@/lib/json/formatter';
-import FileUpload from '@/components/shared/FileUpload';
+import { JSONTextarea } from '@/components/shared/JSONTextarea';
+import { SideBySideLayout } from '@/components/shared/SideBySideLayout';
 import { Button } from '@/components/shared/Button';
 import { Select } from '@/components/shared/Select';
-import { Alert } from '@/components/shared/Alert';
-import { Check, X, AlertCircle } from 'lucide-react';
+import { Check, X } from 'lucide-react';
 
 export default function JSONFormatter() {
   const [inputData, setInputData] = useState('');
@@ -18,75 +18,43 @@ export default function JSONFormatter() {
     error?: string;
     errorPosition?: { line: number; column: number };
   } | null>(null);
-  const [processing, setProcessing] = useState(false);
 
-  const handleFileUpload = useCallback(async (files: File[]) => {
-    if (files.length === 0) return;
-    const file = files[0];
-    const text = await file.text();
-    setInputData(text);
-    setOutputData('');
-    setValidation(null);
-  }, []);
+  // Real-time formatting with debounce
+  useEffect(() => {
+    if (!inputData.trim()) {
+      setOutputData('');
+      setValidation(null);
+      return;
+    }
 
-  const handleValidate = useCallback(() => {
-    const result = validateJson(inputData);
-    setValidation(result);
-  }, [inputData]);
-
-  const handleFormat = useCallback(() => {
-    setProcessing(true);
-    setValidation(null);
-
-    try {
+    const timer = setTimeout(() => {
       const result = formatJson(inputData, { indentSize, useTabs });
-
-      if (!result.success) {
+      
+      if (result.success) {
+        setOutputData(result.formatted || '');
+        setValidation({ isValid: true });
+      } else {
         setValidation({
           isValid: false,
           error: result.error,
         });
-        setProcessing(false);
-        return;
       }
+    }, 300);
 
-      setOutputData(result.formatted || '');
-      setValidation({ isValid: true });
-    } catch (e) {
-      setValidation({
-        isValid: false,
-        error: e instanceof Error ? e.message : 'Format failed',
-      });
-    } finally {
-      setProcessing(false);
-    }
+    return () => clearTimeout(timer);
   }, [inputData, indentSize, useTabs]);
 
   const handleSortKeys = useCallback(() => {
-    setProcessing(true);
-    setValidation(null);
-
-    try {
-      const result = sortJsonKeys(inputData);
-
-      if (!result.success) {
-        setValidation({
-          isValid: false,
-          error: result.error,
-        });
-        setProcessing(false);
-        return;
-      }
-
+    const result = sortJsonKeys(inputData);
+    
+    if (result.success) {
       setOutputData(result.formatted || '');
       setValidation({ isValid: true });
-    } catch (e) {
+    } else {
       setValidation({
         isValid: false,
-        error: e instanceof Error ? e.message : 'Sort failed',
+        error: result.error,
       });
-    } finally {
-      setProcessing(false);
     }
   }, [inputData]);
 
@@ -96,131 +64,92 @@ export default function JSONFormatter() {
     setValidation(null);
   };
 
-  const handleCopy = () => {
-    if (outputData) {
-      navigator.clipboard.writeText(outputData);
-    }
-  };
-
   return (
-    <div className="space-y-6">
-      {/* Options */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Select
-          label="Indentation"
-          value={indentSize.toString()}
-          onChange={(e) => setIndentSize(parseInt(e.target.value))}
-          options={[
-            { value: '2', label: '2 spaces' },
-            { value: '4', label: '4 spaces' },
-            { value: '8', label: '8 spaces' },
-          ]}
-          disabled={useTabs}
-        />
-        <div className="flex items-center gap-2">
-          <input
-            type="checkbox"
-            id="useTabs"
-            checked={useTabs}
-            onChange={(e) => setUseTabs(e.target.checked)}
-            className="w-4 h-4"
+    <SideBySideLayout
+      options={
+        <div className="flex flex-wrap items-center gap-4">
+          <Select
+            label="Indentation"
+            value={indentSize.toString()}
+            onChange={(e) => setIndentSize(parseInt(e.target.value))}
+            options={[
+              { value: '2', label: '2 spaces' },
+              { value: '4', label: '4 spaces' },
+              { value: '8', label: '8 spaces' },
+            ]}
+            disabled={useTabs}
           />
-          <label htmlFor="useTabs" className="text-sm font-medium">
-            Use tabs instead of spaces
-          </label>
-        </div>
-      </div>
-
-      {/* File Upload */}
-      <FileUpload
-        accept=".json,.txt"
-        onFilesSelected={handleFileUpload}
-        label="Upload JSON file"
-      />
-
-      {/* Input Area */}
-      <div>
-        <label className="block text-sm font-medium mb-2">JSON Input</label>
-        <textarea
-          value={inputData}
-          onChange={(e) => {
-            setInputData(e.target.value);
-            setValidation(null);
-            setOutputData('');
-          }}
-          placeholder="Paste your JSON here..."
-          className="w-full h-64 p-4 border rounded-lg font-mono text-sm"
-          spellCheck={false}
-        />
-      </div>
-
-      {/* Validation Status */}
-      {validation && (
-        <div className={`flex items-center gap-2 p-3 rounded-lg ${
-          validation.isValid ? 'bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-300' : 'bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-300'
-        }`}>
-          {validation.isValid ? (
-            <>
-              <Check className="h-5 w-5" />
-              <span className="font-medium">Valid JSON</span>
-            </>
-          ) : (
-            <>
-              <X className="h-5 w-5" />
-              <div>
-                <span className="font-medium">Invalid JSON</span>
-                {validation.error && (
-                  <p className="text-sm mt-1">{validation.error}</p>
-                )}
-                {validation.errorPosition && (
-                  <p className="text-sm mt-1">
-                    Line {validation.errorPosition.line}, Column {validation.errorPosition.column}
-                  </p>
-                )}
-              </div>
-            </>
+          <div className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              id="useTabs"
+              checked={useTabs}
+              onChange={(e) => setUseTabs(e.target.checked)}
+              className="w-4 h-4"
+            />
+            <label htmlFor="useTabs" className="text-sm font-medium">
+              Use tabs
+            </label>
+          </div>
+          
+          {validation && (
+            <div className={`flex items-center gap-2 px-3 py-1 rounded-full text-sm ${
+              validation.isValid 
+                ? 'bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-300' 
+                : 'bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-300'
+            }`}>
+              {validation.isValid ? (
+                <>
+                  <Check className="h-4 w-4" />
+                  <span>Valid</span>
+                </>
+              ) : (
+                <>
+                  <X className="h-4 w-4" />
+                  <span>Invalid</span>
+                </>
+              )}
+            </div>
           )}
         </div>
-      )}
-
-      {/* Actions */}
-      <div className="flex flex-wrap gap-4">
-        <Button onClick={handleValidate} disabled={!inputData.trim()} variant="secondary">
-          Validate
-        </Button>
-        <Button onClick={handleFormat} disabled={processing || !inputData.trim()}>
-          {processing ? 'Formatting...' : 'Format & Beautify'}
-        </Button>
-        <Button onClick={handleSortKeys} disabled={processing || !inputData.trim()} variant="secondary">
-          Sort Keys
-        </Button>
-        <Button variant="secondary" onClick={handleClear}>
-          Clear
-        </Button>
-      </div>
-
-      {/* Output */}
-      {outputData && (
-        <div>
-          <div className="flex items-center justify-between mb-2">
-            <label className="block text-sm font-medium">Formatted JSON</label>
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={() => navigator.clipboard.writeText(outputData)}
-            >
-              Copy to Clipboard
-            </Button>
-          </div>
-          <textarea
-            value={outputData}
-            readOnly
-            className="w-full h-64 p-4 border rounded-lg font-mono text-sm bg-muted"
-            spellCheck={false}
-          />
+      }
+      leftPanel={
+        <JSONTextarea
+          value={inputData}
+          onChange={setInputData}
+          label="Raw JSON Input"
+          placeholder="Paste your JSON here or drag and drop a file..."
+          accept=".json,.txt"
+          minHeight="min-h-96"
+        />
+      }
+      rightPanel={
+        <JSONTextarea
+          value={outputData}
+          onChange={() => {}}
+          label="Formatted JSON Output"
+          placeholder="Formatted JSON will appear here..."
+          readOnly
+          minHeight="min-h-96"
+        />
+      }
+      actions={
+        <div className="flex flex-wrap gap-4">
+          <Button onClick={handleSortKeys} disabled={!inputData.trim()} variant="secondary">
+            Sort Keys
+          </Button>
+          <Button 
+            variant="secondary" 
+            onClick={() => navigator.clipboard.writeText(outputData)}
+            disabled={!outputData}
+          >
+            Copy Output
+          </Button>
+          <Button variant="secondary" onClick={handleClear}>
+            Clear
+          </Button>
         </div>
-      )}
-    </div>
+      }
+    />
   );
 }
-

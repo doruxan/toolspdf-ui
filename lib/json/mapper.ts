@@ -7,6 +7,17 @@ export interface TreeNode {
   isExpanded?: boolean;
 }
 
+export interface SchemaNode {
+  key: string;
+  path: string;
+  type: TreeNode['type'];
+  frequency?: { present: number; total: number };
+  isOptional?: boolean;
+  children?: SchemaNode[];
+  isExpanded?: boolean;
+  arrayCount?: number;
+}
+
 export interface MapResult {
   success: boolean;
   data?: any;
@@ -204,5 +215,253 @@ export function flattenJson(jsonData: any, prefix: string = ''): Record<string, 
 
   flatten(jsonData, prefix);
   return result;
+}
+
+/**
+ * Build a merged schema tree from JSON data, combining all array items into a single template
+ */
+export function buildMergedSchemaTree(jsonData: any, parentPath: string = ''): SchemaNode[] {
+  const nodes: SchemaNode[] = [];
+
+  if (jsonData === null) {
+    return [{
+      key: 'null',
+      path: parentPath,
+      type: 'null',
+      isExpanded: false,
+    }];
+  }
+
+  if (Array.isArray(jsonData)) {
+    if (jsonData.length === 0) {
+      return [{
+        key: '[empty]',
+        path: parentPath,
+        type: 'array',
+        arrayCount: 0,
+        isExpanded: false,
+      }];
+    }
+
+    // Merge all array items into a single schema
+    const mergedSchema = mergeArrayItems(jsonData);
+    const path = parentPath ? `${parentPath}[*]` : '[*]';
+    
+    return [{
+      key: '[item]',
+      path,
+      type: 'object',
+      arrayCount: jsonData.length,
+      isExpanded: false,
+      children: buildSchemaFromMerged(mergedSchema, path, jsonData.length),
+    }];
+  }
+
+  if (typeof jsonData === 'object') {
+    for (const key in jsonData) {
+      if (Object.prototype.hasOwnProperty.call(jsonData, key)) {
+        const value = jsonData[key];
+        const path = parentPath ? `${parentPath}.${key}` : key;
+        const type = getType(value);
+
+        if (Array.isArray(value)) {
+          nodes.push({
+            key,
+            path,
+            type: 'array',
+            arrayCount: value.length,
+            isExpanded: false,
+            children: value.length > 0 ? buildMergedSchemaTree(value, path) : undefined,
+          });
+        } else if (type === 'object') {
+          nodes.push({
+            key,
+            path,
+            type,
+            isExpanded: false,
+            children: buildMergedSchemaTree(value, path),
+          });
+        } else {
+          nodes.push({
+            key,
+            path,
+            type,
+            isExpanded: false,
+          });
+        }
+      }
+    }
+  }
+
+  return nodes;
+}
+
+/**
+ * Merge all items in an array to find all possible properties
+ */
+function mergeArrayItems(array: any[]): Record<string, any> {
+  const merged: Record<string, { values: any[]; count: number }> = {};
+  
+  for (const item of array) {
+    if (typeof item === 'object' && item !== null && !Array.isArray(item)) {
+      for (const key in item) {
+        if (Object.prototype.hasOwnProperty.call(item, key)) {
+          if (!merged[key]) {
+            merged[key] = { values: [], count: 0 };
+          }
+          merged[key].values.push(item[key]);
+          merged[key].count++;
+        }
+      }
+    }
+  }
+  
+  return merged;
+}
+
+/**
+ * Build schema nodes from merged array data
+ */
+function buildSchemaFromMerged(
+  merged: Record<string, { values: any[]; count: number }>,
+  parentPath: string,
+  totalItems: number
+): SchemaNode[] {
+  const nodes: SchemaNode[] = [];
+  
+  for (const key in merged) {
+    const { values, count } = merged[key];
+    const path = `${parentPath}.${key}`;
+    const isOptional = count < totalItems;
+    
+    // Determine the type by looking at the first non-null value
+    const sampleValue = values.find(v => v !== null && v !== undefined) || values[0];
+    const type = getType(sampleValue);
+    
+    const node: SchemaNode = {
+      key,
+      path,
+      type,
+      frequency: { present: count, total: totalItems },
+      isOptional,
+      isExpanded: false,
+    };
+    
+    // Recursively handle nested objects and arrays
+    if (type === 'array' && Array.isArray(sampleValue)) {
+      node.arrayCount = sampleValue.length;
+      if (sampleValue.length > 0) {
+        node.children = buildMergedSchemaTree(sampleValue, path);
+      }
+    } else if (type === 'object') {
+      // Merge all object values at this property
+      const allObjects = values.filter(v => typeof v === 'object' && v !== null && !Array.isArray(v));
+      if (allObjects.length > 0) {
+        const mergedObjects = mergeArrayItems(allObjects);
+        node.children = buildSchemaFromMerged(mergedObjects, path, allObjects.length);
+      }
+    }
+    
+    nodes.push(node);
+  }
+  
+  return nodes;
+}
+
+/**
+ * Extract properties using wildcard paths (e.g., users[*].name)
+ */
+export function extractPropertiesWithWildcard(jsonData: any, paths: string[]): MapResult {
+  try {
+    if (!jsonData || paths.length === 0) {
+      return {
+        success: false,
+        error: 'Invalid input: jsonData and paths are required',
+      };
+    }
+
+    const result: any = {};
+
+    for (const path of paths) {
+      try {
+        // Check if path contains [*] wildcard
+        if (path.includes('[*]')) {
+          extractWildcardPath(jsonData, path, result);
+        } else {
+          const value = getValueByPath(jsonData, path);
+          setValueByPath(result, path, value);
+        }
+      } catch (error) {
+        console.warn(`Failed to extract path "${path}":`, error);
+      }
+    }
+
+    return {
+      success: true,
+      data: result,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Failed to extract properties',
+    };
+  }
+}
+
+/**
+ * Extract values using wildcard notation (e.g., users[*].name)
+ */
+function extractWildcardPath(source: any, path: string, target: any): void {
+  const parts = path.split('[*]');
+  
+  if (parts.length < 2) {
+    // No wildcard, use regular extraction
+    const value = getValueByPath(source, path);
+    setValueByPath(target, path, value);
+    return;
+  }
+  
+  // Get to the array
+  const arrayPath = parts[0];
+  const array = arrayPath ? getValueByPath(source, arrayPath) : source;
+  
+  if (!Array.isArray(array)) {
+    return;
+  }
+  
+  // Remaining path after [*]
+  const remainingPath = parts.slice(1).join('[*]');
+  const results: any[] = [];
+  
+  for (const item of array) {
+    try {
+      if (remainingPath) {
+        // Remove leading dot if present
+        const cleanPath = remainingPath.startsWith('.') ? remainingPath.slice(1) : remainingPath;
+        if (cleanPath.includes('[*]')) {
+          // Nested wildcards
+          const nestedResult: any = {};
+          extractWildcardPath(item, cleanPath, nestedResult);
+          results.push(nestedResult);
+        } else {
+          const value = cleanPath ? getValueByPath(item, cleanPath) : item;
+          results.push(value);
+        }
+      } else {
+        results.push(item);
+      }
+    } catch (error) {
+      // Skip items that don't have the property
+      results.push(undefined);
+    }
+  }
+  
+  // Set the results in the target
+  if (arrayPath) {
+    setValueByPath(target, arrayPath, results);
+  } else {
+    // If no array path, the root is the array
+    Object.assign(target, results);
+  }
 }
 

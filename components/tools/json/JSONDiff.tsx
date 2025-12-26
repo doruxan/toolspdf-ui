@@ -1,10 +1,10 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { compareJson } from '@/lib/json/diff';
-import FileUpload from '@/components/shared/FileUpload';
+import { JSONTextarea } from '@/components/shared/JSONTextarea';
+import { SideBySideLayout } from '@/components/shared/SideBySideLayout';
 import { Button } from '@/components/shared/Button';
-import { Alert } from '@/components/shared/Alert';
 import { Plus, Minus, Edit2, Equal } from 'lucide-react';
 
 export default function JSONDiff() {
@@ -15,65 +15,48 @@ export default function JSONDiff() {
   const [error, setError] = useState('');
   const [viewMode, setViewMode] = useState<'changes-only' | 'all'>('changes-only');
 
-  const handleFile1Upload = useCallback(async (files: File[]) => {
-    if (files.length === 0) return;
-    const file = files[0];
-    const text = await file.text();
-    setJson1(text);
-    setDifferences([]);
-    setSummary(null);
-    setError('');
-  }, []);
-
-  const handleFile2Upload = useCallback(async (files: File[]) => {
-    if (files.length === 0) return;
-    const file = files[0];
-    const text = await file.text();
-    setJson2(text);
-    setDifferences([]);
-    setSummary(null);
-    setError('');
-  }, []);
-
-  const handleCompare = useCallback(() => {
-    setError('');
-    setDifferences([]);
-    setSummary(null);
-
-    try {
-      if (!json1.trim() || !json2.trim()) {
-        setError('Both JSON inputs are required');
-        return;
-      }
-
-      let data1, data2;
-      try {
-        data1 = JSON.parse(json1);
-      } catch (e) {
-        setError('Invalid JSON in first input');
-        return;
-      }
-
-      try {
-        data2 = JSON.parse(json2);
-      } catch (e) {
-        setError('Invalid JSON in second input');
-        return;
-      }
-
-      const result = compareJson(data1, data2);
-
-      if (!result.success) {
-        setError(result.error || 'Comparison failed');
-        return;
-      }
-
-      setDifferences(result.differences || []);
-      setSummary(result.summary);
-    } catch (e) {
-      setError(e instanceof Error ? e.message : 'Comparison failed');
+  // Real-time comparison with debounce
+  useEffect(() => {
+    if (!json1.trim() || !json2.trim()) {
+      setDifferences([]);
+      setSummary(null);
+      setError('');
+      return;
     }
+
+    const timer = setTimeout(() => {
+      try {
+        const data1 = JSON.parse(json1);
+        const data2 = JSON.parse(json2);
+
+        const result = compareJson(data1, data2);
+
+        if (result.success) {
+          setDifferences(result.differences || []);
+          setSummary(result.summary);
+          setError('');
+        } else {
+          setError(result.error || 'Comparison failed');
+          setDifferences([]);
+          setSummary(null);
+        }
+      } catch (e) {
+        setError('Invalid JSON in one or both inputs');
+        setDifferences([]);
+        setSummary(null);
+      }
+    }, 500);
+
+    return () => clearTimeout(timer);
   }, [json1, json2]);
+
+  const handleClear = () => {
+    setJson1('');
+    setJson2('');
+    setDifferences([]);
+    setSummary(null);
+    setError('');
+  };
 
   const renderDifference = (diff: any, index: number) => {
     if (viewMode === 'changes-only' && diff.type === 'unchanged') {
@@ -129,73 +112,41 @@ export default function JSONDiff() {
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* JSON 1 */}
-        <div>
-          <FileUpload
+      <SideBySideLayout
+        leftPanel={
+          <JSONTextarea
+            value={json1}
+            onChange={setJson1}
+            label="JSON 1 (Original)"
+            placeholder="Paste first JSON here or drag and drop a file..."
             accept=".json,.txt"
-            onFilesSelected={handleFile1Upload}
-            label="Upload first JSON file"
+            minHeight="min-h-96"
           />
-          <div className="mt-4">
-            <label className="block text-sm font-medium mb-2">JSON 1 (Original)</label>
-            <textarea
-              value={json1}
-              onChange={(e) => {
-                setJson1(e.target.value);
-                setDifferences([]);
-                setSummary(null);
-              }}
-              placeholder="Paste first JSON here..."
-              className="w-full h-64 p-4 border rounded-lg font-mono text-sm"
-              spellCheck={false}
-            />
-          </div>
-        </div>
-
-        {/* JSON 2 */}
-        <div>
-          <FileUpload
+        }
+        rightPanel={
+          <JSONTextarea
+            value={json2}
+            onChange={setJson2}
+            label="JSON 2 (Modified)"
+            placeholder="Paste second JSON here or drag and drop a file..."
             accept=".json,.txt"
-            onFilesSelected={handleFile2Upload}
-            label="Upload second JSON file"
+            minHeight="min-h-96"
           />
-          <div className="mt-4">
-            <label className="block text-sm font-medium mb-2">JSON 2 (Modified)</label>
-            <textarea
-              value={json2}
-              onChange={(e) => {
-                setJson2(e.target.value);
-                setDifferences([]);
-                setSummary(null);
-              }}
-              placeholder="Paste second JSON here..."
-              className="w-full h-64 p-4 border rounded-lg font-mono text-sm"
-              spellCheck={false}
-            />
+        }
+        actions={
+          <div className="flex flex-wrap gap-4">
+            <Button variant="secondary" onClick={handleClear}>
+              Clear
+            </Button>
           </div>
+        }
+      />
+
+      {error && (
+        <div className="px-4 py-2 bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-300 rounded-lg text-sm">
+          {error}
         </div>
-      </div>
-
-      <div className="flex gap-4">
-        <Button onClick={handleCompare} disabled={!json1.trim() || !json2.trim()}>
-          Compare JSON
-        </Button>
-        <Button
-          variant="secondary"
-          onClick={() => {
-            setJson1('');
-            setJson2('');
-            setDifferences([]);
-            setSummary(null);
-            setError('');
-          }}
-        >
-          Clear
-        </Button>
-      </div>
-
-      {error && <Alert variant="error">{error}</Alert>}
+      )}
 
       {summary && (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -247,4 +198,3 @@ export default function JSONDiff() {
     </div>
   );
 }
-
