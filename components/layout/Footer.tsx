@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Wrench, Github, Twitter } from 'lucide-react';
+import { Wrench } from 'lucide-react';
 import { toolCategories } from '@/config/tools';
 
 export default function Footer() {
@@ -40,26 +40,6 @@ export default function Footer() {
               Free online PDF tools, JSON converters, IBAN validators, and Shopify calculators. Process files and convert data
               directly in your browser. Your data never leaves your device.
             </p>
-            <div className="flex gap-4">
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary p-2 min-w-[44px] min-h-[44px] flex items-center justify-center transition-colors"
-                aria-label="Visit our GitHub repository"
-              >
-                <Github className="h-6 w-6" aria-hidden="true" />
-              </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary p-2 min-w-[44px] min-h-[44px] flex items-center justify-center transition-colors"
-                aria-label="Follow us on Twitter"
-              >
-                <Twitter className="h-6 w-6" aria-hidden="true" />
-              </a>
-            </div>
           </div>
 
           {/* Tool Categories (dynamic, config-driven) */}

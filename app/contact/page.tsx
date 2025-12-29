@@ -1,10 +1,10 @@
 import { Metadata } from 'next';
-import { Mail, MessageSquare, Github } from 'lucide-react';
+import { Mail, MessageSquare } from 'lucide-react';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
 
 const pageMetadata: Metadata = {
-  title: 'Contact Us - PDF Tools',
-  description: 'Get in touch with PDF Tools. We\'d love to hear from you!',
+  title: 'Contact Us - RawTools',
+  description: 'Get in touch with RawTools. We\'d love to hear from you!',
 };
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -24,7 +24,7 @@ export default function ContactPage() {
           </p>
         </section>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="p-6 bg-gradient-to-br from-primary/10 to-primary/5 rounded-lg border border-primary/20">
             <Mail className="h-10 w-10 text-primary mb-4" />
             <h3 className="text-lg font-bold text-foreground mb-2">Email Us</h3>
@@ -32,10 +32,10 @@ export default function ContactPage() {
               For general inquiries and support
             </p>
             <a 
-              href="mailto:contact@pdftools.com" 
+              href="mailto:contact@rawtools.io" 
               className="text-primary hover:underline font-medium"
             >
-              contact@pdftools.com
+              contact@rawtools.io
             </a>
           </div>
 
@@ -46,26 +46,10 @@ export default function ContactPage() {
               Share your thoughts and suggestions
             </p>
             <a 
-              href="mailto:feedback@pdftools.com" 
+              href="mailto:feedback@rawtools.io" 
               className="text-secondary hover:underline font-medium"
             >
-              feedback@pdftools.com
-            </a>
-          </div>
-
-          <div className="p-6 bg-gradient-to-br from-accent/10 to-accent/5 rounded-lg border border-accent/20">
-            <Github className="h-10 w-10 text-accent mb-4" />
-            <h3 className="text-lg font-bold text-foreground mb-2">GitHub</h3>
-            <p className="text-sm text-muted-foreground mb-4">
-              Report bugs and contribute
-            </p>
-            <a 
-              href="https://github.com/yourrepo" 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-accent hover:underline font-medium"
-            >
-              View on GitHub
+              feedback@rawtools.io
             </a>
           </div>
         </div>
