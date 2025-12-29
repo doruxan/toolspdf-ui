@@ -88,10 +88,6 @@
   --border: #e5e7eb;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
