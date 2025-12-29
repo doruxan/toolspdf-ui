@@ -4,8 +4,10 @@ import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
 import { generateSoftwareApplicationSchema } from '@/lib/seo/schemas';
+import { withCanonicalMetadata } from '@/lib/seo/metadata';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   title: 'JSON Minifier - Compress JSON Online | RawTools',
   description: 'Minify and compress JSON by removing whitespace. Reduce file size instantly with compression statistics. Fast, secure, browser-based. 100% free.',
   keywords: 'json minifier, minify json, compress json, json compressor, reduce json size',
@@ -15,6 +17,11 @@ export const metadata: Metadata = {
     type: 'website',
   },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io/json-minifier');
+}
+
 
 export default function JSONMinifierPage() {
   const toolSchema = generateSoftwareApplicationSchema({
@@ -28,6 +35,8 @@ export default function JSONMinifierPage() {
       <StructuredData data={toolSchema} />
 
       <div className="max-w-7xl mx-auto px-4 py-8">
+        <Breadcrumbs category="JSON Tools" toolName="JSON Minifier" currentHref="/json-minifier" />
+
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold mb-4">JSON Minifier</h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">

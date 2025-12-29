@@ -4,8 +4,10 @@ import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
 import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { withCanonicalMetadata } from '@/lib/seo/metadata';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   title: 'Compress PDF Online Free - Reduce PDF File Size',
   description: 'Free online PDF compressor to reduce file size without losing quality. Compress large PDF files instantly in your browser.',
   keywords: 'compress pdf, reduce pdf size, pdf compressor online free, shrink pdf',
@@ -15,6 +17,11 @@ export const metadata: Metadata = {
     type: 'website',
   },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io/compress-pdf');
+}
+
 
 export default function CompressPDFPage() {
   const toolSchema = generateSoftwareApplicationSchema({
@@ -43,6 +50,12 @@ export default function CompressPDFPage() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <div className="lg:col-span-3">
+            <Breadcrumbs category="PDF Tools" toolName="Compress PDF" currentHref="/compress-pdf" />
+            <div className="mb-6">
+              <h1 className="text-4xl font-bold text-foreground mb-2">Compress PDF</h1>
+              <p className="text-muted-foreground">Reduce PDF file size without losing quality</p>
+            </div>
+
             <CompressPDF />
             
             <div className="mt-12 prose prose-lg max-w-none">

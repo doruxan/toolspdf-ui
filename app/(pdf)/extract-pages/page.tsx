@@ -4,8 +4,10 @@ import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
 import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { withCanonicalMetadata } from '@/lib/seo/metadata';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   title: 'Extract PDF Pages Online Free - Extract Specific Pages from PDF',
   description: 'Free online tool to extract specific pages from PDF files. Create a new PDF with only selected pages. Fast and secure.',
   keywords: 'extract pdf pages, extract pages from pdf online free, pdf page extractor',
@@ -15,6 +17,11 @@ export const metadata: Metadata = {
     type: 'website',
   },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io/extract-pages');
+}
+
 
 export default function ExtractPagesPage() {
   const toolSchema = generateSoftwareApplicationSchema({
@@ -43,6 +50,12 @@ export default function ExtractPagesPage() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <div className="lg:col-span-3">
+            <Breadcrumbs category="PDF Tools" toolName="Extract Pages" currentHref="/extract-pages" />
+            <div className="mb-6">
+              <h1 className="text-4xl font-bold text-foreground mb-2">Extract Pages</h1>
+              <p className="text-muted-foreground">Extract specific pages into a new PDF</p>
+            </div>
+
             <ExtractPages />
             
             <div className="mt-12 prose prose-lg max-w-none">

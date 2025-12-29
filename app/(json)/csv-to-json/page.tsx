@@ -4,8 +4,10 @@ import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
 import { generateSoftwareApplicationSchema } from '@/lib/seo/schemas';
+import { withCanonicalMetadata } from '@/lib/seo/metadata';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   title: 'CSV to JSON Converter - Free Online Tool | RawTools',
   description: 'Convert CSV files to JSON format instantly. Support for custom delimiters, headers, and bidirectional conversion. Fast, secure, works in your browser. 100% free.',
   keywords: 'csv to json, convert csv to json, csv parser, csv converter, json to csv',
@@ -15,6 +17,11 @@ export const metadata: Metadata = {
     type: 'website',
   },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io/csv-to-json');
+}
+
 
 export default function CSVToJSONPage() {
   const toolSchema = generateSoftwareApplicationSchema({
@@ -28,6 +35,8 @@ export default function CSVToJSONPage() {
       <StructuredData data={toolSchema} />
 
       <div className="max-w-7xl mx-auto px-4 py-8">
+        <Breadcrumbs category="JSON Tools" toolName="CSV to JSON" currentHref="/csv-to-json" />
+
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold mb-4">CSV to JSON Converter</h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">

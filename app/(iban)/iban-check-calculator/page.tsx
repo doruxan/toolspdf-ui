@@ -3,11 +3,16 @@ import { IBANCheckCalculator } from '@/components/tools/iban/IBANCheckCalculator
 import Breadcrumbs from '@/components/layout/Breadcrumbs'
 import StructuredData from '@/components/seo/StructuredData'
 import { generateSoftwareAppSchema } from '@/lib/seo/schemas'
+import { withCanonicalMetadata } from '@/lib/seo/metadata'
 
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   title: 'IBAN Check Digit Calculator - Calculate & Verify MOD-97 | RawTools',
   description: 'Free IBAN check digit calculator. Calculate correct check digits using MOD-97 algorithm or verify existing IBANs. See step-by-step calculations.',
   keywords: 'iban check digit calculator, mod 97 calculator, iban checksum, calculate iban check digits, verify check digits',
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io/iban-check-calculator')
 }
 
 export default function IBANCheckCalculatorPage() {
@@ -23,7 +28,7 @@ export default function IBANCheckCalculatorPage() {
       
       <div className="min-h-screen">
         <div className="max-w-7xl mx-auto px-4 py-8">
-          <Breadcrumbs category="IBAN Tools" toolName="Check Digit Calculator" />
+          <Breadcrumbs category="IBAN Tools" toolName="Check Digit Calculator" currentHref="/iban-check-calculator" />
           
           <div className="text-center mb-8">
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">

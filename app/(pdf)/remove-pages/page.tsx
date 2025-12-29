@@ -4,8 +4,10 @@ import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
 import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { withCanonicalMetadata } from '@/lib/seo/metadata';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   title: 'Remove PDF Pages Online Free - Delete Pages from PDF',
   description: 'Free online tool to remove unwanted pages from PDF files. Delete specific pages quickly and securely in your browser.',
   keywords: 'remove pdf pages, delete pdf pages, remove pages from pdf online free',
@@ -15,6 +17,11 @@ export const metadata: Metadata = {
     type: 'website',
   },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io/remove-pages');
+}
+
 
 export default function RemovePagesPage() {
   const toolSchema = generateSoftwareApplicationSchema({
@@ -43,6 +50,12 @@ export default function RemovePagesPage() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <div className="lg:col-span-3">
+            <Breadcrumbs category="PDF Tools" toolName="Remove Pages" currentHref="/remove-pages" />
+            <div className="mb-6">
+              <h1 className="text-4xl font-bold text-foreground mb-2">Remove Pages</h1>
+              <p className="text-muted-foreground">Delete specific pages from your PDF</p>
+            </div>
+
             <RemovePages />
             
             <div className="mt-12 prose prose-lg max-w-none">

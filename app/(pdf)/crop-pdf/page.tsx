@@ -4,8 +4,10 @@ import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
 import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { withCanonicalMetadata } from '@/lib/seo/metadata';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   title: 'Crop PDF Online Free - Adjust PDF Page Margins',
   description: 'Free online tool to crop PDF pages and adjust margins. Remove white space and trim PDF pages. Fast and secure.',
   keywords: 'crop pdf, trim pdf, adjust pdf margins online free, remove white space pdf',
@@ -15,6 +17,11 @@ export const metadata: Metadata = {
     type: 'website',
   },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io/crop-pdf');
+}
+
 
 export default function CropPDFPage() {
   const toolSchema = generateSoftwareApplicationSchema({
@@ -43,6 +50,12 @@ export default function CropPDFPage() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <div className="lg:col-span-3">
+            <Breadcrumbs category="PDF Tools" toolName="Crop PDF" currentHref="/crop-pdf" />
+            <div className="mb-6">
+              <h1 className="text-4xl font-bold text-foreground mb-2">Crop PDF</h1>
+              <p className="text-muted-foreground">Adjust margins and crop PDF pages</p>
+            </div>
+
             <CropPDF />
             
             <div className="mt-12 prose prose-lg max-w-none">

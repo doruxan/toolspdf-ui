@@ -4,8 +4,10 @@ import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
 import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { withCanonicalMetadata } from '@/lib/seo/metadata';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   title: 'Add Watermark to PDF Online Free - PDF Watermark Tool',
   description: 'Free online tool to add text watermark to PDF files. Protect your documents with custom watermarks. Fast and secure.',
   keywords: 'watermark pdf, add watermark to pdf online free, pdf watermark tool',
@@ -15,6 +17,11 @@ export const metadata: Metadata = {
     type: 'website',
   },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io/watermark-pdf');
+}
+
 
 export default function WatermarkPDFPage() {
   const toolSchema = generateSoftwareApplicationSchema({
@@ -43,6 +50,12 @@ export default function WatermarkPDFPage() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <div className="lg:col-span-3">
+            <Breadcrumbs category="PDF Tools" toolName="Watermark PDF" currentHref="/watermark-pdf" />
+            <div className="mb-6">
+              <h1 className="text-4xl font-bold text-foreground mb-2">Watermark PDF</h1>
+              <p className="text-muted-foreground">Add text or image watermark to PDF</p>
+            </div>
+
             <WatermarkPDF />
             
             <div className="mt-12 prose prose-lg max-w-none">

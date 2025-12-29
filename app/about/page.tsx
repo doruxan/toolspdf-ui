@@ -1,10 +1,16 @@
 import { Metadata } from 'next';
 import { Shield, Zap, Lock, Heart } from 'lucide-react';
+import { withCanonicalMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   title: 'About Us - PDF Tools',
   description: 'Learn about PDF Tools - free, secure, and privacy-focused online PDF tools.',
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io/about');
+}
+
 
 export default function AboutPage() {
   return (

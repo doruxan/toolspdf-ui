@@ -3,12 +3,6 @@ import { Wrench, Github, Twitter } from 'lucide-react';
 import { toolCategories } from '@/config/tools';
 
 export default function Footer() {
-  const pdfTools = toolCategories.find((cat) => cat.id === 'pdf-tools')?.tools.slice(0, 5) || [];
-  const jsonTools = toolCategories.find((cat) => cat.id === 'json-tools')?.tools.slice(0, 5) || [];
-  const ecommerceTools =
-    toolCategories.find((cat) => cat.id === 'ecommerce-tools')?.tools.slice(0, 5) || [];
-  const ibanTools = toolCategories.find((cat) => cat.id === 'iban-tools')?.tools.slice(0, 5) || [];
-
   const legalLinks = [
     { name: 'Blog', href: '/blog' },
     { name: 'Privacy Policy', href: '/privacy' },
@@ -16,6 +10,18 @@ export default function Footer() {
     { name: 'About Us', href: '/about' },
     { name: 'Contact', href: '/contact' },
   ];
+
+  const categoryColumns = toolCategories.map((category) => {
+    const title = category.name
+      .replace(/^Free Online\s+/i, '')
+      .replace(/\s+Tools?$/i, ' Tools');
+
+    return {
+      id: category.id,
+      title,
+      tools: category.tools.slice(0, 5),
+    };
+  });
 
   return (
     <footer className="border-t-2 border-border bg-gradient-to-br from-muted/30 to-muted/10">
@@ -56,73 +62,24 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* PDF Tools */}
-          <div>
-            <h3 className="text-sm font-bold text-foreground mb-4">PDF Tools</h3>
-            <ul className="space-y-2">
-              {pdfTools.map((tool) => (
-                <li key={tool.href}>
-                  <Link
-                    href={tool.href}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    {tool.title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* JSON Tools */}
-          <div>
-            <h3 className="text-sm font-bold text-foreground mb-4">JSON Tools</h3>
-            <ul className="space-y-2">
-              {jsonTools.map((tool) => (
-                <li key={tool.href}>
-                  <Link
-                    href={tool.href}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    {tool.title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* E-Commerce Tools */}
-          <div>
-            <h3 className="text-sm font-bold text-foreground mb-4">Shopify Tools</h3>
-            <ul className="space-y-2">
-              {ecommerceTools.map((tool) => (
-                <li key={tool.href}>
-                  <Link
-                    href={tool.href}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    {tool.title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* IBAN Tools */}
-          <div>
-            <h3 className="text-sm font-bold text-foreground mb-4">IBAN Tools</h3>
-            <ul className="space-y-2">
-              {ibanTools.map((tool) => (
-                <li key={tool.href}>
-                  <Link
-                    href={tool.href}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    {tool.title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* Tool Categories (dynamic, config-driven) */}
+          {categoryColumns.map((col) => (
+            <div key={col.id}>
+              <h3 className="text-sm font-bold text-foreground mb-4">{col.title}</h3>
+              <ul className="space-y-2">
+                {col.tools.map((tool) => (
+                  <li key={tool.href}>
+                    <Link
+                      href={tool.href}
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      {tool.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
 
           {/* Legal */}
           <div>

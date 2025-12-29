@@ -6,6 +6,7 @@ import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
 import { generateArticleSchema } from '@/lib/seo/schemas';
+import { withCanonicalMetadata } from '@/lib/seo/metadata';
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -18,12 +19,10 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   const post = getBlogPost(slug);
 
   if (!post) {
-    return {
-      title: 'Post Not Found',
-    };
+    return withCanonicalMetadata({ title: 'Post Not Found' }, `https://rawtools.io/blog/${slug}`);
   }
 
-  return {
+  const pageMetadata: Metadata = {
     title: `${post.title} - RawTools Blog`,
     description: post.excerpt,
     keywords: post.keywords?.join(', '),
@@ -35,6 +34,8 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       authors: [post.author],
     },
   };
+
+  return withCanonicalMetadata(pageMetadata, `https://rawtools.io/blog/${post.slug}`);
 }
 
 export async function generateStaticParams() {

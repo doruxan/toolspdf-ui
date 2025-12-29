@@ -4,8 +4,10 @@ import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
 import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { withCanonicalMetadata } from '@/lib/seo/metadata';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   title: 'Protect PDF Online Free - Add Password to PDF',
   description: 'Free online tool to add password protection to PDF files. Secure your PDFs with encryption. Fast and works in your browser.',
   keywords: 'protect pdf, password protect pdf, secure pdf online free, encrypt pdf',
@@ -15,6 +17,11 @@ export const metadata: Metadata = {
     type: 'website',
   },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io/protect-pdf');
+}
+
 
 export default function ProtectPDFPage() {
   const toolSchema = generateSoftwareApplicationSchema({
@@ -43,6 +50,12 @@ export default function ProtectPDFPage() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <div className="lg:col-span-3">
+            <Breadcrumbs category="PDF Tools" toolName="Protect PDF" currentHref="/protect-pdf" />
+            <div className="mb-6">
+              <h1 className="text-4xl font-bold text-foreground mb-2">Protect PDF</h1>
+              <p className="text-muted-foreground">Add password protection to your PDF</p>
+            </div>
+
             <ProtectPDF />
             
             <div className="mt-12 prose prose-lg max-w-none">

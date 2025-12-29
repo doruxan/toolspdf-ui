@@ -1,9 +1,15 @@
 import { Metadata } from 'next';
+import { withCanonicalMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   title: 'Privacy Policy - PDF Tools',
   description: 'Privacy policy for PDF Tools. Learn how we protect your data and privacy.',
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io/privacy');
+}
+
 
 export default function PrivacyPage() {
   return (

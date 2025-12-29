@@ -4,8 +4,10 @@ import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
 import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { withCanonicalMetadata } from '@/lib/seo/metadata';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   title: 'Merge PDF Online Free - Combine Multiple PDFs into One',
   description: 'Free online tool to merge multiple PDF files into a single document. Fast, secure, and works directly in your browser. No file size limits.',
   keywords: 'merge pdf, combine pdf, join pdf, pdf merger online free',
@@ -15,6 +17,11 @@ export const metadata: Metadata = {
     type: 'website',
   },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io/merge-pdf');
+}
+
 
 export default function MergePDFPage() {
   const toolSchema = generateSoftwareApplicationSchema({
@@ -43,6 +50,12 @@ export default function MergePDFPage() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <div className="lg:col-span-3">
+            <Breadcrumbs category="PDF Tools" toolName="Merge PDF" currentHref="/merge-pdf" />
+            <div className="mb-6">
+              <h1 className="text-4xl font-bold text-foreground mb-2">Merge PDF</h1>
+              <p className="text-muted-foreground">Combine multiple PDF files into one document</p>
+            </div>
+
             <MergePDF />
             
             <div className="mt-12 prose prose-lg max-w-none">

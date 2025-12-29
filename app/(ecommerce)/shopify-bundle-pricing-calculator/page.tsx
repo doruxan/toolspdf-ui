@@ -4,12 +4,18 @@ import RelatedTools from '@/components/tools/RelatedTools';
 import { BundlePricingCalculator } from '@/components/tools/ecommerce/BundlePricingCalculator';
 import StructuredData from '@/components/seo/StructuredData';
 import { generateSoftwareAppSchema } from '@/lib/seo/schemas';
+import { withCanonicalMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   title: 'Bundle Pricing Calculator - Optimize Bundle Pricing | RawTools',
   description: 'Free bundle pricing calculator. Calculate optimal bundle pricing and discount strategies.',
   alternates: { canonical: 'https://rawtools.io/shopify-bundle-pricing-calculator' },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io/shopify-bundle-pricing-calculator');
+}
+
 
 export default function Page() {
   const toolSchema = generateSoftwareAppSchema({
@@ -22,7 +28,11 @@ export default function Page() {
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-8">
-        <Breadcrumbs category="E-Commerce Tools" toolName="Bundle Pricing Calculator" />
+        <Breadcrumbs
+          category="E-Commerce Tools"
+          toolName="Bundle Pricing Calculator"
+          currentHref="/shopify-bundle-pricing-calculator"
+        />
         <h1 className="text-4xl font-bold text-foreground mb-4">Bundle Pricing Calculator</h1>
         <BundlePricingCalculator />
       </div>

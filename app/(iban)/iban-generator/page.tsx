@@ -3,11 +3,16 @@ import { IBANGenerator } from '@/components/tools/iban/IBANGenerator'
 import Breadcrumbs from '@/components/layout/Breadcrumbs'
 import StructuredData from '@/components/seo/StructuredData'
 import { generateSoftwareAppSchema } from '@/lib/seo/schemas'
+import { withCanonicalMetadata } from '@/lib/seo/metadata'
 
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   title: 'IBAN Generator - Generate Valid Test IBANs for 80+ Countries | RawTools',
   description: 'Free IBAN generator for testing and development. Generate valid IBANs with correct checksums for 80+ countries. Bulk generation up to 100 IBANs.',
   keywords: 'iban generator, generate iban, test iban, random iban, iban creator, fake iban generator',
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io/iban-generator')
 }
 
 export default function IBANGeneratorPage() {
@@ -23,7 +28,7 @@ export default function IBANGeneratorPage() {
       
       <div className="min-h-screen">
         <div className="max-w-7xl mx-auto px-4 py-8">
-          <Breadcrumbs category="IBAN Tools" toolName="IBAN Generator" />
+          <Breadcrumbs category="IBAN Tools" toolName="IBAN Generator" currentHref="/iban-generator" />
           
           <div className="text-center mb-8">
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">

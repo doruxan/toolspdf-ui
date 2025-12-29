@@ -4,8 +4,10 @@ import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
 import { generateSoftwareApplicationSchema } from '@/lib/seo/schemas';
+import { withCanonicalMetadata } from '@/lib/seo/metadata';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   title: 'JSON Query - JSONPath Expression Tool | RawTools',
   description: 'Query JSON data using JSONPath expressions. Filter, search, and extract data from complex JSON structures. Fast, secure, browser-based. 100% free.',
   keywords: 'json query, jsonpath, json search, query json, jsonpath expression',
@@ -15,6 +17,11 @@ export const metadata: Metadata = {
     type: 'website',
   },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io/json-query');
+}
+
 
 export default function JSONQueryPage() {
   const toolSchema = generateSoftwareApplicationSchema({
@@ -28,6 +35,8 @@ export default function JSONQueryPage() {
       <StructuredData data={toolSchema} />
 
       <div className="max-w-7xl mx-auto px-4 py-8">
+        <Breadcrumbs category="JSON Tools" toolName="JSON Query" currentHref="/json-query" />
+
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold mb-4">JSON Query (JSONPath)</h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">

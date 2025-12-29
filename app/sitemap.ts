@@ -7,6 +7,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://rawtools.io';
   const currentDate = new Date();
 
+  const categoryHubById: Record<string, string> = {
+    'pdf-tools': '/pdf-tools',
+    'json-tools': '/json-tools',
+    'iban-tools': '/iban-tools',
+    'ecommerce-tools': '/shopify-tools',
+  };
+
+  const categoryHubs = toolCategories
+    .map((category) => categoryHubById[category.id])
+    .filter((href): href is string => typeof href === 'string')
+    .map((href) => ({
+      url: `${baseUrl}${href}`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.85,
+    }));
+
   // Generate tool pages from config
   const toolPages = toolCategories.flatMap((category) =>
     category.tools.map((tool) => ({
@@ -41,6 +58,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 1,
     },
+    ...categoryHubs,
     {
       url: `${baseUrl}/blog`,
       lastModified: currentDate,

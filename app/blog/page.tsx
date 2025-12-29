@@ -2,12 +2,18 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { getAllBlogPosts } from '@/lib/blog/posts';
 import AdBanner from '@/components/ads/AdBanner';
+import { withCanonicalMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   title: 'RawTools Blog - PDF, Shopify, IBAN & JSON Guides',
   description: 'Practical guides for PDF tools, Shopify calculators, IBAN validation, and JSON workflows. Clear examples, common pitfalls, and fast checklists.',
   keywords: 'pdf tools guide, shopify calculator tutorial, iban validation, json tools, json schema, json diff, jsonpath, ecommerce tips, pdf management, banking tools',
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io/blog');
+}
+
 
 export default function BlogIndexPage() {
   const posts = getAllBlogPosts();

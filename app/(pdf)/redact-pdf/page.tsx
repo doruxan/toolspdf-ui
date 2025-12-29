@@ -4,8 +4,10 @@ import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
 import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { withCanonicalMetadata } from '@/lib/seo/metadata';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   title: 'Redact PDF Online Free - Black Out Sensitive Information',
   description: 'Free online tool to redact and black out sensitive information in PDF files. Protect privacy by covering text and data.',
   keywords: 'redact pdf, black out pdf, censor pdf online free, hide sensitive information pdf',
@@ -15,6 +17,11 @@ export const metadata: Metadata = {
     type: 'website',
   },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io/redact-pdf');
+}
+
 
 export default function RedactPDFPage() {
   const toolSchema = generateSoftwareApplicationSchema({
@@ -44,6 +51,12 @@ export default function RedactPDFPage() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <div className="lg:col-span-3">
+            <Breadcrumbs category="PDF Tools" toolName="Redact PDF" currentHref="/redact-pdf" />
+            <div className="mb-6">
+              <h1 className="text-4xl font-bold text-foreground mb-2">Redact PDF</h1>
+              <p className="text-muted-foreground">Black out sensitive information in PDF</p>
+            </div>
+
             <RedactPDF />
             
             <div className="mt-12 prose prose-lg max-w-none">

@@ -43,6 +43,75 @@ const shopifyBlogPosts: BlogPost[] = SHOPIFY_POSTS.map(post => ({
 // PDF blog posts with full content
 const pdfBlogPosts: BlogPost[] = [
   {
+    slug: 'how-to-remove-pages-from-a-pdf-without-breaking-the-rest',
+    title: 'How to remove pages from a PDF (without breaking the rest)',
+    excerpt:
+      'A practical workflow for deleting pages from a PDF safely: how to confirm page numbers, avoid deleting the wrong pages in scanned docs, and when you should extract instead of delete.',
+    date: '2025-12-30',
+    author: 'RawTools Team',
+    readingTime: '7 min',
+    keywords: ['remove pages from pdf', 'delete pages from pdf', 'pdf page remover', 'remove pdf pages online'],
+    category: 'pdf',
+    content: `
+      <h2>The situation: the PDF is fine, except for a few pages</h2>
+      <p>This is a common workflow problem: you have a PDF that’s mostly correct, but it contains extra pages you don’t want to send, upload, or archive.</p>
+      <p><strong>Scenario:</strong> you have a 42-page PDF (contract + annexes). You need to send only pages 1–12 and 20–42, because pages 13–19 contain internal notes. Re-exporting from the source doc is slow (or impossible), so you just need a clean PDF with those pages removed.</p>
+
+      <h2>Delete vs extract: pick the safer operation</h2>
+      <p>There are two similar operations that solve different problems:</p>
+      <ul>
+        <li><strong>Remove pages</strong> means: keep the document, delete specific pages.</li>
+        <li><strong>Extract pages</strong> means: create a new PDF containing only the pages you want.</li>
+      </ul>
+      <p>If you’re sending a “subset” of a PDF (like pages 1–12 and 20–42), extracting is often safer because you only include what you explicitly selected. If you’re cleaning up a PDF you plan to keep internally, removal is fine.</p>
+
+      <h2>Step-by-step: remove pages without guessing</h2>
+      <ol>
+        <li>Open the <a href="/remove-pages">Remove Pages</a> tool.</li>
+        <li>Upload your PDF (drag-and-drop works).</li>
+        <li>Select the pages to delete. If you’re working from a printed page number (e.g., “page 3”), confirm it matches the PDF’s actual page index. Many PDFs have cover pages or roman numerals that shift counts.</li>
+        <li>Generate the updated PDF and download it.</li>
+      </ol>
+
+      <h2>Common mistakes (and how to avoid them)</h2>
+      <h3>1) Confusing printed page numbers with PDF page order</h3>
+      <p>A “page 10” label inside the document isn’t always the 10th page in the file. PDFs often include a cover page, a table of contents, or inserts. Always verify the page index you’re deleting.</p>
+
+      <h3>2) Scanned PDFs can hide a “blank” page that isn’t actually blank</h3>
+      <p>In scanned documents, a page that looks blank might contain faint marks or a stamp that matters. If the PDF is scanned, double-check the thumbnails before deleting.</p>
+
+      <h3>3) Deleting pages when you meant to redact</h3>
+      <p>If the goal is “remove sensitive information,” deleting pages helps only if the sensitive content is isolated to those pages. If it’s on the same page as content you must keep, use <a href="/redact-pdf">Redact PDF</a> instead.</p>
+
+      <h3>4) Forgetting to re-check the final PDF</h3>
+      <p>Don’t assume the export is correct. Open the result and confirm the page count and the key sections are still present. This takes 30 seconds and prevents expensive mistakes.</p>
+
+      <h2>When extraction is the better workflow</h2>
+      <p>If you need to keep pages 1–12 and 20–42, you can create a new clean file with <a href="/extract-pages">Extract Pages</a>. If you need to split into separate files (e.g., “contract” and “appendix”), use <a href="/split-pdf">Split PDF</a>.</p>
+
+      <h2>Conclusion</h2>
+      <p>Removing pages from a PDF should be a precise operation, not a guessing game. Verify the page index, delete only what you intend, and sanity-check the output before sending it.</p>
+      <p>You can do it quickly with the <a href="/remove-pages">Remove Pages</a> tool, and extract-only workflows are covered by <a href="/extract-pages">Extract Pages</a>.</p>
+
+      <h2>FAQ</h2>
+      <h3>Is removing pages from a PDF permanent?</h3>
+      <p>Yes for the output file you generate. Your original PDF stays unchanged unless you overwrite it. Keep a copy of the original if you might need it later.</p>
+
+      <h3>Will removing pages reduce file size?</h3>
+      <p>Usually, yes. If the removed pages contain large images (common in scanned PDFs), the size reduction can be significant.</p>
+
+      <h3>What if the page I need to remove contains content I must keep?</h3>
+      <p>Don’t delete it. Use <a href="/redact-pdf">Redact PDF</a> to remove only the sensitive parts while keeping the rest of the page.</p>
+
+      <h3>How do I share only certain pages without editing the original?</h3>
+      <p>Use <a href="/extract-pages">Extract Pages</a> to create a new PDF containing only the pages you want to send.</p>
+
+      <h3>Can I remove pages from a password-protected PDF?</h3>
+      <p>If the PDF is locked, you’ll need to unlock it first (with permission). Use <a href="/unlock-pdf">Unlock PDF</a>, then remove pages.</p>
+    `,
+    relatedToolHref: '/remove-pages',
+  },
+  {
     slug: 'how-to-merge-pdf-files-free-2025',
     title: 'How to Merge PDF Files for Free in 2025 (No Watermarks)',
     excerpt: 'Learn the easiest way to combine multiple PDF files into one document without downloading software or paying for expensive subscriptions.',

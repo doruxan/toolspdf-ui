@@ -3,11 +3,16 @@ import { IBANParser } from '@/components/tools/iban/IBANParser'
 import Breadcrumbs from '@/components/layout/Breadcrumbs'
 import StructuredData from '@/components/seo/StructuredData'
 import { generateSoftwareAppSchema } from '@/lib/seo/schemas'
+import { withCanonicalMetadata } from '@/lib/seo/metadata'
 
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   title: 'IBAN Parser - Extract Bank Code, Branch & Account Details | RawTools',
   description: 'Free IBAN parser to extract and analyze components: country code, check digits, bank code, branch code, and account number. Supports 80+ countries.',
   keywords: 'iban parser, extract iban, iban components, bank code extractor, iban analyzer, parse iban',
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io/iban-parser')
 }
 
 export default function IBANParserPage() {
@@ -23,7 +28,7 @@ export default function IBANParserPage() {
       
       <div className="min-h-screen">
         <div className="max-w-7xl mx-auto px-4 py-8">
-          <Breadcrumbs category="IBAN Tools" toolName="IBAN Parser" />
+          <Breadcrumbs category="IBAN Tools" toolName="IBAN Parser" currentHref="/iban-parser" />
           
           <div className="text-center mb-8">
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">

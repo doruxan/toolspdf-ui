@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import * as LucideIcons from 'lucide-react';
+import type { ComponentType } from 'react';
 import { toolCategories, getCategoryByToolHref } from '@/config/tools';
 
 interface RelatedToolsProps {
@@ -32,7 +33,11 @@ export default function RelatedTools({ currentTool }: RelatedToolsProps) {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
           {relatedTools.map((tool) => {
-            const IconComponent = (LucideIcons as any)[tool.icon] || LucideIcons.FileText;
+            type LucideIconName = keyof typeof LucideIcons;
+            const iconKey = tool.icon as LucideIconName;
+            const IconComponent = (iconKey in LucideIcons ? LucideIcons[iconKey] : LucideIcons.FileText) as
+              | ComponentType<{ className?: string; 'aria-hidden'?: boolean }>
+              | typeof LucideIcons.FileText;
             return (
               <Link
                 key={tool.href}
@@ -41,7 +46,7 @@ export default function RelatedTools({ currentTool }: RelatedToolsProps) {
               >
                 <div className="flex flex-col items-center text-center gap-3">
                   <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <IconComponent className="h-6 w-6 text-white" aria-hidden="true" />
+                    <IconComponent className="h-6 w-6 text-white" aria-hidden={true} />
                   </div>
                   <h3 className="text-sm font-bold text-foreground group-hover:text-primary transition-colors">
                     {tool.title}

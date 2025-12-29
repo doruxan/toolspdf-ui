@@ -3,11 +3,16 @@ import { IBANFormatter } from '@/components/tools/iban/IBANFormatter'
 import Breadcrumbs from '@/components/layout/Breadcrumbs'
 import StructuredData from '@/components/seo/StructuredData'
 import { generateSoftwareAppSchema } from '@/lib/seo/schemas'
+import { withCanonicalMetadata } from '@/lib/seo/metadata'
 
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   title: 'IBAN Formatter - Format IBANs for Print or Electronic Use | RawTools',
   description: 'Free IBAN formatter to convert between electronic and print formats. Batch format multiple IBANs with country-specific grouping. Supports 80+ countries.',
   keywords: 'iban formatter, format iban, iban print format, iban electronic format, batch iban formatter',
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io/iban-formatter')
 }
 
 export default function IBANFormatterPage() {
@@ -23,7 +28,7 @@ export default function IBANFormatterPage() {
       
       <div className="min-h-screen">
         <div className="max-w-7xl mx-auto px-4 py-8">
-          <Breadcrumbs category="IBAN Tools" toolName="IBAN Formatter" />
+          <Breadcrumbs category="IBAN Tools" toolName="IBAN Formatter" currentHref="/iban-formatter" />
           
           <div className="text-center mb-8">
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">

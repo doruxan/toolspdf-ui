@@ -4,12 +4,18 @@ import RelatedTools from '@/components/tools/RelatedTools';
 import { SpeedChecklist } from '@/components/tools/ecommerce/SpeedChecklist';
 import StructuredData from '@/components/seo/StructuredData';
 import { generateSoftwareAppSchema } from '@/lib/seo/schemas';
+import { withCanonicalMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   title: 'Shopify Speed Checklist - Optimize Store Speed | RawTools',
   description: 'Free Shopify speed checklist. Optimize your store speed with our comprehensive checklist.',
   alternates: { canonical: 'https://rawtools.io/shopify-speed-checklist' },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io/shopify-speed-checklist');
+}
+
 
 export default function Page() {
   const toolSchema = generateSoftwareAppSchema({
@@ -22,7 +28,11 @@ export default function Page() {
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-8">
-        <Breadcrumbs category="E-Commerce Tools" toolName="Shopify Speed Checklist" />
+        <Breadcrumbs
+          category="E-Commerce Tools"
+          toolName="Shopify Speed Checklist"
+          currentHref="/shopify-speed-checklist"
+        />
         <h1 className="text-4xl font-bold text-foreground mb-4">Shopify Speed Checklist</h1>
         <SpeedChecklist />
       </div>

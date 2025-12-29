@@ -3,8 +3,9 @@ import { IBANValidator } from '@/components/tools/iban/IBANValidator'
 import Breadcrumbs from '@/components/layout/Breadcrumbs'
 import StructuredData from '@/components/seo/StructuredData'
 import { generateSoftwareAppSchema } from '@/lib/seo/schemas'
+import { withCanonicalMetadata } from '@/lib/seo/metadata'
 
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   title: 'IBAN Validator - Validate International Bank Account Numbers | RawTools',
   description: 'Free IBAN validator supporting 80+ countries. Verify IBAN format, checksum, and country-specific rules instantly. Real-time validation with detailed error messages.',
   keywords: 'iban validator, validate iban, check iban, iban checker, iban verification, international bank account number, iban format checker',
@@ -13,6 +14,10 @@ export const metadata: Metadata = {
     description: 'Validate IBANs for 80+ countries with real-time verification. Check format, MOD-97 checksum, and country rules.',
     type: 'website',
   },
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io/iban-validator')
 }
 
 export default function IBANValidatorPage() {
@@ -28,7 +33,7 @@ export default function IBANValidatorPage() {
       
       <div className="min-h-screen">
         <div className="max-w-7xl mx-auto px-4 py-8">
-          <Breadcrumbs category="IBAN Tools" toolName="IBAN Validator" />
+          <Breadcrumbs category="IBAN Tools" toolName="IBAN Validator" currentHref="/iban-validator" />
           
           <div className="text-center mb-8">
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">

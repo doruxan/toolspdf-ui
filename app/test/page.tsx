@@ -2,8 +2,9 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import TestRunner from '@/components/test/TestRunner';
 import { FlaskConical, FileCheck } from 'lucide-react';
+import { withCanonicalMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   title: 'Test Suite - PDF Tools',
   description: 'Automated testing for all PDF tool features',
   robots: {
@@ -11,6 +12,11 @@ export const metadata: Metadata = {
     follow: false,
   },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io/test');
+}
+
 
 export default function TestPage() {
   // Restrict access to test page in production

@@ -4,8 +4,10 @@ import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
 import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { withCanonicalMetadata } from '@/lib/seo/metadata';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   title: 'HTML to PDF Converter Online Free - Convert HTML to PDF',
   description: 'Free online tool to convert HTML or text to PDF. Paste your HTML code or plain text and create a PDF instantly.',
   keywords: 'html to pdf, convert html to pdf online free, text to pdf',
@@ -15,6 +17,11 @@ export const metadata: Metadata = {
     type: 'website',
   },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io/html-to-pdf');
+}
+
 
 export default function HTMLToPDFPage() {
   const toolSchema = generateSoftwareApplicationSchema({
@@ -43,6 +50,12 @@ export default function HTMLToPDFPage() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <div className="lg:col-span-3">
+            <Breadcrumbs category="PDF Tools" toolName="HTML to PDF" currentHref="/html-to-pdf" />
+            <div className="mb-6">
+              <h1 className="text-4xl font-bold text-foreground mb-2">HTML to PDF</h1>
+              <p className="text-muted-foreground">Convert HTML or text to PDF document</p>
+            </div>
+
             <HTMLToPDF />
             
             <div className="mt-12 prose prose-lg max-w-none">

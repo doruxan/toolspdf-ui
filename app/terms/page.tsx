@@ -1,9 +1,15 @@
 import { Metadata } from 'next';
+import { withCanonicalMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   title: 'Terms of Service - PDF Tools',
   description: 'Terms of service for PDF Tools. Read our terms and conditions.',
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io/terms');
+}
+
 
 export default function TermsPage() {
   return (

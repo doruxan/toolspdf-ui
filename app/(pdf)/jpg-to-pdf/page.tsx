@@ -4,8 +4,10 @@ import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
 import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { withCanonicalMetadata } from '@/lib/seo/metadata';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   title: 'JPG to PDF Converter Online Free - Convert Images to PDF',
   description: 'Free online tool to convert JPG, PNG images to PDF. Combine multiple images into one PDF document. Fast and secure.',
   keywords: 'jpg to pdf, image to pdf, png to pdf, convert images to pdf online free',
@@ -15,6 +17,11 @@ export const metadata: Metadata = {
     type: 'website',
   },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io/jpg-to-pdf');
+}
+
 
 export default function JPGToPDFPage() {
   const toolSchema = generateSoftwareApplicationSchema({
@@ -43,6 +50,12 @@ export default function JPGToPDFPage() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <div className="lg:col-span-3">
+            <Breadcrumbs category="PDF Tools" toolName="JPG to PDF" currentHref="/jpg-to-pdf" />
+            <div className="mb-6">
+              <h1 className="text-4xl font-bold text-foreground mb-2">JPG to PDF</h1>
+              <p className="text-muted-foreground">Convert images to PDF document</p>
+            </div>
+
             <JPGToPDF />
             
             <div className="mt-12 prose prose-lg max-w-none">

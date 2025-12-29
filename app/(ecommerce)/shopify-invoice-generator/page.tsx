@@ -4,12 +4,18 @@ import RelatedTools from '@/components/tools/RelatedTools';
 import { InvoiceGenerator } from '@/components/tools/ecommerce/InvoiceGenerator';
 import StructuredData from '@/components/seo/StructuredData';
 import { generateSoftwareAppSchema } from '@/lib/seo/schemas';
+import { withCanonicalMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   title: 'Invoice Generator - Create Professional Invoices | RawTools',
   description: 'Free invoice generator. Create professional invoices with line items and tax calculations.',
   alternates: { canonical: 'https://rawtools.io/shopify-invoice-generator' },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io/shopify-invoice-generator');
+}
+
 
 export default function Page() {
   const toolSchema = generateSoftwareAppSchema({
@@ -22,7 +28,11 @@ export default function Page() {
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-8">
-        <Breadcrumbs category="E-Commerce Tools" toolName="Invoice Generator" />
+        <Breadcrumbs
+          category="E-Commerce Tools"
+          toolName="Invoice Generator"
+          currentHref="/shopify-invoice-generator"
+        />
         <h1 className="text-4xl font-bold text-foreground mb-4">Invoice Generator</h1>
         <InvoiceGenerator />
       </div>

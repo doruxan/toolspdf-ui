@@ -4,8 +4,10 @@ import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
 import { generateSoftwareApplicationSchema } from '@/lib/seo/schemas';
+import { withCanonicalMetadata } from '@/lib/seo/metadata';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   title: 'Excel to JSON Converter - Free Online Tool | RawTools',
   description: 'Convert Excel (.xlsx) files to JSON format instantly. Support for multiple sheets, bidirectional conversion. Fast, secure, works in your browser. 100% free.',
   keywords: 'excel to json, convert excel to json, xlsx to json, json to excel, excel converter',
@@ -15,6 +17,11 @@ export const metadata: Metadata = {
     type: 'website',
   },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io/excel-to-json');
+}
+
 
 export default function ExcelToJSONPage() {
   const toolSchema = generateSoftwareApplicationSchema({
@@ -28,6 +35,8 @@ export default function ExcelToJSONPage() {
       <StructuredData data={toolSchema} />
 
       <div className="max-w-7xl mx-auto px-4 py-8">
+        <Breadcrumbs category="JSON Tools" toolName="Excel to JSON" currentHref="/excel-to-json" />
+
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold mb-4">Excel to JSON Converter</h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">

@@ -4,8 +4,10 @@ import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
 import { generateSoftwareApplicationSchema } from '@/lib/seo/schemas';
+import { withCanonicalMetadata } from '@/lib/seo/metadata';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   title: 'JSON Diff - Compare JSON Files Online | RawTools',
   description: 'Compare two JSON files with side-by-side highlighting. Shows additions, deletions, and modifications. Fast, secure, browser-based comparison. 100% free.',
   keywords: 'json diff, compare json, json compare, json difference, json comparison',
@@ -15,6 +17,11 @@ export const metadata: Metadata = {
     type: 'website',
   },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io/json-diff');
+}
+
 
 export default function JSONDiffPage() {
   const toolSchema = generateSoftwareApplicationSchema({
@@ -28,6 +35,8 @@ export default function JSONDiffPage() {
       <StructuredData data={toolSchema} />
 
       <div className="max-w-7xl mx-auto px-4 py-8">
+        <Breadcrumbs category="JSON Tools" toolName="JSON Diff" currentHref="/json-diff" />
+
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold mb-4">JSON Diff & Compare</h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">

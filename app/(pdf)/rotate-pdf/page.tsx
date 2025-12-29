@@ -4,8 +4,10 @@ import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
 import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { withCanonicalMetadata } from '@/lib/seo/metadata';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   title: 'Rotate PDF Online Free - Rotate PDF Pages 90, 180, 270 Degrees',
   description: 'Free online tool to rotate PDF pages. Rotate all pages 90, 180, or 270 degrees. Fast, secure, and works in your browser.',
   keywords: 'rotate pdf, rotate pdf pages online free, flip pdf, turn pdf',
@@ -15,6 +17,11 @@ export const metadata: Metadata = {
     type: 'website',
   },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io/rotate-pdf');
+}
+
 
 export default function RotatePDFPage() {
   const toolSchema = generateSoftwareApplicationSchema({
@@ -43,6 +50,12 @@ export default function RotatePDFPage() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <div className="lg:col-span-3">
+            <Breadcrumbs category="PDF Tools" toolName="Rotate PDF" currentHref="/rotate-pdf" />
+            <div className="mb-6">
+              <h1 className="text-4xl font-bold text-foreground mb-2">Rotate PDF</h1>
+              <p className="text-muted-foreground">Rotate pages in your PDF document</p>
+            </div>
+
             <RotatePDF />
             
             <div className="mt-12 prose prose-lg max-w-none">

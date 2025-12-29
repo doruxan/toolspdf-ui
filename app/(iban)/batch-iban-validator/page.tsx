@@ -3,11 +3,16 @@ import { BatchIBANValidator } from '@/components/tools/iban/BatchIBANValidator'
 import Breadcrumbs from '@/components/layout/Breadcrumbs'
 import StructuredData from '@/components/seo/StructuredData'
 import { generateSoftwareAppSchema } from '@/lib/seo/schemas'
+import { withCanonicalMetadata } from '@/lib/seo/metadata'
 
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   title: 'Batch IBAN Validator - Validate Multiple IBANs at Once | RawTools',
   description: 'Free batch IBAN validator. Validate up to 1000 IBANs simultaneously with CSV import/export. Get detailed validation reports and statistics.',
   keywords: 'batch iban validator, bulk iban validation, validate multiple ibans, iban csv validator, mass iban check',
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io/batch-iban-validator')
 }
 
 export default function BatchIBANValidatorPage() {
@@ -23,7 +28,7 @@ export default function BatchIBANValidatorPage() {
       
       <div className="min-h-screen">
         <div className="max-w-7xl mx-auto px-4 py-8">
-          <Breadcrumbs category="IBAN Tools" toolName="Batch IBAN Validator" />
+          <Breadcrumbs category="IBAN Tools" toolName="Batch IBAN Validator" currentHref="/batch-iban-validator" />
           
           <div className="text-center mb-8">
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">

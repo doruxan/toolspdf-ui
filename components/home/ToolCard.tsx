@@ -1,12 +1,17 @@
 import Link from 'next/link';
 import * as LucideIcons from 'lucide-react';
+import type { ComponentType } from 'react';
 import { Tool } from '@/config/tools';
 
 interface ToolCardProps extends Tool {}
 
 export default function ToolCard({ title, href, icon, description, color }: ToolCardProps) {
   // Dynamically get the icon component
-  const IconComponent = (LucideIcons as any)[icon] || LucideIcons.FileText;
+  type LucideIconName = keyof typeof LucideIcons;
+  const iconKey = icon as LucideIconName;
+  const IconComponent = (iconKey in LucideIcons ? LucideIcons[iconKey] : LucideIcons.FileText) as
+    | ComponentType<{ className?: string; width?: number; height?: number; 'aria-hidden'?: boolean }>
+    | typeof LucideIcons.FileText;
 
   return (
     <Link
@@ -17,7 +22,7 @@ export default function ToolCard({ title, href, icon, description, color }: Tool
         <div
           className={`w-14 h-14 min-w-[3.5rem] min-h-[3.5rem] rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center group-hover:scale-110 transition-transform`}
         >
-          <IconComponent className="h-7 w-7 text-white" width={28} height={28} aria-hidden="true" />
+          <IconComponent className="h-7 w-7 text-white" width={28} height={28} aria-hidden={true} />
         </div>
         <div>
           <h3 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors">

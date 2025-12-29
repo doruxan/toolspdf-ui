@@ -3,11 +3,16 @@ import { IBANCountryInfo } from '@/components/tools/iban/IBANCountryInfo'
 import Breadcrumbs from '@/components/layout/Breadcrumbs'
 import StructuredData from '@/components/seo/StructuredData'
 import { generateSoftwareAppSchema } from '@/lib/seo/schemas'
+import { withCanonicalMetadata } from '@/lib/seo/metadata'
 
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   title: 'IBAN Country Lookup - Format Rules & Examples for 80+ Countries | RawTools',
   description: 'Comprehensive IBAN country database. View format specifications, examples, and validation rules for 80+ countries. SEPA membership information included.',
   keywords: 'iban country lookup, iban format by country, iban country codes, iban specifications, sepa countries',
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io/iban-country-info')
 }
 
 export default function IBANCountryInfoPage() {
@@ -23,7 +28,7 @@ export default function IBANCountryInfoPage() {
       
       <div className="min-h-screen">
         <div className="max-w-7xl mx-auto px-4 py-8">
-          <Breadcrumbs category="IBAN Tools" toolName="Country Lookup" />
+          <Breadcrumbs category="IBAN Tools" toolName="Country Lookup" currentHref="/iban-country-info" />
           
           <div className="text-center mb-8">
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">

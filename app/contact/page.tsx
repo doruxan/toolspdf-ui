@@ -1,10 +1,16 @@
 import { Metadata } from 'next';
 import { Mail, MessageSquare, Github } from 'lucide-react';
+import { withCanonicalMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   title: 'Contact Us - PDF Tools',
   description: 'Get in touch with PDF Tools. We\'d love to hear from you!',
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io/contact');
+}
+
 
 export default function ContactPage() {
   return (

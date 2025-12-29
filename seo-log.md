@@ -24,6 +24,18 @@
 - New post created: yes, json-schema-validation-how-to-catch-bad-api-payloads; how-to-diff-two-json-files-and-see-what-changed; jsonpath-in-practice-query-json-with-jsonpath
 - Notes for next week (1–2 lines): Don’t repeat JSON schema/diff/JSONPath angles; next JSON angles could be “CSV to JSON for Shopify exports” or “safe JSON escaping for logging/config”.
 
+- Week of: 2025-12-30
+- Strategy: F
+- Pages changed: [rawtools/lib/blog/posts.ts, rawtools/app/blog/[slug]/page.tsx, /blog/how-to-remove-pages-from-a-pdf-without-breaking-the-rest]
+- What changed (3 bullets max)
+  - Added a new PDF post focused on removing pages safely (delete vs extract) with a concrete 42-page scenario and a clear operator workflow
+  - Linked to /remove-pages as the primary CTA and cross-linked to /extract-pages, /split-pdf, /redact-pdf, and /unlock-pdf for workflow adjacency
+  - Added canonical metadata for blog post pages to reduce duplicate URL signals
+- Internal links added: 5
+- New FAQs added: 5
+- New post created: yes, how-to-remove-pages-from-a-pdf-without-breaking-the-rest
+- Notes for next week (1–2 lines): Don’t repeat “remove pages” angle; next PDF angles could be “extract pages for compliance packets” or “protect vs redact for sharing”.
+
 # - Week of: 2025-12-26
 # - Strategy: A (New category addition)
 # - Pages changed: [/, /csv-to-json, /excel-to-json, /json-formatter, /json-minifier, /json-mapper, /json-schema-validator, /json-diff, /json-escape, /json-query, layout.tsx, Hero.tsx, Footer.tsx, schemas.ts, config/blog.ts]

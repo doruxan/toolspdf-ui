@@ -5,8 +5,9 @@ import { ProfitCalculator } from '@/components/tools/ecommerce/ProfitCalculator'
 import StructuredData from '@/components/seo/StructuredData';
 import { generateSoftwareAppSchema } from '@/lib/seo/schemas';
 import AdSlot from '@/components/ads/AdSlot';
+import { withCanonicalMetadata } from '@/lib/seo/metadata';
 
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   title: 'Shopify Profit Calculator - Calculate Per-Order Profit | RawTools',
   description:
     'Free Shopify profit calculator. Calculate per-order profit, contribution margin, and break-even revenue with detailed cost breakdowns. No signup required.',
@@ -23,6 +24,11 @@ export const metadata: Metadata = {
   },
 };
 
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io/shopify-profit-calculator');
+}
+
+
 export default function ShopifyProfitCalculatorPage() {
   const toolSchema = generateSoftwareAppSchema({
     title: 'Shopify Profit Calculator',
@@ -36,7 +42,11 @@ export default function ShopifyProfitCalculatorPage() {
       <StructuredData data={toolSchema} />
 
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-8">
-        <Breadcrumbs category="E-Commerce Tools" toolName="Shopify Profit Calculator" />
+        <Breadcrumbs
+          category="E-Commerce Tools"
+          toolName="Shopify Profit Calculator"
+          currentHref="/shopify-profit-calculator"
+        />
 
         {/* Tool Header */}
         <div className="mb-8">

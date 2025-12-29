@@ -4,8 +4,10 @@ import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
 import { generateSoftwareApplicationSchema } from '@/lib/seo/schemas';
+import { withCanonicalMetadata } from '@/lib/seo/metadata';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   title: 'JSON Schema Validator - Validate JSON Online | RawTools',
   description: 'Validate JSON data against JSON Schema specifications. Auto-generate schemas from JSON. Fast, secure, browser-based validation. 100% free.',
   keywords: 'json schema validator, validate json schema, json validation, schema validation, json schema',
@@ -15,6 +17,11 @@ export const metadata: Metadata = {
     type: 'website',
   },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io/json-schema-validator');
+}
+
 
 export default function JSONSchemaValidatorPage() {
   const toolSchema = generateSoftwareApplicationSchema({
@@ -28,6 +35,8 @@ export default function JSONSchemaValidatorPage() {
       <StructuredData data={toolSchema} />
 
       <div className="max-w-7xl mx-auto px-4 py-8">
+        <Breadcrumbs category="JSON Tools" toolName="JSON Schema Validator" currentHref="/json-schema-validator" />
+
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold mb-4">JSON Schema Validator</h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">

@@ -1,11 +1,40 @@
+import type { Metadata } from 'next';
 import Hero from '@/components/home/Hero';
 import ToolsSection from '@/components/home/ToolsSection';
 import ClientSearch from '@/components/home/ClientSearch';
 import StructuredData from '@/components/seo/StructuredData';
 import { toolCategories } from '@/config/tools';
 import { Shield, Zap, Lock } from 'lucide-react';
+import { withCanonicalMetadata } from '@/lib/seo/metadata';
+
+const pageMetadata: Metadata = {
+  title: 'RawTools - Free PDF, JSON, IBAN & Shopify Tools',
+  description:
+    '40 free online tools: 16 PDF tools, 9 JSON tools (CSV/Excel converters, formatter, validator), 7 IBAN tools, 8 Shopify calculators. Browser-based, private, and fast.',
+  openGraph: {
+    title: 'RawTools - Free PDF, JSON, IBAN & Shopify Tools',
+    description:
+      'Free online tools that run in your browser: PDF tools, JSON converters, IBAN tools, and Shopify calculators. Fast, private, and easy to use.',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'RawTools - Free PDF, JSON, IBAN & Shopify Tools',
+    description:
+      '40 free tools: PDFs, JSON converters, IBAN tools, Shopify calculators. Browser-based, private, no signup.',
+  },
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io');
+}
 
 export default function Home() {
+  const pdfCount = toolCategories.find((c) => c.id === 'pdf-tools')?.tools.length ?? 0;
+  const jsonCount = toolCategories.find((c) => c.id === 'json-tools')?.tools.length ?? 0;
+  const ibanCount = toolCategories.find((c) => c.id === 'iban-tools')?.tools.length ?? 0;
+  const ecommerceCount = toolCategories.find((c) => c.id === 'ecommerce-tools')?.tools.length ?? 0;
+
   // Collection Page Schema
   const collectionSchema = {
     '@context': 'https://schema.org',
@@ -124,9 +153,10 @@ export default function Home() {
                 What tools are available?
               </h3>
               <p className="text-muted-foreground">
-                We offer 16 PDF tools (merge, split, compress, convert, etc.), 8 Shopify
-                calculators (profit, fees, LTV/CAC, etc.), and 7 IBAN tools (validator, generator, parser, etc.). All tools are professional-grade and
-                constantly updated.
+                We currently offer {pdfCount} PDF tools (merge, split, compress, convert, etc.),{' '}
+                {jsonCount} JSON tools (CSV/Excel converters, formatter, minifier, schema validator, etc.),{' '}
+                {ibanCount} IBAN tools (validator, generator, parser, batch validator, etc.), and{' '}
+                {ecommerceCount} Shopify calculators (profit, fees, LTV/CAC, break-even ROAS, etc.).
               </p>
             </div>
           </div>

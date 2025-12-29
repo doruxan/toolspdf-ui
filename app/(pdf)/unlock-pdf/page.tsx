@@ -4,8 +4,10 @@ import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
 import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { withCanonicalMetadata } from '@/lib/seo/metadata';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
-export const metadata: Metadata = {
+const pageMetadata: Metadata = {
   title: 'Unlock PDF Online Free - Remove PDF Password Protection',
   description: 'Free online tool to unlock PDF files and remove password protection. Fast, secure, and works in your browser.',
   keywords: 'unlock pdf, remove pdf password, pdf password remover online free, decrypt pdf',
@@ -15,6 +17,11 @@ export const metadata: Metadata = {
     type: 'website',
   },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withCanonicalMetadata(pageMetadata, 'https://rawtools.io/unlock-pdf');
+}
+
 
 export default function UnlockPDFPage() {
   const toolSchema = generateSoftwareApplicationSchema({
@@ -42,6 +49,12 @@ export default function UnlockPDFPage() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <div className="lg:col-span-3">
+            <Breadcrumbs category="PDF Tools" toolName="Unlock PDF" currentHref="/unlock-pdf" />
+            <div className="mb-6">
+              <h1 className="text-4xl font-bold text-foreground mb-2">Unlock PDF</h1>
+              <p className="text-muted-foreground">Remove password protection from PDF</p>
+            </div>
+
             <UnlockPDF />
             
             <div className="mt-12 prose prose-lg max-w-none">
