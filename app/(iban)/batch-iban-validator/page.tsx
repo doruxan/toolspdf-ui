@@ -9,6 +9,27 @@ const pageMetadata: Metadata = {
   title: 'Batch IBAN Validator - Validate Multiple IBANs at Once | RawTools',
   description: 'Free batch IBAN validator. Validate up to 1000 IBANs simultaneously with CSV import/export. Get detailed validation reports and statistics.',
   keywords: 'batch iban validator, bulk iban validation, validate multiple ibans, iban csv validator, mass iban check',
+  openGraph: {
+    title: 'Batch IBAN Validator - Validate Multiple IBANs',
+    description: 'Validate multiple IBANs at once. Upload CSV or paste list. Fast batch validation.',
+    type: 'website',
+  
+    url: 'https://rawtools.io/batch-iban-validator',
+    siteName: 'RawTools',
+    images: [{
+      url: '/og-image.svg',
+      width: 1200,
+      height: 630,
+      alt: 'RawTools Logo',
+    }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Batch IBAN Validator - Validate Multiple IBANs | RawTools',
+    description: 'Validate multiple IBANs at once. Upload CSV or paste list. Fast batch validation.',
+  
+    images: ['/og-image.svg'],
+  },
 }
 
 export async function generateMetadata(): Promise<Metadata> {

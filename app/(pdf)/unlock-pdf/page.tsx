@@ -15,6 +15,22 @@ const pageMetadata: Metadata = {
     title: 'Unlock PDF Online Free - Remove Password',
     description: 'Remove PDF password protection. 100% free, secure, and fast.',
     type: 'website',
+  
+    url: 'https://rawtools.io/unlock-pdf',
+    siteName: 'RawTools',
+    images: [{
+      url: '/og-image.svg',
+      width: 1200,
+      height: 630,
+      alt: 'RawTools Logo',
+    }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Unlock PDF - Remove Password | RawTools',
+    description: 'Remove password protection from PDF files. Fast, secure, browser-based unlocking.',
+  
+    images: ['/og-image.svg'],
   },
 };
 
@@ -65,13 +81,28 @@ export default function UnlockPDFPage() {
                 <li>Download your unlocked PDF file</li>
               </ol>
               
-              <h3 className="text-xl font-bold text-foreground mt-8">Important Notes</h3>
+              <h3 className="text-xl font-bold text-foreground mt-8">PDF Unlock Features</h3>
               <ul className="text-muted-foreground space-y-2">
-                <li><strong>Legal Use Only:</strong> Only unlock PDFs you own or have permission to access</li>
-                <li><strong>Restrictions:</strong> Can only remove restrictions, not crack encrypted passwords</li>
-                <li><strong>Privacy:</strong> All processing happens in your browser</li>
-                <li><strong>No Logs:</strong> We don't store or track your files</li>
+                <li><strong>Remove Restrictions:</strong> Unlock editing, printing, and copying permissions</li>
+                <li><strong>Fast Processing:</strong> Unlock PDFs instantly</li>
+                <li><strong>No Quality Loss:</strong> Original document quality preserved</li>
+                <li><strong>Legal Use Only:</strong> Only for PDFs you own or have permission to access</li>
+                <li><strong>Browser-Based:</strong> All processing happens locally</li>
+                <li><strong>No File Limits:</strong> Unlock files of any size</li>
               </ul>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Why Unlock PDF Files?</h3>
+              <p className="text-muted-foreground">
+                PDF unlocking removes <strong>editing and printing restrictions from your own documents</strong>. Scenario: You created a PDF years ago with restrictions enabled. Now you need to edit it but forgot you locked it. Unlock to regain full editing access to your own file.
+              </p>
+              <p className="text-muted-foreground">
+                Common use cases: Removing restrictions from your own old documents, enabling printing on legitimately purchased eBooks, allowing copying from your archived reports, unlocking forms you need to edit, and removing outdated security settings from company documents you&apos;re authorized to modify.
+              </p>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Privacy & Security</h3>
+              <p className="text-muted-foreground">
+                All PDF unlocking happens locally in your browser. Your files never leave your device and are never uploaded to servers. The unlocked PDF is generated on your computer—complete privacy guaranteed.
+              </p>
             </div>
           </div>
           

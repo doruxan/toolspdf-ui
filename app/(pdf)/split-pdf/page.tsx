@@ -15,6 +15,22 @@ const pageMetadata: Metadata = {
     title: 'Split PDF Online Free - Extract Pages',
     description: 'Split PDF files into separate documents. 100% free, secure, and fast.',
     type: 'website',
+  
+    url: 'https://rawtools.io/split-pdf',
+    siteName: 'RawTools',
+    images: [{
+      url: '/og-image.svg',
+      width: 1200,
+      height: 630,
+      alt: 'RawTools Logo',
+    }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Split PDF Online Free | RawTools',
+    description: 'Split PDF files by page ranges or extract specific pages. Fast, secure, browser-based.',
+  
+    images: ['/og-image.svg'],
   },
 };
 
@@ -67,13 +83,28 @@ export default function SplitPDFPage() {
                 <li>Download your split PDF files</li>
               </ol>
               
-              <h3 className="text-xl font-bold text-foreground mt-8">Split PDF Features</h3>
+              <h3 className="text-xl font-bold text-foreground mt-8">PDF Splitter Features</h3>
               <ul className="text-muted-foreground space-y-2">
-                <li><strong>Split All Pages:</strong> Convert each page to a separate PDF</li>
-                <li><strong>Extract Pages:</strong> Select specific pages to extract</li>
+                <li><strong>Split All Pages:</strong> Convert each page into a separate PDF file</li>
+                <li><strong>Extract Specific Pages:</strong> Choose exact pages to extract (e.g., 1,3,5-10)</li>
+                <li><strong>Page Range Support:</strong> Use ranges like "1-5,8,10-12" for complex extractions</li>
+                <li><strong>Preview Mode:</strong> See page thumbnails before splitting</li>
                 <li><strong>Batch Download:</strong> Download all pages at once</li>
                 <li><strong>No Quality Loss:</strong> Original quality preserved</li>
               </ul>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Why Split PDF Files?</h3>
+              <p className="text-muted-foreground">
+                PDF splitting is essential for <strong>extracting specific pages or breaking large documents into manageable chunks</strong>. Scenario: You receive a 200-page scanned contract but only need pages 45-52 (the pricing schedule). Split extracts just those 8 pages instead of sharing the entire document.
+              </p>
+              <p className="text-muted-foreground">
+                Common use cases: Extracting individual chapters from eBooks, separating exam questions from answer keys, isolating specific invoices from monthly reports, breaking presentation decks into individual slides, extracting signed pages from multi-page agreements, and creating separate files for different document sections.
+              </p>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Privacy & Security</h3>
+              <p className="text-muted-foreground">
+                All PDF splitting happens locally in your browser. Your files never leave your device, are never uploaded to servers, and are never stored. The split PDFs are generated on your computer and downloaded directly—your documents remain completely private.
+              </p>
             </div>
           </div>
           

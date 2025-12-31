@@ -15,6 +15,22 @@ const pageMetadata: Metadata = {
     title: 'Merge PDF Online Free - Combine Multiple PDFs',
     description: 'Merge multiple PDF files into one document. 100% free, secure, and fast.',
     type: 'website',
+  
+    url: 'https://rawtools.io/merge-pdf',
+    siteName: 'RawTools',
+    images: [{
+      url: '/og-image.svg',
+      width: 1200,
+      height: 630,
+      alt: 'RawTools Logo',
+    }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Merge PDF Online Free | RawTools',
+    description: 'Combine multiple PDF files into one document. Fast, secure, browser-based merging.',
+  
+    images: ['/og-image.svg'],
   },
 };
 
@@ -67,13 +83,31 @@ export default function MergePDFPage() {
                 <li>Download your merged PDF file</li>
               </ol>
               
-              <h3 className="text-xl font-bold text-foreground mt-8">Why Use Our PDF Merger?</h3>
+              <h3 className="text-xl font-bold text-foreground mt-8">PDF Merger Features</h3>
               <ul className="text-muted-foreground space-y-2">
-                <li><strong>100% Free:</strong> No hidden costs or subscriptions</li>
-                <li><strong>Secure:</strong> Files are processed locally in your browser</li>
-                <li><strong>Fast:</strong> Instant merging without server uploads</li>
-                <li><strong>No Limits:</strong> Merge as many PDFs as you need</li>
+                <li><strong>100% Free:</strong> No hidden costs, subscriptions, or file limits</li>
+                <li><strong>Browser-Based:</strong> No software installation required</li>
+                <li><strong>Drag & Drop:</strong> Easy file upload with visual feedback</li>
+                <li><strong>Unlimited Files:</strong> Merge 2, 10, or 100+ PDFs at once</li>
+                <li><strong>Preserve Quality:</strong> Original PDF quality maintained</li>
+                <li><strong>Fast Processing:</strong> Instant merging using local processing</li>
               </ul>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Why Merge PDF Files?</h3>
+              <p className="text-muted-foreground">
+                PDF merging is essential for <strong>combining multiple documents into a single file</strong>. Common scenario: You have a signed contract (3 pages), supporting documents (8 pages), and attachments (5 pages)—instead of sending 16 separate files, merge them into one professional document.
+              </p>
+              <p className="text-muted-foreground">
+                Use cases: Combining invoice pages with receipts, merging chapters of a report, creating presentation handouts from multiple sources, consolidating scanned documents, assembling legal documents with exhibits, and preparing application packages with multiple forms.
+              </p>
+              <p className="text-muted-foreground">
+                Real example: HR departments merge offer letters, NDAs, and benefit summaries into one onboarding packet. Instead of emailing 6 separate PDFs to new hires, they send one comprehensive 18-page document—easier to manage, harder to lose pages.
+              </p>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Privacy & Security</h3>
+              <p className="text-muted-foreground">
+                All PDF merging happens locally in your browser using JavaScript. Your files are never uploaded to servers, stored in databases, or transmitted over the internet. The merged PDF is generated on your device and downloaded directly—complete privacy guaranteed.
+              </p>
             </div>
           </div>
           

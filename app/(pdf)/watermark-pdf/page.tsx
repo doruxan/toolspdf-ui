@@ -15,6 +15,22 @@ const pageMetadata: Metadata = {
     title: 'Add Watermark to PDF Online Free',
     description: 'Add text watermark to PDF files. 100% free, secure, and fast.',
     type: 'website',
+  
+    url: 'https://rawtools.io/watermark-pdf',
+    siteName: 'RawTools',
+    images: [{
+      url: '/og-image.svg',
+      width: 1200,
+      height: 630,
+      alt: 'RawTools Logo',
+    }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Add Watermark to PDF | RawTools',
+    description: 'Add text or image watermarks to PDF files. Customizable position and opacity.',
+  
+    images: ['/og-image.svg'],
   },
 };
 
@@ -67,13 +83,28 @@ export default function WatermarkPDFPage() {
                 <li>Click "Add Watermark" and download</li>
               </ol>
               
-              <h3 className="text-xl font-bold text-foreground mt-8">Watermark Uses</h3>
+              <h3 className="text-xl font-bold text-foreground mt-8">PDF Watermark Features</h3>
               <ul className="text-muted-foreground space-y-2">
+                <li><strong>Custom Text:</strong> Add any text watermark you want</li>
+                <li><strong>Adjustable Opacity:</strong> Control transparency from 10% to 100%</li>
+                <li><strong>All Pages:</strong> Watermark appears on every page automatically</li>
                 <li><strong>Copyright Protection:</strong> Mark documents as your property</li>
-                <li><strong>Draft Marking:</strong> Label documents as drafts or confidential</li>
-                <li><strong>Branding:</strong> Add company name or logo</li>
-                <li><strong>All Pages:</strong> Watermark appears on every page</li>
+                <li><strong>Fast Processing:</strong> Add watermarks to multi-page PDFs instantly</li>
+                <li><strong>No Quality Loss:</strong> Original document quality preserved</li>
               </ul>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Why Add Watermarks to PDFs?</h3>
+              <p className="text-muted-foreground">
+                PDF watermarks provide <strong>copyright protection and document tracking</strong>. Scenario: You&apos;re sharing a design proposal with a potential client. Add &quot;CONFIDENTIAL - Client Name Only&quot; watermark so if they forward it to competitors, the watermark shows it was meant for them specifically.
+              </p>
+              <p className="text-muted-foreground">
+                Common use cases: Protecting copyright on documents, marking drafts as &quot;DRAFT&quot; or &quot;NOT FINAL&quot;, adding company branding to reports, labeling confidential documents, tracking document distribution, preventing unauthorized copying, and adding disclaimers to legal documents.
+              </p>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Privacy & Security</h3>
+              <p className="text-muted-foreground">
+                All watermarking happens locally in your browser. Your files never leave your device and are never uploaded to servers. The watermarked PDF is generated on your computer—complete privacy guaranteed.
+              </p>
             </div>
           </div>
           

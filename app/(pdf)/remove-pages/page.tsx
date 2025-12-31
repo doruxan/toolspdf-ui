@@ -15,6 +15,22 @@ const pageMetadata: Metadata = {
     title: 'Remove PDF Pages Online Free',
     description: 'Delete specific pages from PDF files. 100% free, secure, and fast.',
     type: 'website',
+  
+    url: 'https://rawtools.io/remove-pages',
+    siteName: 'RawTools',
+    images: [{
+      url: '/og-image.svg',
+      width: 1200,
+      height: 630,
+      alt: 'RawTools Logo',
+    }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Remove Pages from PDF | RawTools',
+    description: 'Delete specific pages from PDF files. Fast, secure, browser-based removal.',
+  
+    images: ['/og-image.svg'],
   },
 };
 
@@ -67,13 +83,28 @@ export default function RemovePagesPage() {
                 <li>Click "Remove Pages" and download the result</li>
               </ol>
               
-              <h3 className="text-xl font-bold text-foreground mt-8">Why Remove PDF Pages?</h3>
+              <h3 className="text-xl font-bold text-foreground mt-8">Page Removal Features</h3>
               <ul className="text-muted-foreground space-y-2">
-                <li><strong>Clean Documents:</strong> Remove unnecessary pages, blank pages, or ads</li>
-                <li><strong>Privacy:</strong> Delete pages with sensitive information</li>
-                <li><strong>File Size:</strong> Reduce file size by removing unwanted pages</li>
-                <li><strong>Share Specific Content:</strong> Keep only relevant pages</li>
+                <li><strong>Specific Pages:</strong> Remove exact pages (e.g., 1,3,5)</li>
+                <li><strong>Page Ranges:</strong> Delete ranges (e.g., 10-20)</li>
+                <li><strong>Blank Page Removal:</strong> Clean up scanned documents</li>
+                <li><strong>Fast Processing:</strong> Remove pages from large PDFs instantly</li>
+                <li><strong>No Quality Loss:</strong> Remaining pages unchanged</li>
+                <li><strong>File Size Reduction:</strong> Smaller files after removal</li>
               </ul>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Why Remove PDF Pages?</h3>
+              <p className="text-muted-foreground">
+                Page removal creates <strong>cleaner documents by deleting unwanted content</strong>. Scenario: You scan a 50-page document but pages 12, 15, and 23 are blank or duplicates. Remove those 3 pages to create a clean 47-page PDF without rescanning everything.
+              </p>
+              <p className="text-muted-foreground">
+                Common use cases: Removing blank pages from scans, deleting duplicate pages, removing advertisements from downloaded PDFs, cleaning up fax transmissions, deleting cover pages before archiving, and removing sensitive pages before sharing documents.
+              </p>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Privacy & Security</h3>
+              <p className="text-muted-foreground">
+                All page removal happens locally in your browser. Your files never leave your device and are never uploaded to servers. The cleaned PDF is generated on your computer—complete privacy guaranteed.
+              </p>
             </div>
           </div>
           

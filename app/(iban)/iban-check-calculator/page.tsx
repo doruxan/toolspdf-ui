@@ -9,6 +9,27 @@ const pageMetadata: Metadata = {
   title: 'IBAN Check Digit Calculator - Calculate & Verify MOD-97 | RawTools',
   description: 'Free IBAN check digit calculator. Calculate correct check digits using MOD-97 algorithm or verify existing IBANs. See step-by-step calculations.',
   keywords: 'iban check digit calculator, mod 97 calculator, iban checksum, calculate iban check digits, verify check digits',
+  openGraph: {
+    title: 'IBAN Check Digit Calculator',
+    description: 'Calculate IBAN check digits using MOD-97 algorithm. Verify or generate check digits.',
+    type: 'website',
+  
+    url: 'https://rawtools.io/iban-check-calculator',
+    siteName: 'RawTools',
+    images: [{
+      url: '/og-image.svg',
+      width: 1200,
+      height: 630,
+      alt: 'RawTools Logo',
+    }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'IBAN Check Digit Calculator | RawTools',
+    description: 'Calculate IBAN check digits using MOD-97 algorithm. Verify or generate check digits.',
+  
+    images: ['/og-image.svg'],
+  },
 }
 
 export async function generateMetadata(): Promise<Metadata> {

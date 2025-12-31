@@ -9,6 +9,27 @@ const pageMetadata: Metadata = {
   title: 'IBAN Formatter - Format IBANs for Print or Electronic Use | RawTools',
   description: 'Free IBAN formatter to convert between electronic and print formats. Batch format multiple IBANs with country-specific grouping. Supports 80+ countries.',
   keywords: 'iban formatter, format iban, iban print format, iban electronic format, batch iban formatter',
+  openGraph: {
+    title: 'IBAN Formatter - Format IBANs',
+    description: 'Format IBANs with proper spacing. Convert between electronic and print formats.',
+    type: 'website',
+  
+    url: 'https://rawtools.io/iban-formatter',
+    siteName: 'RawTools',
+    images: [{
+      url: '/og-image.svg',
+      width: 1200,
+      height: 630,
+      alt: 'RawTools Logo',
+    }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'IBAN Formatter - Format IBANs | RawTools',
+    description: 'Format IBANs with proper spacing. Convert between electronic and print formats.',
+  
+    images: ['/og-image.svg'],
+  },
 }
 
 export async function generateMetadata(): Promise<Metadata> {

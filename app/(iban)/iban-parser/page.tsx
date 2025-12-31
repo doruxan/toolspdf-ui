@@ -9,6 +9,27 @@ const pageMetadata: Metadata = {
   title: 'IBAN Parser - Extract Bank Code, Branch & Account Details | RawTools',
   description: 'Free IBAN parser to extract and analyze components: country code, check digits, bank code, branch code, and account number. Supports 80+ countries.',
   keywords: 'iban parser, extract iban, iban components, bank code extractor, iban analyzer, parse iban',
+  openGraph: {
+    title: 'IBAN Parser - Extract IBAN Components',
+    description: 'Parse IBANs to extract country code, check digits, bank code, branch, and account number.',
+    type: 'website',
+  
+    url: 'https://rawtools.io/iban-parser',
+    siteName: 'RawTools',
+    images: [{
+      url: '/og-image.svg',
+      width: 1200,
+      height: 630,
+      alt: 'RawTools Logo',
+    }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'IBAN Parser - Extract IBAN Components | RawTools',
+    description: 'Parse IBANs to extract country code, check digits, bank code, branch, and account number.',
+  
+    images: ['/og-image.svg'],
+  },
 }
 
 export async function generateMetadata(): Promise<Metadata> {

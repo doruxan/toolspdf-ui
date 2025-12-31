@@ -15,6 +15,22 @@ const pageMetadata: Metadata = {
     title: 'Organize PDF Pages Online Free',
     description: 'Reorder and organize PDF pages. 100% free, secure, and fast.',
     type: 'website',
+  
+    url: 'https://rawtools.io/organize-pdf',
+    siteName: 'RawTools',
+    images: [{
+      url: '/og-image.svg',
+      width: 1200,
+      height: 630,
+      alt: 'RawTools Logo',
+    }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Organize PDF Pages | RawTools',
+    description: 'Reorder and organize PDF pages. Drag and drop or specify custom page order.',
+  
+    images: ['/og-image.svg'],
   },
 };
 
@@ -68,13 +84,28 @@ export default function OrganizePDFPage() {
                 <li>Download your reorganized PDF</li>
               </ol>
               
-              <h3 className="text-xl font-bold text-foreground mt-8">Use Cases</h3>
+              <h3 className="text-xl font-bold text-foreground mt-8">PDF Organization Features</h3>
               <ul className="text-muted-foreground space-y-2">
-                <li><strong>Fix Scanning Errors:</strong> Correct pages scanned in wrong order</li>
-                <li><strong>Reverse Documents:</strong> Flip entire documents with one click</li>
-                <li><strong>Custom Order:</strong> Arrange pages any way you want</li>
-                <li><strong>Presentations:</strong> Reorder slides for different audiences</li>
+                <li><strong>Custom Page Order:</strong> Rearrange pages in any sequence (e.g., 3,1,2,4,5)</li>
+                <li><strong>Reverse All:</strong> Flip entire document with one click</li>
+                <li><strong>Visual Preview:</strong> See page thumbnails before reordering</li>
+                <li><strong>Flexible Syntax:</strong> Use commas to specify exact order</li>
+                <li><strong>No Quality Loss:</strong> Pages maintain original quality</li>
+                <li><strong>Fast Processing:</strong> Instant reordering without re-encoding</li>
               </ul>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Why Organize PDF Pages?</h3>
+              <p className="text-muted-foreground">
+                PDF organization fixes <strong>page order issues and customizes document flow</strong>. Scenario: You scan a 20-page contract but page 15 was scanned twice and page 8 is missing. Instead of rescanning everything, reorganize to remove the duplicate and note the gap.
+              </p>
+              <p className="text-muted-foreground">
+                Common use cases: Fixing scanning errors where pages fed in wrong order, moving cover pages to the front, reordering presentation slides for different audiences, placing signature pages at the end, reversing documents scanned backward, and customizing report sections for specific recipients.
+              </p>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Privacy & Security</h3>
+              <p className="text-muted-foreground">
+                All PDF organization happens locally in your browser. Your files never leave your device and are never uploaded to servers. The reorganized PDF is generated on your computer—complete privacy guaranteed.
+              </p>
             </div>
           </div>
           

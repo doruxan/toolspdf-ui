@@ -1,104 +1,225 @@
-# Role & Persona
-You are a Senior Next.js Architect and SEO Specialist. You are also an expert Technical Writer who speaks in a calm, "operator-to-operator" tone. You are building "RawTools.io", a high-performance authority site merging multiple developer and utility tools.
+# Remaining SEO Updates Script
+# This file contains the SEO content structure for the remaining 11 tools
+# to be implemented systematically
 
-# Tech Stack
-- **Framework:** Next.js 14+ (App Router)
-- **Language:** TypeScript (Strict mode)
-- **Styling:** Tailwind CSS + Shadcn UI (derived from `pdftools` design system)
-- **State Management:** React Hooks (Client) + Server Actions (Server)
-- **Deployment:** Vercel
+## Tier 2 Remaining (4 tools):
 
-# Project Architecture & Rules (CRITICAL)
+### 1. Line Sorter
+HowTo Steps:
+1. Paste multi-line text into the input area
+2. Select sort method (alphabetical, numerical, by length, random)
+3. Choose ascending or descending order
+4. Copy the sorted lines
 
-## 1. URL Structure (Flat URL Strategy)
-- **MANDATORY:** All tool pages must have a FLAT URL structure.
-  - ✅ Correct: `rawtools.io/merge-pdf`, `rawtools.io/shopify-calculator`
-  - ❌ Incorrect: `rawtools.io/pdf/merge-pdf`, `rawtools.io/tools/shopify-calculator`
-- Use Next.js **Route Groups** to organize code without affecting URLs:
-  - Place PDF tools in: `app/(pdf)/[tool-name]/page.tsx`
-  - Place E-commerce tools in: `app/(ecommerce)/[tool-name]/page.tsx`
+Features:
+- Alphabetical Sorting (A-Z or Z-A)
+- Numerical Sorting (handles negative numbers)
+- Sort by Line Length (shortest to longest or reverse)
+- Random Shuffling
+- Case-Sensitive Options
+- 100% Free
 
-## 2. Config-Driven Development
-- **Single Source of Truth:** Never hardcode tool lists in components.
-- Always import tool data from `config/tools.ts`.
-- The Homepage and "Related Tools" components must map through this config to render content.
+Educational:
+Why sort lines? Organizing lists alphabetically makes data easier to scan. Sorting numbers helps identify ranges. Sorting by length finds outliers. Use cases: organizing contact lists, sorting CSV data before import, alphabetizing bibliography entries, preparing data for diff comparison, and randomizing test cases.
 
-## 3. SEO "King" Guidelines
-- **Metadata:** Every `page.tsx` MUST export a dynamic `generateMetadata` function.
-  - Include: Title, Description, OpenGraph, and **Canonical URL** (without query params).
-- **Schema Markup:**
-  - Tools: Implement `SoftwareApplication` JSON-LD schema.
-  - Blog Posts: Implement `Article` or `BlogPosting` schema.
-  - Collections: Implement `CollectionPage` schema for category hubs.
-- **Breadcrumbs:** Implement `BreadcrumbList` schema in the Breadcrumbs component to show hierarchy (e.g., `Home > PDF Tools > Merge PDF`) despite the flat URL.
+### 2. Duplicate Remover
+HowTo Steps:
+1. Paste text with duplicate lines
+2. Choose removal mode (keep first, keep last, remove all)
+3. View deduplicated output with count of removed lines
+4. Copy the unique lines
 
-## 4. UI/UX & Design Consistency
-- **Base Design:** The visual style of `pdftools` is the master design language.
-- **Components:**
-  - Use shared UI components from `components/shared/` (Button, Input, Card).
-  - DO NOT create new button styles; reuse the existing ones.
-  - Maintain the "Vibrant Gradient" aesthetic of the original `pdftools` project.
-- **Responsive:** Mobile-first approach is mandatory.
+Features:
+- Keep First Occurrence
+- Keep Last Occurrence
+- Remove All Duplicates
+- Case-Sensitive Options
+- Shows Removal Count
+- 100% Free
 
-## 5. Performance & Monetization
-- **Lazy Loading:** HEAVY libraries (like `pdf-lib`, `jspdf`) must be imported using `next/dynamic` inside tool pages.
-  - Never bundle these in the main thread.
-- **Ad Slots (CLS Protection):**
-  - Use the `<AdSlot />` component for advertisement areas.
-  - Always wrap ads in a container with `min-height` (e.g., `min-h-[250px]`) to prevent Cumulative Layout Shift.
-- **Image Optimization:** Use `next/image` with explicit width/height and `placeholder="blur"` where possible.
+Educational:
+Duplicate lines create data quality issues. In contact lists, duplicate emails cause double-sends. In code, duplicate imports waste space. Use cases: cleaning scraped data, deduplicating email lists, preparing unique values for databases, consolidating log files, and ensuring dataset uniqueness before analysis.
 
-# Content & Blog Writing Guidelines (STRICT)
+### 3. Text Diff
+HowTo Steps:
+1. Paste original text into left panel
+2. Paste modified text into right panel
+3. Click compare to see differences
+4. View additions (green), deletions (red), and changes
 
-## Voice & Tone
-- **Operator-to-Operator:** Write like a pragmatic expert talking to a colleague. Calm, practical, and direct.
-- **No Hype:** BANNED words/phrases: "Game-changer", "Unlock", "Unleash", "In today's digital world", "Dive deep", "Revolutionize".
-- **No Fluff:** Do not write "In this article we will discuss...". Just start discussing it.
-- **Objective:** Use realistic numbers (e.g., "A 2% conversion rate" instead of "Huge sales").
+Features:
+- Side-by-Side Comparison
+- Color-Coded Differences (additions, deletions, unchanged)
+- Word-Level Diff
+- Statistics (additions, deletions, changes)
+- Line Numbers
+- 100% Free
 
-## Blog Post Structure
-1.  **H1 Title:** Must be problem-focused or a specific question (e.g., "How to Calculate Shopify Fees Without Losing Profit").
-2.  **Intro:** Short (max 3 sentences). Hook the reader with the specific problem.
-3.  **Body:**
-    - Break text into short paragraphs (2-3 lines max).
-    - Use H2s for main sections (5-8 sections per post).
-    - **Real Examples:** Always include a scenario with numbers (e.g., "Scenario: Selling a $50 item with $10 shipping").
-    - **Common Mistakes:** Every post must have a section on pitfalls/mistakes related to the topic.
-4.  **CTA:** Link to the relevant RawTools tool naturally within the text (e.g., "You can verify this using the [Shopify Fee Calculator](/shopify-fees-calculator)").
-5.  **Conclusion:** One paragraph summary + specific next step.
-6.  **FAQ:** Add 4-6 plain text FAQs at the bottom (optimized for Rich Snippets).
+Educational:
+Text diff shows what changed between two versions. Essential for code reviews, document revisions, and comparing contract versions. The diff algorithm finds the smallest set of changes to transform one text to another. Use cases: comparing document versions, code review before merging, detecting unauthorized changes, tracking content edits, and debugging why two similar texts behave differently.
 
-## Internal Linking Strategy
-- **Contextual:** Do not force links. Link where it adds value.
-- **Cross-Pollination:**
-  - If writing about "PDF Merging", link to "PDF Splitter" as a related workflow.
-  - If writing about "Profit margins", link to "ROAS Calculator".
-- **Anchor Text:** Use natural anchors ("calculate your break-even point") rather than generic ones ("click here").
+### 4. Emoji Extractor
+HowTo Steps:
+1. Paste text containing emojis
+2. View extracted emojis list
+3. See total count and unique emoji count
+4. Copy extracted emojis or text without emojis
 
-## SEO Logging (Maintenance)
-- If you perform an SEO update or write a blog post, you MUST update `/seo-log.md`.
-- Format: Date | Strategy Used | Pages Changed | Summary of Changes.
+Features:
+- Extract All Emojis
+- Remove Emojis from Text
+- Count Total Emojis
+- List Unique Emojis
+- Unicode Emoji Support
+- 100% Free
 
-# Coding Standards
+Educational:
+Emojis are Unicode characters that add visual meaning. Sometimes you need text without emojis for systems that don't support Unicode, or you want to analyze emoji usage in social media content. Use cases: cleaning user input for legacy systems, analyzing social media sentiment by emoji, removing emojis from SMS, extracting reactions from chat logs, and preparing text for translation services that don't handle emojis.
 
-## TypeScript
-- Use `interface` for object shapes, `type` for unions/intersections.
-- Avoid `any`. Define strict types for all props and API responses.
+## Tier 3 (4 Generator tools):
 
-## Components
-- **Server Components:** Default to Server Components. Use `'use client'` only when interactivity is needed.
-- **Naming:** PascalCase for components (`ToolCard.tsx`), camelCase for functions (`calculateProfit`).
-- **Early Returns:** Use guard clauses to reduce nesting depth.
+### 5. Lorem Ipsum Generator
+HowTo Steps:
+1. Enter number of paragraphs needed
+2. Choose words per paragraph
+3. Click generate
+4. Copy the placeholder text
 
-## File Structure
-- `app/`: Routes and pages only.
-- `components/`: UI components.
-- `lib/`: Business logic, utility functions.
-- `config/`: Static configuration files.
+Features:
+- Custom Paragraph Count
+- Configurable Word Count
+- Classic Lorem Ipsum Text
+- Real-Time Generation
+- Copy with One Click
+- 100% Free
 
-# Final Checklist for generated code
-1. Is the URL flat?
-2. Is the content tone human and hype-free?
-3. Is metadata and schema present?
-4. Is the heavy logic lazy-loaded?
-5. Did you update `seo-log.md` if content was changed?
+Educational:
+Lorem Ipsum is placeholder text used in design mockups. It prevents clients from reading draft copy and focuses attention on layout. Originated from Cicero's "de Finibus Bonorum et Malorum" (45 BC). Use cases: website wireframes, print design mockups, testing text overflow, demonstrating font rendering, and filling CMS templates during development.
+
+### 6. UUID Generator
+HowTo Steps:
+1. Enter number of UUIDs to generate (1-100)
+2. Click generate
+3. View unique UUIDs (v4 format)
+4. Copy individual or all UUIDs
+
+Features:
+- UUID v4 Generation (random)
+- Batch Generation (1-100 at once)
+- Cryptographically Secure Random
+- Copy Individual or All
+- Lowercase with Hyphens
+- 100% Free
+
+Educational:
+UUIDs (Universally Unique Identifiers) are 128-bit values guaranteed to be unique. UUIDv4 uses random generation. Format: 8-4-4-4-12 hexadecimal digits. Chance of collision: negligible (2^122 combinations). Use cases: database primary keys, API request IDs, session identifiers, file naming, distributed system identifiers, and tracking unique events.
+
+### 7. Password Generator
+HowTo Steps:
+1. Set password length (4-128 characters)
+2. Choose character types (uppercase, lowercase, numbers, symbols)
+3. Click generate
+4. Check strength meter, copy secure password
+
+Features:
+- Customizable Length (4-128 chars)
+- Character Type Selection
+- Strength Meter (weak/medium/strong)
+- Batch Generation (up to 100)
+- Cryptographically Secure
+- 100% Free
+
+Educational:
+Strong passwords use length, randomness, and character diversity. A 12-character password with mixed types takes centuries to crack. Humans create predictable passwords. Use password managers to store generated passwords. Never reuse passwords across sites. Use cases: creating account passwords, generating API keys, securing database connections, WiFi passwords, and application secrets.
+
+### 8. Hash Generator
+HowTo Steps:
+1. Enter text to hash
+2. Click generate hashes
+3. View MD5, SHA-1, SHA-256, SHA-512 outputs
+4. Copy desired hash
+
+Features:
+- Multiple Algorithms (MD5, SHA-1, SHA-256, SHA-512)
+- One-Way Hashing
+- Instant Generation
+- Copy Individual Hashes
+- Checksum Verification
+- 100% Free
+
+Educational:
+Cryptographic hashes are one-way functions that produce fixed-size output from any input. Same input always produces same hash. Cannot reverse hash to get original. MD5 and SHA-1 are deprecated (collision attacks). Use SHA-256 or SHA-512 for security. Use cases: file integrity verification, checksums, git commit IDs, password hashing (use bcrypt/Argon2 instead), and data deduplication.
+
+## Tier 4 (4 Advanced tools):
+
+### 9. JWT Decoder
+HowTo Steps:
+1. Paste JWT token
+2. Click decode
+3. View header and payload (JSON formatted)
+4. Inspect claims (iss, sub, exp, iat)
+
+Features:
+- Header Decoding
+- Payload Extraction
+- JSON Formatting
+- No Verification (decode only)
+- Claims Display
+- 100% Free
+
+Educational:
+JWT (JSON Web Token) has three parts: header.payload.signature (Base64URL encoded). Header specifies algorithm. Payload contains claims. Signature verifies authenticity. This tool decodes but doesn't verify signatures. Common claims: iss (issuer), sub (subject), exp (expiration), iat (issued at). Warning: Never share tokens publicly. Use cases: debugging authentication, inspecting API tokens, understanding OAuth flows, and checking token expiration.
+
+### 10. Binary Converter
+HowTo Steps:
+1. Enter binary, hexadecimal, or decimal number
+2. Select input format
+3. View conversions to all formats
+4. Copy desired output format
+
+Features:
+- Binary ↔ Decimal ↔ Hexadecimal
+- Automatic Conversion
+- Input Validation
+- Large Number Support
+- Copy Any Format
+- 100% Free
+
+Educational:
+Binary (base-2), decimal (base-10), and hexadecimal (base-16) are number systems. Binary uses 0-1, decimal uses 0-9, hex uses 0-9 and A-F. Computers use binary internally. Hex is compact representation of binary (1 hex digit = 4 binary bits). Use cases: programming bitwise operations, understanding memory addresses, debugging low-level code, network packet analysis, and color codes (hex).
+
+### 11. Markdown to HTML
+HowTo Steps:
+1. Write or paste Markdown
+2. Click convert to HTML
+3. Toggle between code view and preview
+4. Copy HTML output
+
+Features:
+- GitHub Flavored Markdown
+- Live Preview
+- Syntax Highlighting
+- Tables & Code Blocks
+- Bidirectional Conversion
+- 100% Free
+
+Educational:
+Markdown is lightweight markup language for formatted text. Invented by John Gruber (2004). Uses plain text symbols: # headers, ** bold, - lists, [](url) links. Converts to HTML. GFM (GitHub Flavored Markdown) adds tables, task lists, strikethrough. Use cases: writing README files, documentation, blog posts, forum comments, and static site generators.
+
+### 12. HTML to Text
+HowTo Steps:
+1. Paste HTML code
+2. Click convert to plain text
+3. View text with HTML tags stripped
+4. Copy clean text
+
+Features:
+- Remove All HTML Tags
+- Preserve Line Breaks
+- Decode HTML Entities
+- Clean Formatting
+- Handle Nested Tags
+- 100% Free
+
+Educational:
+HTML to text conversion strips tags while preserving content. Useful for extracting readable content from HTML emails or web scraping. Challenges: handling <br> (convert to newline), <p> (add spacing), nested tags, and HTML entities (&nbsp;, &amp;). Use cases: email to plain text conversion, web scraping content extraction, generating text previews, preparing HTML for text analysis, and removing formatting from copy-pasted content.

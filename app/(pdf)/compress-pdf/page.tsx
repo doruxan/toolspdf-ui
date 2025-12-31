@@ -15,6 +15,22 @@ const pageMetadata: Metadata = {
     title: 'Compress PDF Online Free - Reduce File Size',
     description: 'Compress PDF files to reduce size. 100% free, secure, and fast.',
     type: 'website',
+  
+    url: 'https://rawtools.io/compress-pdf',
+    siteName: 'RawTools',
+    images: [{
+      url: '/og-image.svg',
+      width: 1200,
+      height: 630,
+      alt: 'RawTools Logo',
+    }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Compress PDF Online Free | RawTools',
+    description: 'Reduce PDF file size without losing quality. Fast, secure, browser-based compression.',
+  
+    images: ['/og-image.svg'],
   },
 };
 
@@ -67,13 +83,31 @@ export default function CompressPDFPage() {
                 <li>Download your compressed PDF file</li>
               </ol>
               
-              <h3 className="text-xl font-bold text-foreground mt-8">Why Compress PDFs?</h3>
+              <h3 className="text-xl font-bold text-foreground mt-8">PDF Compression Features</h3>
               <ul className="text-muted-foreground space-y-2">
-                <li><strong>Email Friendly:</strong> Reduce size for email attachments</li>
-                <li><strong>Save Space:</strong> Store more files on your device</li>
-                <li><strong>Faster Sharing:</strong> Upload and download faster</li>
-                <li><strong>Quality Preserved:</strong> Minimal quality loss</li>
+                <li><strong>Smart Compression:</strong> Optimizes images and removes redundant data</li>
+                <li><strong>Quality Preserved:</strong> Minimal visible quality loss</li>
+                <li><strong>Email-Friendly Sizes:</strong> Reduce 50MB files to under 10MB</li>
+                <li><strong>Fast Processing:</strong> Compress large files in seconds</li>
+                <li><strong>No File Limits:</strong> Compress files of any size</li>
+                <li><strong>Browser-Based:</strong> No software installation required</li>
               </ul>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Why Compress PDF Files?</h3>
+              <p className="text-muted-foreground">
+                PDF compression is critical for <strong>reducing file size while maintaining readability</strong>. Scenario: You scan a 50-page proposal with images—the PDF is 45MB. Most email servers reject attachments over 25MB. Compress it to 8MB and send successfully without quality loss.
+              </p>
+              <p className="text-muted-foreground">
+                Common use cases: Meeting email attachment limits (typically 10-25MB), reducing cloud storage costs, speeding up file transfers, optimizing website PDFs for faster page loads, preparing documents for mobile viewing, and archiving large document collections efficiently.
+              </p>
+              <p className="text-muted-foreground">
+                Real example: Marketing teams compress product catalogs from 80MB to 12MB before emailing to clients. The compressed version loads 6x faster, fits within email limits, and looks identical on screen—clients get the same information without download frustration.
+              </p>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Privacy & Security</h3>
+              <p className="text-muted-foreground">
+                All PDF compression happens locally in your browser. Your files are never uploaded to servers, stored in databases, or transmitted over the internet. The compressed PDF is generated on your device—complete privacy and security guaranteed.
+              </p>
             </div>
           </div>
           

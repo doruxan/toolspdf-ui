@@ -15,6 +15,22 @@ const pageMetadata: Metadata = {
     title: 'Extract PDF Pages Online Free',
     description: 'Extract specific pages from PDF files. 100% free, secure, and fast.',
     type: 'website',
+  
+    url: 'https://rawtools.io/extract-pages',
+    siteName: 'RawTools',
+    images: [{
+      url: '/og-image.svg',
+      width: 1200,
+      height: 630,
+      alt: 'RawTools Logo',
+    }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Extract Pages from PDF | RawTools',
+    description: 'Extract specific pages from PDF files. Fast, secure, browser-based extraction.',
+  
+    images: ['/og-image.svg'],
   },
 };
 
@@ -67,13 +83,28 @@ export default function ExtractPagesPage() {
                 <li>Download the new PDF containing only extracted pages</li>
               </ol>
               
-              <h3 className="text-xl font-bold text-foreground mt-8">Extract vs Split</h3>
+              <h3 className="text-xl font-bold text-foreground mt-8">PDF Extraction Features</h3>
               <ul className="text-muted-foreground space-y-2">
-                <li><strong>Extract:</strong> Create one PDF with specific pages you choose</li>
-                <li><strong>Split:</strong> Separate PDF into multiple files</li>
-                <li><strong>Flexible:</strong> Extract non-consecutive pages (e.g., 1,5,7,10)</li>
-                <li><strong>Maintain Order:</strong> Pages appear in the order specified</li>
+                <li><strong>Specific Pages:</strong> Extract exact pages (e.g., 1,5,7,10-15)</li>
+                <li><strong>Page Ranges:</strong> Use hyphens for ranges (e.g., 10-20)</li>
+                <li><strong>Single Output:</strong> All extracted pages in one new PDF</li>
+                <li><strong>Custom Order:</strong> Pages appear in the order you specify</li>
+                <li><strong>No Quality Loss:</strong> Original page quality preserved</li>
+                <li><strong>Fast Processing:</strong> Extract from large PDFs instantly</li>
               </ul>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Why Extract PDF Pages?</h3>
+              <p className="text-muted-foreground">
+                PDF extraction creates <strong>focused documents from specific pages</strong>. Scenario: You have a 300-page employee handbook but only need to share the benefits section (pages 45-62) with new hires. Extract those 18 pages into a standalone PDF—easier to read and smaller to email.
+              </p>
+              <p className="text-muted-foreground">
+                Common use cases: Isolating relevant chapters from textbooks, extracting signed pages from contracts, creating custom document packets from larger files, sharing specific sections without exposing entire documents, and building presentations from selected report pages.
+              </p>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Privacy & Security</h3>
+              <p className="text-muted-foreground">
+                All PDF extraction happens locally in your browser. Your files never leave your device and are never uploaded to servers. The extracted PDF is generated on your computer—complete privacy guaranteed.
+              </p>
             </div>
           </div>
           

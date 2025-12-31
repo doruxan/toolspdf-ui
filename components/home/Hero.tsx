@@ -10,7 +10,7 @@ export default function Hero() {
             - Free Online Tools
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
-            Free online tools that run in your browser: PDF tools, JSON converters (CSV/Excel, formatter, validator), IBAN validators, and Shopify calculators. Fast, private, and easy to use.
+            Free online tools that run in your browser: PDF tools, JSON converters, IBAN validators, Shopify calculators, and String manipulation tools. Fast, private, and easy to use.
           </p>
 
           {/* Trust Badges */}

@@ -15,6 +15,22 @@ const pageMetadata: Metadata = {
     title: 'PDF to JPG Converter Online Free',
     description: 'Convert PDF pages to JPG images. 100% free, secure, and fast.',
     type: 'website',
+  
+    url: 'https://rawtools.io/pdf-to-jpg',
+    siteName: 'RawTools',
+    images: [{
+      url: '/og-image.svg',
+      width: 1200,
+      height: 630,
+      alt: 'RawTools Logo',
+    }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'PDF to JPG Converter | RawTools',
+    description: 'Convert PDF pages to JPG images. High quality, fast, browser-based conversion.',
+  
+    images: ['/og-image.svg'],
   },
 };
 
@@ -67,13 +83,28 @@ export default function PDFToJPGPage() {
                 <li>Download individual images or all at once</li>
               </ol>
               
-              <h3 className="text-xl font-bold text-foreground mt-8">PDF to JPG Benefits</h3>
+              <h3 className="text-xl font-bold text-foreground mt-8">PDF to JPG Features</h3>
               <ul className="text-muted-foreground space-y-2">
-                <li><strong>High Quality:</strong> Maintains image quality during conversion</li>
-                <li><strong>All Pages:</strong> Converts every page to a separate image</li>
-                <li><strong>Universal Format:</strong> JPG works everywhere</li>
-                <li><strong>Easy Sharing:</strong> Share images on social media and websites</li>
+                <li><strong>High Quality:</strong> Maintains image quality during conversion (300 DPI)</li>
+                <li><strong>All Pages Converted:</strong> Each PDF page becomes a separate JPG image</li>
+                <li><strong>Batch Download:</strong> Download all images at once as a ZIP file</li>
+                <li><strong>Universal Format:</strong> JPG works on all devices and platforms</li>
+                <li><strong>Fast Processing:</strong> Convert multi-page PDFs in seconds</li>
+                <li><strong>No Quality Loss:</strong> Original image fidelity preserved</li>
               </ul>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Why Convert PDF to JPG?</h3>
+              <p className="text-muted-foreground">
+                PDF to JPG conversion enables <strong>image editing and universal compatibility</strong>. Scenario: You receive a PDF brochure and need to extract the product photos for your website. Convert to JPG to get individual images you can crop, resize, and upload—PDFs don&apos;t work in image galleries.
+              </p>
+              <p className="text-muted-foreground">
+                Common use cases: Extracting images for social media posts, creating thumbnails for presentations, editing PDF graphics in Photoshop, inserting PDF pages into Word documents as images, sharing specific pages on platforms that don&apos;t support PDFs, and archiving documents as image files.
+              </p>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Privacy & Security</h3>
+              <p className="text-muted-foreground">
+                All PDF to JPG conversion happens locally in your browser. Your files never leave your device and are never uploaded to servers. The images are generated on your computer—complete privacy guaranteed.
+              </p>
             </div>
           </div>
           

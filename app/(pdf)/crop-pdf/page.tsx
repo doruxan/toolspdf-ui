@@ -15,6 +15,22 @@ const pageMetadata: Metadata = {
     title: 'Crop PDF Online Free',
     description: 'Crop PDF pages and adjust margins. 100% free, secure, and fast.',
     type: 'website',
+  
+    url: 'https://rawtools.io/crop-pdf',
+    siteName: 'RawTools',
+    images: [{
+      url: '/og-image.svg',
+      width: 1200,
+      height: 630,
+      alt: 'RawTools Logo',
+    }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Crop PDF Pages | RawTools',
+    description: 'Crop PDF pages to remove margins and unwanted areas. Fast, browser-based cropping.',
+  
+    images: ['/og-image.svg'],
   },
 };
 
@@ -68,13 +84,28 @@ export default function CropPDFPage() {
                 <li>Click "Crop PDF" and download the result</li>
               </ol>
               
-              <h3 className="text-xl font-bold text-foreground mt-8">Why Crop PDFs?</h3>
+              <h3 className="text-xl font-bold text-foreground mt-8">PDF Cropping Features</h3>
               <ul className="text-muted-foreground space-y-2">
+                <li><strong>Custom Margins:</strong> Set top, right, bottom, left margins independently</li>
+                <li><strong>Multiple Units:</strong> Work in millimeters, inches, or points</li>
+                <li><strong>All Pages:</strong> Crop all pages uniformly</li>
                 <li><strong>Remove White Space:</strong> Eliminate excessive margins</li>
-                <li><strong>Better Fit:</strong> Adjust pages to fit specific dimensions</li>
-                <li><strong>Professional Look:</strong> Create consistent margins</li>
-                <li><strong>Printing:</strong> Optimize for printing requirements</li>
+                <li><strong>No Quality Loss:</strong> Content quality preserved</li>
+                <li><strong>Fast Processing:</strong> Crop large PDFs instantly</li>
               </ul>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Why Crop PDF Pages?</h3>
+              <p className="text-muted-foreground">
+                PDF cropping removes <strong>unwanted margins and white space</strong>. Scenario: You scan documents with a large-format scanner that adds 2-inch margins on all sides. The content is small and hard to read. Crop those margins to make the content fill the page—much easier to read on screens and tablets.
+              </p>
+              <p className="text-muted-foreground">
+                Common use cases: Removing excessive white space from scanned documents, adjusting pages for specific print sizes, creating consistent margins across mixed documents, optimizing PDFs for mobile viewing, and preparing documents for professional printing with bleed requirements.
+              </p>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Privacy & Security</h3>
+              <p className="text-muted-foreground">
+                All PDF cropping happens locally in your browser. Your files never leave your device and are never uploaded to servers. The cropped PDF is generated on your computer—complete privacy guaranteed.
+              </p>
             </div>
           </div>
           

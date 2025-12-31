@@ -15,6 +15,22 @@ const pageMetadata: Metadata = {
     title: 'Protect PDF Online Free - Add Password',
     description: 'Add password protection to PDF files. 100% free, secure, and fast.',
     type: 'website',
+  
+    url: 'https://rawtools.io/protect-pdf',
+    siteName: 'RawTools',
+    images: [{
+      url: '/og-image.svg',
+      width: 1200,
+      height: 630,
+      alt: 'RawTools Logo',
+    }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Protect PDF with Password | RawTools',
+    description: 'Add password protection to PDF files. Secure, fast, browser-based encryption.',
+  
+    images: ['/og-image.svg'],
   },
 };
 
@@ -67,13 +83,28 @@ export default function ProtectPDFPage() {
                 <li>Download your password-protected PDF</li>
               </ol>
               
-              <h3 className="text-xl font-bold text-foreground mt-8">Password Protection Tips</h3>
+              <h3 className="text-xl font-bold text-foreground mt-8">PDF Protection Features</h3>
               <ul className="text-muted-foreground space-y-2">
-                <li><strong>Strong Password:</strong> Use a combination of letters, numbers, and symbols</li>
-                <li><strong>Remember It:</strong> You'll need the password to open the PDF</li>
-                <li><strong>Secure Storage:</strong> Store your password in a safe place</li>
-                <li><strong>Privacy:</strong> Password is never sent to any server</li>
+                <li><strong>Strong Encryption:</strong> 128-bit AES encryption standard</li>
+                <li><strong>Custom Password:</strong> Choose any password you want</li>
+                <li><strong>Instant Protection:</strong> Encrypt PDFs in seconds</li>
+                <li><strong>No File Limits:</strong> Protect files of any size</li>
+                <li><strong>Browser-Based:</strong> Password never sent to servers</li>
+                <li><strong>Universal Compatibility:</strong> Works with all PDF readers</li>
               </ul>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Why Password Protect PDFs?</h3>
+              <p className="text-muted-foreground">
+                PDF password protection secures <strong>sensitive documents from unauthorized access</strong>. Scenario: You&apos;re emailing financial statements to your accountant. Add a password so if the email is intercepted or forwarded, only your accountant (who knows the password) can open it.
+              </p>
+              <p className="text-muted-foreground">
+                Common use cases: Protecting confidential contracts, securing tax documents, encrypting medical records, safeguarding employee information, protecting intellectual property, securing legal documents, and adding privacy to personal files before cloud storage.
+              </p>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Privacy & Security</h3>
+              <p className="text-muted-foreground">
+                All PDF encryption happens locally in your browser. Your password and files never leave your device—encryption is performed using JavaScript on your computer. The protected PDF is generated locally—complete privacy guaranteed.
+              </p>
             </div>
           </div>
           

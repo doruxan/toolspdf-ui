@@ -15,6 +15,22 @@ const pageMetadata: Metadata = {
     title: 'JPG to PDF Converter Online Free',
     description: 'Convert images to PDF document. 100% free, secure, and fast.',
     type: 'website',
+  
+    url: 'https://rawtools.io/jpg-to-pdf',
+    siteName: 'RawTools',
+    images: [{
+      url: '/og-image.svg',
+      width: 1200,
+      height: 630,
+      alt: 'RawTools Logo',
+    }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'JPG to PDF Converter | RawTools',
+    description: 'Convert JPG images to PDF. Multiple images to single PDF. Fast, browser-based.',
+  
+    images: ['/og-image.svg'],
   },
 };
 
@@ -67,13 +83,28 @@ export default function JPGToPDFPage() {
                 <li>Download your PDF document</li>
               </ol>
               
-              <h3 className="text-xl font-bold text-foreground mt-8">Image to PDF Features</h3>
+              <h3 className="text-xl font-bold text-foreground mt-8">JPG to PDF Features</h3>
               <ul className="text-muted-foreground space-y-2">
-                <li><strong>Multiple Images:</strong> Combine up to 50 images in one PDF</li>
-                <li><strong>Any Format:</strong> Supports JPG, PNG, and other image formats</li>
-                <li><strong>Automatic Sizing:</strong> Images fit perfectly on PDF pages</li>
+                <li><strong>Multiple Images:</strong> Combine unlimited images in one PDF</li>
+                <li><strong>Any Image Format:</strong> Supports JPG, PNG, GIF, BMP, and more</li>
+                <li><strong>Automatic Page Sizing:</strong> Images fit perfectly on PDF pages</li>
+                <li><strong>Custom Order:</strong> Drag and drop to reorder images</li>
                 <li><strong>Original Quality:</strong> No compression or quality loss</li>
+                <li><strong>Fast Processing:</strong> Create PDFs from dozens of images instantly</li>
               </ul>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Why Convert JPG to PDF?</h3>
+              <p className="text-muted-foreground">
+                JPG to PDF conversion creates <strong>professional documents from photos and scans</strong>. Scenario: You photograph 15 pages of handwritten notes with your phone. Convert all photos to one PDF—easier to email, store, and read than 15 separate image files.
+              </p>
+              <p className="text-muted-foreground">
+                Common use cases: Creating PDFs from scanned receipts, converting photo albums to shareable documents, assembling product catalogs from images, digitizing handwritten notes, creating portfolios from artwork photos, and preparing image-based reports for printing.
+              </p>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Privacy & Security</h3>
+              <p className="text-muted-foreground">
+                All JPG to PDF conversion happens locally in your browser. Your images never leave your device and are never uploaded to servers. The PDF is generated on your computer—complete privacy guaranteed.
+              </p>
             </div>
           </div>
           

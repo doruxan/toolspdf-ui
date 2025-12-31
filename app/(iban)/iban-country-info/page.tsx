@@ -9,6 +9,27 @@ const pageMetadata: Metadata = {
   title: 'IBAN Country Lookup - Format Rules & Examples for 80+ Countries | RawTools',
   description: 'Comprehensive IBAN country database. View format specifications, examples, and validation rules for 80+ countries. SEPA membership information included.',
   keywords: 'iban country lookup, iban format by country, iban country codes, iban specifications, sepa countries',
+  openGraph: {
+    title: 'IBAN Country Lookup - IBAN Formats',
+    description: 'Comprehensive IBAN format database for 80+ countries. Examples, validation rules, and SEPA info.',
+    type: 'website',
+  
+    url: 'https://rawtools.io/iban-country-info',
+    siteName: 'RawTools',
+    images: [{
+      url: '/og-image.svg',
+      width: 1200,
+      height: 630,
+      alt: 'RawTools Logo',
+    }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'IBAN Country Lookup - IBAN Formats | RawTools',
+    description: 'Comprehensive IBAN format database for 80+ countries. Examples, validation rules, and SEPA info.',
+  
+    images: ['/og-image.svg'],
+  },
 }
 
 export async function generateMetadata(): Promise<Metadata> {

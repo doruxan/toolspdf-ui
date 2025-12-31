@@ -15,6 +15,22 @@ const pageMetadata: Metadata = {
     title: 'Rotate PDF Online Free',
     description: 'Rotate PDF pages 90, 180, or 270 degrees. 100% free, secure, and fast.',
     type: 'website',
+  
+    url: 'https://rawtools.io/rotate-pdf',
+    siteName: 'RawTools',
+    images: [{
+      url: '/og-image.svg',
+      width: 1200,
+      height: 630,
+      alt: 'RawTools Logo',
+    }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Rotate PDF Pages | RawTools',
+    description: 'Rotate PDF pages 90, 180, or 270 degrees. Fast, browser-based rotation.',
+  
+    images: ['/og-image.svg'],
   },
 };
 
@@ -67,13 +83,28 @@ export default function RotatePDFPage() {
                 <li>Download your rotated PDF file</li>
               </ol>
               
-              <h3 className="text-xl font-bold text-foreground mt-8">Rotation Options</h3>
+              <h3 className="text-xl font-bold text-foreground mt-8">PDF Rotation Features</h3>
               <ul className="text-muted-foreground space-y-2">
-                <li><strong>90° Clockwise:</strong> Rotate pages to the right</li>
-                <li><strong>180°:</strong> Flip pages upside down</li>
-                <li><strong>270° (90° Counter-clockwise):</strong> Rotate pages to the left</li>
-                <li><strong>All Pages:</strong> Rotation applies to all pages</li>
+                <li><strong>90° Clockwise:</strong> Rotate pages to the right (portrait to landscape)</li>
+                <li><strong>180° Flip:</strong> Turn pages upside down</li>
+                <li><strong>270° Counter-clockwise:</strong> Rotate pages to the left</li>
+                <li><strong>All Pages at Once:</strong> Rotation applies to entire document</li>
+                <li><strong>Quality Preserved:</strong> No degradation in image or text quality</li>
+                <li><strong>Fast Processing:</strong> Instant rotation without re-encoding</li>
               </ul>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Why Rotate PDF Pages?</h3>
+              <p className="text-muted-foreground">
+                PDF rotation fixes <strong>orientation issues from scanning or mobile photos</strong>. Scenario: You scan a landscape document (like a wide spreadsheet) but the scanner saves it in portrait mode. The PDF displays sideways—rotate 90° to fix the orientation permanently.
+              </p>
+              <p className="text-muted-foreground">
+                Common use cases: Fixing scanned documents with wrong orientation, correcting mobile phone photos saved as PDFs, adjusting landscape pages mixed with portrait pages, preparing documents for printing in correct orientation, and fixing upside-down pages from duplex scanning errors.
+              </p>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Privacy & Security</h3>
+              <p className="text-muted-foreground">
+                All PDF rotation happens locally in your browser. Your files never leave your device and are never uploaded to servers. The rotated PDF is generated on your computer—complete privacy guaranteed.
+              </p>
             </div>
           </div>
           

@@ -37,7 +37,7 @@ export default function Footer() {
               <span>RawTools</span>
             </Link>
             <p className="text-sm text-muted-foreground">
-              Free online PDF tools, JSON converters, IBAN validators, and Shopify calculators. Process files and convert data
+              Free online PDF tools, JSON converters, IBAN validators, Shopify calculators, and String manipulation tools. Process files and convert data
               directly in your browser. Your data never leaves your device.
             </p>
           </div>

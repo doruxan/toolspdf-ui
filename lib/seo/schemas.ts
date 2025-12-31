@@ -6,7 +6,7 @@ export function generateOrganizationSchema() {
     url: 'https://rawtools.io',
     logo: 'https://rawtools.io/logo.png',
     description:
-      'Free online tools that run in your browser: PDF tools, JSON converters (CSV/Excel, formatter, validator), IBAN validators, and Shopify calculators. Fast, private, and easy to use.',
+      'Free online tools that run in your browser: PDF tools, JSON converters, IBAN validators, Shopify calculators, and String manipulation tools. Fast, private, and easy to use.',
     sameAs: ['https://twitter.com/rawtools', 'https://github.com/rawtools'],
   };
 }

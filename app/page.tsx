@@ -8,20 +8,20 @@ import { Shield, Zap, Lock } from 'lucide-react';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
 
 const pageMetadata: Metadata = {
-  title: 'RawTools - Free PDF, JSON, IBAN & Shopify Tools',
+  title: 'RawTools - Free PDF, JSON, IBAN, Shopify & String Tools',
   description:
-    '40 free online tools: 16 PDF tools, 9 JSON tools (CSV/Excel converters, formatter, validator), 7 IBAN tools, 8 Shopify calculators. Browser-based, private, and fast.',
+    '65+ free online tools: 16 PDF, 9 JSON, 7 IBAN, 8 Shopify, 25 String tools (case converter, base64, hash generator, regex tester). Browser-based, private, and fast.',
   openGraph: {
-    title: 'RawTools - Free PDF, JSON, IBAN & Shopify Tools',
+    title: 'RawTools - Free PDF, JSON, IBAN, Shopify & String Tools',
     description:
-      'Free online tools that run in your browser: PDF tools, JSON converters, IBAN tools, and Shopify calculators. Fast, private, and easy to use.',
+      'Free online tools that run in your browser: PDF tools, JSON converters, IBAN tools, Shopify calculators, and String manipulation tools. Fast, private, and easy to use.',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'RawTools - Free PDF, JSON, IBAN & Shopify Tools',
+    title: 'RawTools - Free PDF, JSON, IBAN, Shopify & String Tools',
     description:
-      '40 free tools: PDFs, JSON converters, IBAN tools, Shopify calculators. Browser-based, private, no signup.',
+      '65+ free tools: PDFs, JSON, IBAN, Shopify, String tools. Browser-based, private, no signup.',
   },
 };
 
@@ -34,6 +34,7 @@ export default function Home() {
   const jsonCount = toolCategories.find((c) => c.id === 'json-tools')?.tools.length ?? 0;
   const ibanCount = toolCategories.find((c) => c.id === 'iban-tools')?.tools.length ?? 0;
   const ecommerceCount = toolCategories.find((c) => c.id === 'ecommerce-tools')?.tools.length ?? 0;
+  const stringCount = toolCategories.find((c) => c.id === 'string-tools')?.tools.length ?? 0;
 
   // Collection Page Schema
   const collectionSchema = {
@@ -41,7 +42,7 @@ export default function Home() {
     '@type': 'CollectionPage',
     name: 'RawTools - Free Online Tools',
     description:
-      'Free online tools that run in your browser: PDF tools (merge, split, compress), JSON tools (CSV/Excel converters, formatter, validator), IBAN validation/parsing, and e-commerce calculators. Fast, private, and easy to use.',
+      'Free online tools that run in your browser: PDF tools (merge, split, compress), JSON tools (CSV/Excel converters, formatter, validator), IBAN validation/parsing, e-commerce calculators, and String manipulation tools (case converter, base64, regex tester). Fast, private, and easy to use.',
     url: 'https://rawtools.io',
     hasPart: toolCategories.flatMap((category) =>
       category.tools.map((tool) => ({
@@ -148,10 +149,11 @@ export default function Home() {
                 What tools are available?
               </h3>
               <p className="text-muted-foreground">
-                We currently offer {pdfCount} PDF tools (merge, split, compress, convert, etc.),{' '}
-                {jsonCount} JSON tools (CSV/Excel converters, formatter, minifier, schema validator, etc.),{' '}
-                {ibanCount} IBAN tools (validator, generator, parser, batch validator, etc.), and{' '}
-                {ecommerceCount} Shopify calculators (profit, fees, LTV/CAC, break-even ROAS, etc.).
+                We currently offer {pdfCount} PDF tools (merge, split, compress, convert),{' '}
+                {jsonCount} JSON tools (CSV/Excel converters, formatter, validator),{' '}
+                {ibanCount} IBAN tools (validator, generator, parser, batch validator),{' '}
+                {ecommerceCount} Shopify calculators (profit, fees, LTV/CAC, ROAS), and{' '}
+                {stringCount} String tools (case converter, base64, hash generator, regex tester, etc.).
               </p>
             </div>
           </div>

@@ -15,6 +15,22 @@ const pageMetadata: Metadata = {
     title: 'HTML to PDF Converter Online Free',
     description: 'Convert HTML or text to PDF. 100% free, secure, and fast.',
     type: 'website',
+
+    url: 'https://rawtools.io/html-to-pdf',
+    siteName: 'RawTools',
+    images: [{
+      url: '/og-image.svg',
+      width: 1200,
+      height: 630,
+      alt: 'RawTools Logo',
+    }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'HTML to PDF Converter | RawTools',
+    description: 'Convert HTML to PDF files. Preserves styling, images, and layout. Fast conversion.',
+
+    images: ['/og-image.svg'],
   },
 };
 
@@ -67,14 +83,46 @@ export default function HTMLToPDFPage() {
                 <li>Adjust font size for readability</li>
                 <li>Click "Convert to PDF" to download your document</li>
               </ol>
-              
-              <h3 className="text-xl font-bold text-foreground mt-8">Perfect For</h3>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Why Use Our HTML to PDF Converter?</h3>
               <ul className="text-muted-foreground space-y-2">
-                <li><strong>Documentation:</strong> Convert documentation to PDF format</li>
-                <li><strong>Reports:</strong> Turn text reports into shareable PDFs</li>
-                <li><strong>Notes:</strong> Save notes as PDF documents</li>
-                <li><strong>Web Content:</strong> Archive web content as PDF</li>
+                <li><strong>100% Free:</strong> No hidden costs or subscriptions</li>
+                <li><strong>Secure:</strong> All conversion happens locally in your browser</li>
+                <li><strong>Fast:</strong> Instant conversion without server uploads</li>
+                <li><strong>Flexible:</strong> Supports HTML and plain text</li>
+                <li><strong>Customizable:</strong> Control page size, orientation, and font size</li>
+                <li><strong>Cross-Platform:</strong> Works on any OS and browser</li>
               </ul>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Features of Our HTML to PDF Tool</h3>
+              <ul className="text-muted-foreground space-y-2">
+                <li><strong>HTML Support:</strong> Preserves basic HTML formatting and structure</li>
+                <li><strong>Plain Text:</strong> Convert simple text documents to PDF</li>
+                <li><strong>Multiple Page Sizes:</strong> A4 and Letter formats available</li>
+                <li><strong>Orientation Control:</strong> Portrait or landscape layout</li>
+                <li><strong>Font Size Adjustment:</strong> Optimize readability for any purpose</li>
+                <li><strong>Client-Side Processing:</strong> Your content never leaves your browser</li>
+              </ul>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">What is HTML to PDF Conversion?</h3>
+              <p className="text-muted-foreground">
+                HTML to PDF conversion is the process of transforming HTML markup or plain text into a Portable Document Format (PDF) file. This is essential for archiving web content, creating printable versions of online documents, or generating reports from HTML templates. Our tool handles the conversion directly in your browser, ensuring privacy and speed. Whether you're converting structured HTML with formatting or simple text content, the output is a universally compatible PDF document that preserves your content's readability and structure.
+              </p>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Common Use Cases for HTML to PDF</h3>
+              <ul className="text-muted-foreground space-y-2">
+                <li><strong>Documentation:</strong> Convert technical documentation or API docs to PDF format.</li>
+                <li><strong>Reports:</strong> Turn HTML reports or analytics into shareable PDFs.</li>
+                <li><strong>Web Archiving:</strong> Save web content or blog posts as permanent PDF files.</li>
+                <li><strong>Email Templates:</strong> Convert HTML email templates to PDF for review.</li>
+                <li><strong>Notes & Memos:</strong> Transform text notes into professional PDF documents.</li>
+                <li><strong>Invoices:</strong> Generate PDF invoices from HTML templates.</li>
+              </ul>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Privacy & Security</h3>
+              <p className="text-muted-foreground">
+                Your privacy is our top priority. All HTML to PDF conversion operations are performed directly in your web browser. This means your content never leaves your device and is never uploaded to our servers. You can use our tool with complete confidence, knowing your data remains private and secure throughout the entire process.
+              </p>
             </div>
           </div>
           

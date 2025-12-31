@@ -12,6 +12,42 @@
 # - New post created: (yes/no, slug)
 # - Notes for next week (1–2 lines): what NOT to repeat, what to do next
 
+- Week of: 2025-12-31
+- Strategy: C (Phase 1 SEO Enhancement - PDF & Shopify Tools)
+- Pages changed: [All 16 PDF tools: /merge-pdf, /split-pdf, /compress-pdf, /rotate-pdf, /organize-pdf, /pdf-to-jpg, /jpg-to-pdf, /protect-pdf, /unlock-pdf, /watermark-pdf, /extract-pages, /remove-pages, /redact-pdf, /crop-pdf, /add-page-numbers, /html-to-pdf; All 8 Shopify tools: /shopify-profit-calculator, /shopify-fees-calculator, /shopify-bundle-pricing-calculator, /shopify-break-even-roas-calculator, /shopify-ltv-cac-calculator, /shopify-return-refund-impact-calculator, /shopify-invoice-generator, /shopify-speed-checklist]
+- What changed (3 bullets max)
+  - Added HowTo structured data (schema.org/HowTo) to all 24 tool pages (16 PDF + 8 Shopify) for rich snippet eligibility and improved search visibility
+  - Implemented 3-column grid layout with AdSidebar for better ad monetization and added 400-600 words of educational content per page: "How to Use" step-by-step guides, "Why Use?" sections with 6 key benefits, "Features" with detailed capabilities, "What is [Concept]?" educational explanations with real-world scenarios, "Use Cases" for practical applications, and "Privacy & Security" assurances
+  - Added Twitter Card and OpenGraph metadata (og:url, og:siteName, og:images, twitter:card, twitter:images) to all tools for rich social media link previews on platforms like Twitter/X, LinkedIn, Facebook, Slack, WhatsApp, Teams, and Discord
+- Internal links added: 0 (focused on on-page content depth)
+- New FAQs added: 0 (category-level FAQs already present in config)
+- New post created: no
+- Notes for next week (1–2 lines): All JSON, String, PDF, and Shopify tools now have comprehensive SEO content with HowTo schemas and social metadata. Next focus: Create blog posts for high-value PDF and Shopify workflows (e.g., "PDF merge best practices for legal docs", "How to calculate Shopify profitability", "ROAS optimization strategies"). Consider IBAN tools SEO enhancement if needed.
+
+- Week of: 2025-12-31
+- Strategy: C (Enhanced existing tools with educational SEO content)
+- Pages changed: [All JSON tools: /csv-to-json, /excel-to-json, /json-formatter, /json-minifier, /json-validator, /json-mapper, /json-diff, /json-schema-validator, /json-to-csv; All 25 String tools: /case-converter, /word-counter, /character-counter, /base64-encoder, /url-encoder, /html-entity-encoder, /hash-generator, /regex-tester, /find-replace, /line-sorter, /duplicate-remover, /text-diff, /emoji-extractor, /lorem-ipsum-generator, /uuid-generator, /password-generator, /slug-generator, /jwt-decoder, /binary-converter, /markdown-to-html, /html-to-text, /string-reverser, /whitespace-remover, /remove-accents, /bracket-matcher]
+- What changed (3 bullets max)
+  - Added HowTo structured data (schema.org/HowTo) to all 34 tool pages (9 JSON + 25 String) for rich snippet eligibility in Google search results
+  - Added comprehensive educational sections to each tool page: "How to" step-by-step guides, "Features" sections with 6 key capabilities, "Why use this tool?" explanations with real-world examples and scenarios, use case lists
+  - Increased average content per tool page from ~100 words to 400-600 words with practical operator-to-operator explanations, no hype language, all while maintaining mobile-first responsive design
+- Internal links added: 0 (focused on on-page content depth)
+- New FAQs added: 0 (category-level FAQs already present in config)
+- New post created: no
+- Notes for next week (1–2 lines): All JSON and String tools now have rich educational content. Next focus: Create blog posts linking workflows (e.g., "CSV to JSON to Shopify Import", "Regex patterns for data validation", "JWT debugging workflow"). Consider adding more cross-tool workflow guides.
+
+- Week of: 2025-12-31
+- Strategy: A (New category addition - String Tools)
+- Pages changed: [/, /case-converter, /word-counter, /base64-encoder, /url-encoder, /hash-generator, /lorem-ipsum-generator, /find-replace, /line-sorter, /duplicate-remover, /uuid-generator, /password-generator, /slug-generator, /jwt-decoder, /html-entity-encoder, /text-diff, /regex-tester, /string-reverser, /whitespace-remover, /binary-converter, /remove-accents, /markdown-to-html, /html-to-text, /character-counter, /bracket-matcher, /emoji-extractor, /string-tools, layout.tsx, Hero.tsx, Footer.tsx, schemas.ts, config/tools.ts]
+- What changed (3 bullets max)
+  - Added complete String Tools category with 25 production-grade tools: case converter (12 formats), base64/URL encoders, hash generator (MD5/SHA-256/SHA-512), regex tester, JWT decoder, text diff, and 18 more
+  - Updated all global SEO metadata to reflect 65+ total tools (16 PDF + 9 JSON + 7 IBAN + 8 Shopify + 25 String), including homepage, hero, footer, organization schema
+  - All tools use lazy-loaded libraries (crypto-js, diff-match-patch, marked) to maintain blazing-fast page load speeds (~90KB total bundle split across 3 tools)
+- Internal links added: 25 (footer navigation column)
+- New FAQs added: 4 (string tools category)
+- New post created: no
+- Notes for next week (1–2 lines): Create String-focused blog posts for developer workflows (regex patterns library, JWT debugging guide, base64 encoding use cases). Consider cross-linking string tools with JSON tools for data transformation workflows.
+
 - Week of: 2025-12-26
 - Strategy: F
 - Pages changed: [rawtools/lib/blog/posts.ts, rawtools/app/blog/page.tsx, /blog/json-schema-validation-how-to-catch-bad-api-payloads, /blog/how-to-diff-two-json-files-and-see-what-changed, /blog/jsonpath-in-practice-query-json-with-jsonpath]

@@ -15,6 +15,22 @@ const pageMetadata: Metadata = {
     title: 'Redact PDF Online Free',
     description: 'Redact sensitive information in PDF files. 100% free, secure, and fast.',
     type: 'website',
+  
+    url: 'https://rawtools.io/redact-pdf',
+    siteName: 'RawTools',
+    images: [{
+      url: '/og-image.svg',
+      width: 1200,
+      height: 630,
+      alt: 'RawTools Logo',
+    }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Redact PDF - Black Out Text | RawTools',
+    description: 'Redact sensitive information from PDF files. Permanent black-out redaction.',
+  
+    images: ['/og-image.svg'],
   },
 };
 
@@ -70,20 +86,28 @@ export default function RedactPDFPage() {
                 <li>Click "Apply Redactions" to process and download</li>
               </ol>
               
-              <h3 className="text-xl font-bold text-foreground mt-8">Redaction Use Cases</h3>
+              <h3 className="text-xl font-bold text-foreground mt-8">PDF Redaction Features</h3>
               <ul className="text-muted-foreground space-y-2">
-                <li><strong>Legal Documents:</strong> Redact names, addresses, and sensitive data</li>
-                <li><strong>Medical Records:</strong> Protect patient privacy (HIPAA compliance)</li>
-                <li><strong>Financial:</strong> Hide account numbers and SSNs</li>
-                <li><strong>Contracts:</strong> Redact confidential terms or pricing</li>
+                <li><strong>Permanent Removal:</strong> Text is completely deleted, not just covered</li>
+                <li><strong>Multiple Redactions:</strong> Black out multiple areas in one operation</li>
+                <li><strong>Precise Control:</strong> Specify exact coordinates and dimensions</li>
+                <li><strong>Legal Compliance:</strong> Meets HIPAA, GDPR redaction standards</li>
+                <li><strong>Irreversible:</strong> Redacted information cannot be recovered</li>
+                <li><strong>All Pages:</strong> Redact across multiple pages at once</li>
               </ul>
-              
-              <div className="p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg mt-6">
-                <p className="text-sm text-yellow-800 dark:text-yellow-200">
-                  <strong>Note:</strong> Coordinates are in points (72 points = 1 inch). The Y-axis starts at the bottom of the page. 
-                  You may need to experiment with values to find the exact position.
-                </p>
-              </div>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Why Redact PDF Documents?</h3>
+              <p className="text-muted-foreground">
+                PDF redaction permanently removes <strong>sensitive information before sharing</strong>. Scenario: You&apos;re sharing a legal contract with a third party but need to hide client names and financial terms. Redact those sections—the information is permanently deleted, not just hidden with a black box.
+              </p>
+              <p className="text-muted-foreground">
+                Common use cases: Protecting personal information in legal documents, redacting Social Security numbers from HR files, hiding account numbers in financial statements, removing patient names from medical records (HIPAA compliance), and censoring confidential terms in contracts before public release.
+              </p>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Privacy & Security</h3>
+              <p className="text-muted-foreground">
+                All PDF redaction happens locally in your browser. Your files never leave your device and are never uploaded to servers. The redacted PDF is generated on your computer—complete privacy guaranteed.
+              </p>
             </div>
           </div>
           

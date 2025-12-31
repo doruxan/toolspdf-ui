@@ -9,6 +9,27 @@ const pageMetadata: Metadata = {
   title: 'IBAN Generator - Generate Valid Test IBANs for 80+ Countries | RawTools',
   description: 'Free IBAN generator for testing and development. Generate valid IBANs with correct checksums for 80+ countries. Bulk generation up to 100 IBANs.',
   keywords: 'iban generator, generate iban, test iban, random iban, iban creator, fake iban generator',
+  openGraph: {
+    title: 'IBAN Generator - Generate Test IBANs',
+    description: 'Generate valid test IBANs for 80+ countries. Perfect for development and testing.',
+    type: 'website',
+  
+    url: 'https://rawtools.io/iban-generator',
+    siteName: 'RawTools',
+    images: [{
+      url: '/og-image.svg',
+      width: 1200,
+      height: 630,
+      alt: 'RawTools Logo',
+    }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'IBAN Generator - Generate Test IBANs | RawTools',
+    description: 'Generate valid test IBANs for 80+ countries. Perfect for development and testing.',
+  
+    images: ['/og-image.svg'],
+  },
 }
 
 export async function generateMetadata(): Promise<Metadata> {
