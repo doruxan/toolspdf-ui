@@ -15,7 +15,7 @@ export const blogCategories: Record<string, BlogCategory> = {
   ecommerce: {
     id: 'ecommerce',
     name: 'E-Commerce',
-    toolCategory: 'ecommerce-tools',
+    toolCategory: 'shopify-tools',
     description: 'Tips and guides for running a successful Shopify store',
   },
   productivity: {

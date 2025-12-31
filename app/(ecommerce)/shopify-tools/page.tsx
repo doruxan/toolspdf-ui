@@ -4,7 +4,7 @@ import CategoryPageLayout from '@/components/layout/CategoryPageLayout';
 import { toolCategories } from '@/config/tools';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
 
-const categoryId = 'ecommerce-tools';
+const categoryId = 'shopify-tools';
 
 const pageMetadata: Metadata = {
   title: 'Shopify Tools - Profit, Fees, LTV/CAC, ROAS | RawTools',

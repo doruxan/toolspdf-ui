@@ -33,7 +33,7 @@ export default function Home() {
   const pdfCount = toolCategories.find((c) => c.id === 'pdf-tools')?.tools.length ?? 0;
   const jsonCount = toolCategories.find((c) => c.id === 'json-tools')?.tools.length ?? 0;
   const ibanCount = toolCategories.find((c) => c.id === 'iban-tools')?.tools.length ?? 0;
-  const ecommerceCount = toolCategories.find((c) => c.id === 'ecommerce-tools')?.tools.length ?? 0;
+  const ecommerceCount = toolCategories.find((c) => c.id === 'shopify-tools')?.tools.length ?? 0;
   const stringCount = toolCategories.find((c) => c.id === 'string-tools')?.tools.length ?? 0;
 
   // Collection Page Schema

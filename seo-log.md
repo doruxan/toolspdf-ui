@@ -13,6 +13,18 @@
 # - Notes for next week (1–2 lines): what NOT to repeat, what to do next
 
 - Week of: 2026-01-01
+- Strategy: E (Schema.org Compliance - Remove Fake Ratings)
+- Pages changed: [All tools site-wide via lib/seo/schemas.ts]
+- What changed (3 bullets max)
+  - Removed fake AggregateRating schema (ratingValue: 4.8, ratingCount: 1250) from SoftwareApplication schema in generateSoftwareAppSchema function
+  - Aligns with Google's guidelines against deceptive structured data and fake reviews/ratings
+  - Tools now present as free software applications without misleading rating data, maintaining trust and avoiding potential search ranking penalties
+- Internal links added: 0
+- New FAQs added: 0
+- New post created: no
+- Notes for next week (1–2 lines): All tools now have clean schema markup without fake ratings. If implementing a real review system in the future, ensure it collects genuine user feedback with proper verification and displays actual rating data with review dates and user attribution.
+
+- Week of: 2026-01-01
 - Strategy: C (FAQ Schema Enhancement - Top 20 Tools)
 - Pages changed: [/merge-pdf, /compress-pdf, /split-pdf, /pdf-to-jpg, /jpg-to-pdf, /json-formatter, /csv-to-json, /json-schema-validator, /iban-validator, /batch-iban-validator, /shopify-profit-calculator, /shopify-fees-calculator, /case-converter, /base64-encoder, /url-encoder, /word-counter, /password-generator, /uuid-generator, /hash-generator, /regex-tester]
 - What changed (3 bullets max)
