@@ -3,15 +3,12 @@
 import Link from 'next/link';
 import { Wrench, Menu, X, ChevronDown } from 'lucide-react';
 import { useState } from 'react';
-import { usePathname } from 'next/navigation';
 import { toolCategories } from '@/config/tools';
 import ThemeToggle from '@/components/theme/ThemeToggle';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [toolsDropdownOpen, setToolsDropdownOpen] = useState(false);
-  const pathname = usePathname();
-  const isHomePage = pathname === '/';
 
   return (
     <header className="sticky top-0 z-50 w-full border-b-2 border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm">
@@ -54,22 +51,12 @@ export default function Header() {
                 <div className="bg-background border-2 border-border rounded-xl shadow-xl p-4 space-y-2">
                   {toolCategories.map((category) => {
                     const categoryLabel = category.name.replace(/^Free Online\s+/i, '').replace(/\s+Tools?$/i, '');
-                    const href = isHomePage ? `#${category.id}` : `/#${category.id}`;
                     
                     return (
                       <Link
                         key={category.id}
-                        href={href}
-                        onClick={(e) => {
-                          setToolsDropdownOpen(false);
-                          if (isHomePage) {
-                            e.preventDefault();
-                            document.getElementById(category.id)?.scrollIntoView({
-                              behavior: 'smooth',
-                              block: 'start',
-                            });
-                          }
-                        }}
+                        href={`/${category.id}`}
+                        onClick={() => setToolsDropdownOpen(false)}
                         className="block text-sm text-foreground hover:text-primary hover:bg-muted px-3 py-2.5 rounded-lg transition-colors font-medium"
                       >
                         {categoryLabel}
@@ -124,24 +111,12 @@ export default function Header() {
             </div>
             {toolCategories.map((category) => {
               const categoryLabel = category.name.replace(/^Free Online\s+/i, '').replace(/\s+Tools?$/i, '');
-              const href = isHomePage ? `#${category.id}` : `/#${category.id}`;
               
               return (
                 <Link
                   key={category.id}
-                  href={href}
-                  onClick={(e) => {
-                    setMobileMenuOpen(false);
-                    if (isHomePage) {
-                      e.preventDefault();
-                      setTimeout(() => {
-                        document.getElementById(category.id)?.scrollIntoView({
-                          behavior: 'smooth',
-                          block: 'start',
-                        });
-                      }, 100);
-                    }
-                  }}
+                  href={`/${category.id}`}
+                  onClick={() => setMobileMenuOpen(false)}
                   className="block rounded-md px-3 py-3 text-base font-medium text-foreground hover:bg-muted min-h-[44px] flex items-center"
                 >
                   {categoryLabel}
