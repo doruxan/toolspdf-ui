@@ -3,7 +3,7 @@ import MergePDF from '@/components/tools/MergePDF';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareApplicationSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
@@ -57,10 +57,38 @@ export default function MergePDFPage() {
     'Download your merged PDF file'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'Is it free to merge PDF files?',
+      answer: 'Yes, our PDF merger is 100% free with no file size limits or hidden costs. You can merge unlimited PDF files without creating an account or paying any fees.'
+    },
+    {
+      question: 'How many PDF files can I merge at once?',
+      answer: 'There is no limit to the number of PDF files you can merge. You can combine 2, 10, 50, or even 100+ PDF files into a single document. The tool handles large batches efficiently in your browser.'
+    },
+    {
+      question: 'Are my PDF files uploaded to your servers?',
+      answer: 'No. All PDF merging happens entirely in your web browser using client-side JavaScript. Your files never leave your device and are never uploaded to our servers, ensuring complete privacy and security.'
+    },
+    {
+      question: 'Can I rearrange the order of PDFs before merging?',
+      answer: 'Yes. After uploading your PDF files, you can drag and drop them to reorder the sequence. The final merged PDF will follow the order you arrange before clicking the merge button.'
+    },
+    {
+      question: 'What happens to the quality of my PDFs when merging?',
+      answer: 'The original quality is preserved. Our tool performs a lossless merge, meaning all pages retain their original resolution, fonts, images, and formatting. No compression or quality reduction occurs during the merge process.'
+    },
+    {
+      question: 'Does merging PDFs work on mobile devices?',
+      answer: 'Yes. The tool works on all modern mobile browsers (Safari, Chrome, Firefox) on both iOS and Android devices. The interface is mobile-responsive for easy file uploading and merging on smartphones and tablets.'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="1111111111" className="mb-6" />
       
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

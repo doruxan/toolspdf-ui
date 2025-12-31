@@ -3,7 +3,7 @@ import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import RelatedTools from '@/components/tools/RelatedTools';
 import { ProfitCalculator } from '@/components/tools/ecommerce/ProfitCalculator';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareAppSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareAppSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
@@ -65,10 +65,38 @@ export default function ShopifyProfitCalculatorPage() {
     'View your per-order profit, contribution margin, and break-even revenue'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'What is the difference between gross profit and net profit?',
+      answer: 'Gross profit is revenue minus direct costs (COGS, shipping, payment fees). For a $50 product with $20 COGS and $5 shipping, gross profit is $25. Net profit deducts fixed costs (rent, salaries, software) from gross profit. If fixed costs are $10 per order, net profit is $15. Gross profit shows unit economics; net profit shows actual profitability after all expenses.'
+    },
+    {
+      question: 'What costs should I include in COGS?',
+      answer: 'COGS (Cost of Goods Sold) includes direct costs to produce/acquire products: manufacturing or wholesale cost, packaging materials, product labels, and inbound shipping from suppliers. Do NOT include: outbound shipping to customers (separate variable cost), marketing spend, Shopify fees, or salaries. COGS should only reflect costs that scale directly with units sold.'
+    },
+    {
+      question: 'How do I calculate contribution margin?',
+      answer: 'Contribution margin is (Revenue - Variable Costs) / Revenue, expressed as a percentage. Variable costs include COGS, shipping, payment processing fees, and packaging. For a $100 order with $60 in variable costs, contribution margin is ($100 - $60) / $100 = 40%. This tells you how much of each sale contributes to covering fixed costs and generating profit.'
+    },
+    {
+      question: 'What is break-even revenue?',
+      answer: 'Break-even revenue is the total sales needed to cover all fixed costs. Calculate it as: Fixed Costs / Contribution Margin. If you have $5,000/month in fixed costs and a 40% contribution margin, break-even revenue is $5,000 / 0.40 = $12,500/month. Any revenue above this amount generates profit; below this amount, you operate at a loss.'
+    },
+    {
+      question: 'Should I include Shopify subscription fees in calculations?',
+      answer: 'Yes, but as fixed costs, not variable costs. Shopify monthly fees ($29-$299) do not change with order volume, so they are fixed costs. Include them in your total fixed costs along with other subscriptions (email marketing, apps), salaries, and overhead. Payment processing fees (2.9% + 30¢) are variable costs tied to individual transactions.'
+    },
+    {
+      question: 'How often should I recalculate profit margins?',
+      answer: 'Recalculate monthly or when key costs change. Product costs fluctuate with supplier price changes, shipping rates increase seasonally, and ad spend varies month-to-month. Major events requiring recalculation: supplier price increases, shipping carrier rate changes, plan upgrades, new app subscriptions, or significant changes in average order value. Quarterly reviews catch most issues.'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="1111111111" className="mb-6" />
 
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

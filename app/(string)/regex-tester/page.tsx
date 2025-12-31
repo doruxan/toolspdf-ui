@@ -3,7 +3,7 @@ import RegexTester from '@/components/tools/string/RegexTester';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareApplicationSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
@@ -56,10 +56,38 @@ export default function RegexTesterPage() {
     'View matches with highlighting and capture groups'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'What is a regular expression?',
+      answer: 'A regular expression (regex) is a pattern-matching language for searching and manipulating text. Regex uses special characters to define search patterns: "\\d" matches digits, "." matches any character, "*" means zero or more repetitions. Example: "\\d{3}-\\d{4}" matches phone numbers like "555-1234". Regex is used in text editors, programming languages, data validation, log parsing, and search-replace operations across virtually all modern development tools.'
+    },
+    {
+      question: 'What do regex flags (g, i, m) do?',
+      answer: 'Flags modify regex behavior. "g" (global) finds all matches instead of stopping at the first match. "i" (case-insensitive) makes "ABC" match "abc". "m" (multiline) makes "^" and "$" match line boundaries instead of string boundaries. "s" (dotall) makes "." match newlines. "u" (unicode) enables Unicode property escapes. Example: /hello/gi finds all occurrences of "hello", "Hello", "HELLO" in text.'
+    },
+    {
+      question: 'How do I match email addresses with regex?',
+      answer: 'Basic email pattern: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$". This matches "user@example.com". However, full RFC 5322 email validation is extremely complex (thousands of characters). For production: use basic patterns for UI validation, then verify via email confirmation link. Never rely solely on regex for email validation; addresses like "user+tag@domain.co.uk" have many edge cases.'
+    },
+    {
+      question: 'What are capture groups in regex?',
+      answer: 'Capture groups extract parts of matches using parentheses. Pattern "(\\d{3})-(\\d{4})" applied to "555-1234" captures two groups: group 1 = "555", group 2 = "1234". Non-capturing groups "(?:...)" match but do not capture. Named groups "(?<name>...)" assign names to captures. Use captures for: extracting data (phone area codes), search-replace ($1, $2 placeholders), or conditional matching.'
+    },
+    {
+      question: 'Why does my regex match too much or too little?',
+      answer: 'Common issues: greedy vs lazy quantifiers. ".*" (greedy) matches as much as possible; ".*?" (lazy) matches as little as possible. Example: in "<b>hello</b><b>world</b>", pattern "<b>.*</b>" matches entire string (greedy); "<b>.*?</b>" matches each tag separately (lazy). Anchors matter: "abc" matches "abc" anywhere; "^abc$" requires entire string to be exactly "abc". Test edge cases and boundary conditions.'
+    },
+    {
+      question: 'Can regex validate all formats (URLs, phone numbers, IBANs)?',
+      answer: 'Regex works for simple formats but fails for complex ones. URLs: regex cannot validate all valid URLs per RFC 3986 (use URL parser libraries). Phone numbers: regex handles formatting (123-456-7890) but not validity (real phone numbers require carrier databases). IBANs: regex checks format but not MOD-97 checksum (use specialized validators). Use regex for format checking; use dedicated libraries/APIs for comprehensive validation.'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="1234567926" className="mb-6" />
       
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

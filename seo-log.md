@@ -12,6 +12,30 @@
 # - New post created: (yes/no, slug)
 # - Notes for next week (1–2 lines): what NOT to repeat, what to do next
 
+- Week of: 2026-01-01
+- Strategy: C (FAQ Schema Enhancement - Top 20 Tools)
+- Pages changed: [/merge-pdf, /compress-pdf, /split-pdf, /pdf-to-jpg, /jpg-to-pdf, /json-formatter, /csv-to-json, /json-schema-validator, /iban-validator, /batch-iban-validator, /shopify-profit-calculator, /shopify-fees-calculator, /case-converter, /base64-encoder, /url-encoder, /word-counter, /password-generator, /uuid-generator, /hash-generator, /regex-tester]
+- What changed (3 bullets max)
+  - Added tool-specific FAQ schemas (schema.org/FAQPage) to top 20 highest-traffic tools across all categories for FAQ rich snippet eligibility in Google search results
+  - Each tool now includes 6 contextual FAQs (720 words total per page) with operator-to-operator tone: technical accuracy, real-world scenarios with specific numbers, common troubleshooting issues, use case guidance, security considerations, and practical examples
+  - FAQ content targets long-tail keywords and conversational search queries (e.g., "What is MOD-97 checksum?", "How long should my password be?", "Can regex validate all formats?"), improving coverage for voice search and Google featured snippets
+- Internal links added: 0 (focused on FAQ-rich content)
+- New FAQs added: 120 (6 FAQs × 20 tools)
+- New post created: no
+- Notes for next week (1–2 lines): All top 20 tools now have comprehensive FAQ schemas targeting featured snippet opportunities. Next focus: Monitor Search Console for FAQ rich snippet performance, then expand FAQ schemas to remaining 45 tools. Consider adding "People Also Ask" tracking to identify additional FAQ opportunities.
+
+- Week of: 2026-01-01
+- Strategy: C (IBAN Tools SEO Enhancement - Completed 7/7 Tools)
+- Pages changed: [/iban-validator, /iban-parser, /iban-generator, /iban-country-info, /iban-check-calculator, /iban-formatter, /batch-iban-validator]
+- What changed (3 bullets max)
+  - Added HowTo structured data (schema.org/HowTo) to all 7 IBAN tools for rich snippet eligibility in Google search results
+  - Implemented consistent 3-column grid layout (lg:grid-cols-4) with AdSidebar for better ad monetization across all IBAN tool pages
+  - Added comprehensive educational content (400-600 words per page) following operator-to-operator tone: "How to Use" sections with 5-step guides, "Why Use?" sections with 6 key benefits, detailed "Features" lists, "What is [Concept]?" explanations with real-world banking scenarios and specific numbers, practical "Use Cases" for business workflows, and "Privacy & Security" assurances
+- Internal links added: 0 (focused on on-page content depth)
+- New FAQs added: 0 (tool-specific FAQ schemas to be added in next phase)
+- New post created: no
+- Notes for next week (1–2 lines): All IBAN tools now have comprehensive SEO content with HowTo schemas and consistent 3-column layout. Next focus: Add tool-specific FAQ schemas to top 20 tools across all categories for FAQ rich snippet eligibility. Consider creating IBAN workflow blog posts (e.g., "IBAN validation workflow for payment systems", "Batch IBAN processing best practices").
+
 - Week of: 2025-12-31
 - Strategy: C (Phase 1 SEO Enhancement - PDF & Shopify Tools)
 - Pages changed: [All 16 PDF tools: /merge-pdf, /split-pdf, /compress-pdf, /rotate-pdf, /organize-pdf, /pdf-to-jpg, /jpg-to-pdf, /protect-pdf, /unlock-pdf, /watermark-pdf, /extract-pages, /remove-pages, /redact-pdf, /crop-pdf, /add-page-numbers, /html-to-pdf; All 8 Shopify tools: /shopify-profit-calculator, /shopify-fees-calculator, /shopify-bundle-pricing-calculator, /shopify-break-even-roas-calculator, /shopify-ltv-cac-calculator, /shopify-return-refund-impact-calculator, /shopify-invoice-generator, /shopify-speed-checklist]

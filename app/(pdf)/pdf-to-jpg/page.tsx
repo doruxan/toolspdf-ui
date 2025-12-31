@@ -3,7 +3,7 @@ import PDFToJPG from '@/components/tools/PDFToJPG';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareApplicationSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
@@ -57,10 +57,38 @@ export default function PDFToJPGPage() {
     'Download individual images or all at once'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'What image quality do I get when converting PDF to JPG?',
+      answer: 'The default conversion uses high-quality rendering at 150 DPI (dots per inch), which produces sharp images suitable for web use, presentations, and printing. Each PDF page is rendered at its original dimensions and then converted to JPG format with 90% quality setting, balancing file size and visual fidelity.'
+    },
+    {
+      question: 'Can I convert all pages or just specific pages?',
+      answer: 'The tool converts all pages in your PDF to individual JPG images. If you need only specific pages, first use our Split PDF tool to extract the pages you want, then convert that smaller PDF to JPG. This approach gives you precise control over which pages to convert.'
+    },
+    {
+      question: 'Will text remain readable after conversion to JPG?',
+      answer: 'Yes. Text in your PDF is rendered as part of the image at high resolution, maintaining readability. However, note that text becomes part of the image and cannot be selected or searched after conversion. If you need editable text, keep the original PDF.'
+    },
+    {
+      question: 'How are multi-page PDFs handled?',
+      answer: 'Each page is converted to a separate JPG image. For a 10-page PDF, you will receive 10 JPG files. You can download them individually or use the "Download All" option to get a ZIP archive containing all converted images with sequential naming (page-1.jpg, page-2.jpg, etc.).'
+    },
+    {
+      question: 'Can I convert PDFs with transparent backgrounds?',
+      answer: 'JPG format does not support transparency. If your PDF contains transparent elements, they will be rendered with a white background in the JPG output. If you need to preserve transparency, consider using PNG format instead (though our tool currently outputs JPG only).'
+    },
+    {
+      question: 'Is there a page limit for conversion?',
+      answer: 'No. You can convert PDFs with any number of pages. However, very large PDFs (100+ pages) will take longer to process and may require significant browser memory. For optimal performance, consider splitting large PDFs into smaller batches before conversion.'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="7777777777" className="mb-6" />
       
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

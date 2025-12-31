@@ -3,7 +3,7 @@ import Base64Encoder from '@/components/tools/string/Base64Encoder';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareApplicationSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
@@ -56,10 +56,38 @@ export default function Base64EncoderPage() {
     'Copy the encoded or decoded result'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'What is Base64 encoding?',
+      answer: 'Base64 is a binary-to-text encoding scheme that converts binary data into ASCII text using 64 printable characters (A-Z, a-z, 0-9, +, /). It is commonly used to embed binary data (images, PDFs) in text formats like JSON, XML, or HTML. For example, the text "Hello" encodes to "SGVsbG8=". Base64 increases data size by approximately 33%.'
+    },
+    {
+      question: 'Why does Base64 add padding with = characters?',
+      answer: 'Base64 encodes data in 3-byte chunks (24 bits), producing 4 characters per chunk. When the input length is not divisible by 3, padding with "=" fills the remaining space. One "=" means 2 bytes in the final chunk; two "==" means 1 byte. Padding ensures decoders know where the data ends. Example: "Hi" encodes to "SGk=" (one padding character).'
+    },
+    {
+      question: 'Is Base64 encoding secure?',
+      answer: 'No. Base64 is an encoding method, NOT encryption. It obfuscates data but provides zero security. Anyone can decode Base64 instantly. Never use Base64 for sensitive data like passwords or API keys unless combined with proper encryption (AES, RSA). Base64 is for data transport and representation, not confidentiality.'
+    },
+    {
+      question: 'Can I Base64 encode images or files?',
+      answer: 'Yes. Base64 can encode any binary data, including images (JPG, PNG), PDFs, or ZIP files. This is useful for embedding images in HTML/CSS (data URIs: data:image/png;base64,...), sending files via JSON APIs, or storing binary data in databases. However, Base64 increases file size by 33%, so use it only when necessary.'
+    },
+    {
+      question: 'What is the difference between Base64 and URL-safe Base64?',
+      answer: 'Standard Base64 uses "+", "/", and "=" characters that cause issues in URLs and filenames. URL-safe Base64 (RFC 4648) replaces "+" with "-" and "/" with "_", and optionally removes padding "=". This variant is used in JWTs, URL parameters, and file naming. Both decode to the same binary data; only character sets differ.'
+    },
+    {
+      question: 'Why use Base64 when it increases file size?',
+      answer: 'Base64 is used when binary data must be transmitted through text-only channels: email (MIME attachments), JSON APIs (no binary support), XML documents, HTML data URIs, or database TEXT columns. Despite the 33% size increase, it guarantees safe transport without data corruption. For modern APIs with multipart/form-data support, send binary data directly instead of Base64.'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="1234567900" className="mb-6" />
       
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

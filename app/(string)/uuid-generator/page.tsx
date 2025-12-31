@@ -3,7 +3,7 @@ import UUIDGenerator from '@/components/tools/string/UUIDGenerator';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareApplicationSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
@@ -56,10 +56,38 @@ export default function UUIDGeneratorPage() {
     'Copy individual or all UUIDs'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'What is a UUID?',
+      answer: 'UUID (Universally Unique Identifier) is a 128-bit identifier guaranteed to be unique across space and time without central coordination. Format: 8-4-4-4-12 hexadecimal digits (e.g., 550e8400-e29b-41d4-a716-446655440000). UUIDs are used as database primary keys, session IDs, file names, and distributed system identifiers. The probability of collision is negligible: generating 1 billion UUIDs per second for 100 years yields < 50% collision chance.'
+    },
+    {
+      question: 'What is the difference between UUID v4 and other versions?',
+      answer: 'UUID v1 uses timestamp + MAC address (leaks machine info, not recommended). UUID v4 uses random numbers (most common, no privacy concerns). UUID v5/v3 use hashing (deterministic, same input = same UUID). UUID v7 (new) uses timestamp + random (sortable, time-ordered). For general use, v4 is recommended: fully random, no collisions, no privacy leaks. v7 is preferred for database primary keys requiring chronological ordering.'
+    },
+    {
+      question: 'Can two UUID v4s ever be the same?',
+      answer: 'Theoretically yes, but astronomically unlikely. With 122 random bits (6 bits reserved for version/variant), there are 2^122 possible UUIDs (5.3 undecillion). Generating 1 trillion UUIDs gives a 0.00000000006% collision chance. In practice, collision is impossible for human-scale systems. For absolute certainty, use UUID v5 with namespace control or database unique constraints.'
+    },
+    {
+      question: 'Are UUIDs secure for authentication tokens?',
+      answer: 'No. While UUIDs are unpredictable, they are not cryptographically secure. UUIDs use 122 random bits; secure tokens require 128-256 bits of cryptographic randomness. For session tokens, API keys, or password reset tokens, use cryptographically secure random generators (crypto.randomBytes() in Node.js, secrets module in Python). UUIDs are perfect for non-security identifiers: database IDs, file names, correlation IDs.'
+    },
+    {
+      question: 'How do I use UUIDs in databases?',
+      answer: 'Most databases support UUID types: PostgreSQL (UUID column type), MySQL (CHAR(36) or BINARY(16)), MongoDB (Binary subtype 4). Store UUIDs as binary (16 bytes) for efficiency; convert to string (36 chars) only for display. Trade-offs: UUIDs avoid auto-increment contention in distributed systems but are larger than integers and reduce index performance. For high-performance single-server databases, consider auto-increment integers; for distributed systems, use UUIDs.'
+    },
+    {
+      question: 'Can I use UUIDs as file names?',
+      answer: 'Yes. UUIDs make excellent file names because they are unique, filesystem-safe (no special characters), and avoid naming conflicts. Example: "550e8400-e29b-41d4-a716-446655440000.jpg". This is common for user uploads, temporary files, and cloud storage (S3, GCS). However, UUIDs are not human-readable; consider including metadata: "profile_550e8400.jpg" or using UUIDs as directory names with descriptive file names inside.'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="1234567914" className="mb-6" />
       
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

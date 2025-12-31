@@ -3,7 +3,7 @@ import JSONFormatter from '@/components/tools/json/JSONFormatter';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareApplicationSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
@@ -57,10 +57,38 @@ export default function JSONFormatterPage() {
     'Copy the formatted JSON output'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'What is JSON formatting?',
+      answer: 'JSON formatting (also called beautifying or prettifying) adds whitespace, line breaks, and indentation to make JSON data human-readable. Minified JSON like {"name":"John","age":30} becomes properly formatted with each key-value pair on its own line, nested structures indented, making it easier to read and debug.'
+    },
+    {
+      question: 'Does formatting change my JSON data?',
+      answer: 'No. Formatting only adds or removes whitespace (spaces, tabs, line breaks) for readability. The actual data structure, values, keys, and hierarchy remain identical. A formatted JSON and its minified version parse to the exact same data structure when processed by any JSON parser.'
+    },
+    {
+      question: 'What is the difference between 2-space and 4-space indentation?',
+      answer: '2-space indentation creates more compact output with less horizontal nesting, making it easier to view deeply nested JSON on narrow screens. 4-space indentation provides more visual separation between nesting levels, improving readability for complex structures. Both are valid; choose based on your team coding standards or personal preference.'
+    },
+    {
+      question: 'Can this tool validate my JSON?',
+      answer: 'Yes. The formatter automatically validates JSON syntax as you paste it. If your JSON contains errors (missing commas, unmatched brackets, invalid characters), you will see a clear error message indicating where the syntax issue is located, helping you fix it before formatting.'
+    },
+    {
+      question: 'What does "Sort Keys" do?',
+      answer: 'The "Sort Keys" option alphabetically sorts all object keys in your JSON. This is useful for comparing JSON files, maintaining consistent formatting across teams, or making it easier to locate specific keys in large objects. The sorting is applied recursively to all nested objects.'
+    },
+    {
+      question: 'Is my JSON data sent to your servers?',
+      answer: 'No. All JSON formatting happens entirely in your web browser using client-side JavaScript. Your JSON data never leaves your device, is never uploaded to our servers, and is never stored or logged anywhere. This ensures complete privacy for sensitive API responses or configuration data.'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="1234567894" className="mb-6" />
       
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

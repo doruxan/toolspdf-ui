@@ -3,7 +3,7 @@ import URLEncoder from '@/components/tools/string/URLEncoder';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareApplicationSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
@@ -56,10 +56,38 @@ export default function URLEncoderPage() {
     'Copy the encoded or decoded URL'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'What is URL encoding and why is it needed?',
+      answer: 'URL encoding (percent-encoding) converts special characters into a format safe for URLs. URLs can only contain unreserved characters (A-Z, a-z, 0-9, -, _, ., ~). All other characters—including spaces, &, =, ?, #—must be encoded as %XX (hexadecimal). For example, "hello world" becomes "hello%20world" and "user@email.com" becomes "user%40email.com". This prevents URL parsing errors.'
+    },
+    {
+      question: 'What characters need to be URL encoded?',
+      answer: 'Reserved characters (&, =, ?, #, /, :, @, +) have special meaning in URLs and must be encoded. Unsafe characters (spaces, <, >, {, }, |, \\, ^, `) are not allowed in URLs. Non-ASCII characters (é, ñ, 中) must be encoded. Safe characters (A-Z, a-z, 0-9, -, _, ., ~) never need encoding. Example: "&" becomes "%26", space becomes "%20" or "+".'
+    },
+    {
+      question: 'What is the difference between %20 and + for spaces?',
+      answer: 'Both represent spaces, but context matters. "%20" is the standard percent-encoding for spaces, valid everywhere in URLs. "+" is specific to query parameters (after "?") in application/x-www-form-urlencoded format, commonly used in HTML forms. In URL paths, only "%20" is correct. In query strings, both work, but "%20" is more universal and recommended.'
+    },
+    {
+      question: 'Do I need to encode entire URLs or just query parameters?',
+      answer: 'Only encode the values, not the structure. Never encode the protocol (https://), domain (example.com), or structural characters (?&=). Encode only: path segments with special characters (/search/hello world → /search/hello%20world) and query parameter values (?name=John Doe → ?name=John%20Doe). Encoding the entire URL breaks it: "https://" becomes "https%3A%2F%2F" which is invalid.'
+    },
+    {
+      question: 'Can URL encoding handle non-English characters?',
+      answer: 'Yes. Non-ASCII characters (Chinese, Arabic, emoji) are first converted to UTF-8 bytes, then each byte is percent-encoded. For example, "こんにちは" (Japanese) becomes "%E3%81%93%E3%82%93%E3%81%AB%E3%81%A1%E3%81%AF". Modern browsers handle this automatically, but manual encoding is needed when constructing URLs programmatically or in APIs.'
+    },
+    {
+      question: 'Is URL encoding the same as HTML entity encoding?',
+      answer: 'No. URL encoding uses percent-encoding (%20, %26) for URLs. HTML entity encoding uses &-entities (&nbsp;, &amp;) for displaying characters in HTML content. They serve different purposes. In HTML, use &amp; for "&". In URLs, use %26. Never mix them: "?name=John%26Doe" (URL-encoded "&") is correct; "?name=John&amp;Doe" (HTML entity) breaks URLs.'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="1234567902" className="mb-6" />
       
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

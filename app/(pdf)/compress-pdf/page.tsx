@@ -3,7 +3,7 @@ import CompressPDF from '@/components/tools/CompressPDF';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareApplicationSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
@@ -57,10 +57,38 @@ export default function CompressPDFPage() {
     'Download your compressed PDF file'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'How much can I reduce PDF file size with compression?',
+      answer: 'Compression results vary based on PDF content. Documents with large images can typically be reduced by 50-70%, while text-heavy PDFs may see 20-40% reduction. The actual compression depends on the original quality and content type.'
+    },
+    {
+      question: 'Will compressing my PDF reduce image quality?',
+      answer: 'Our compression algorithm balances file size reduction with quality preservation. Images are optimized using smart algorithms that maintain visual quality while reducing file size. For most use cases, the quality difference is imperceptible.'
+    },
+    {
+      question: 'Is there a file size limit for PDF compression?',
+      answer: 'No. You can compress PDF files of any size. However, very large files (over 100MB) may take longer to process in your browser depending on your device specifications and available memory.'
+    },
+    {
+      question: 'Can I compress multiple PDFs at once?',
+      answer: 'Currently, the tool compresses one PDF at a time to ensure optimal performance and quality. For batch processing, you can compress files sequentially without any limits on the number of files processed.'
+    },
+    {
+      question: 'Do you store my PDF files after compression?',
+      answer: 'No. All compression happens entirely in your browser using client-side processing. Your PDF files never leave your device and are automatically discarded from memory after you download the compressed version.'
+    },
+    {
+      question: 'What happens to PDF metadata during compression?',
+      answer: 'PDF metadata (title, author, creation date, keywords) is preserved during compression. Only file size is reduced by optimizing images and removing redundant data, while all document properties and structure remain intact.'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="5555555555" className="mb-6" />
       
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

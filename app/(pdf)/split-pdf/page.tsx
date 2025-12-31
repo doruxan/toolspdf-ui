@@ -3,7 +3,7 @@ import SplitPDF from '@/components/tools/SplitPDF';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareApplicationSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
@@ -57,10 +57,38 @@ export default function SplitPDFPage() {
     'Download your split PDF files'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'Can I split a PDF into individual pages?',
+      answer: 'Yes. You can split any PDF into individual single-page documents. After uploading your PDF, select the "Split into single pages" option, and each page will be extracted as a separate PDF file that you can download individually or as a ZIP archive.'
+    },
+    {
+      question: 'How do I extract specific pages from a PDF?',
+      answer: 'Upload your PDF and select "Extract specific pages." Then enter the page numbers you want (e.g., 1,3,5 or 1-5,10-15). The tool will create a new PDF containing only those pages while preserving their original formatting and quality.'
+    },
+    {
+      question: 'Is there a limit to PDF file size for splitting?',
+      answer: 'No. You can split PDF files of any size. However, processing time increases with larger files. A 20-page PDF typically splits in seconds, while a 500-page PDF may take 10-30 seconds depending on your device specifications.'
+    },
+    {
+      question: 'Will splitting a PDF reduce quality?',
+      answer: 'No. Splitting is a lossless operation. All pages retain their original resolution, fonts, images, formatting, and metadata. The split pages are identical to the originals—only the document structure changes.'
+    },
+    {
+      question: 'Can I split password-protected PDFs?',
+      answer: 'If the PDF has restrictions on editing or printing but no open password, you may be able to split it depending on browser capabilities. If the PDF requires a password to open, you must unlock it first using our Unlock PDF tool before splitting.'
+    },
+    {
+      question: 'What happens to bookmarks and links when splitting?',
+      answer: 'Bookmarks and internal links are context-dependent. When splitting into single pages, bookmarks pointing to pages outside the extracted range are removed. Links within the same extracted range remain functional, while links to external pages outside the range are preserved but may not work as intended.'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="3333333333" className="mb-6" />
       
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

@@ -2,8 +2,10 @@ import { Metadata } from 'next'
 import { IBANGenerator } from '@/components/tools/iban/IBANGenerator'
 import Breadcrumbs from '@/components/layout/Breadcrumbs'
 import StructuredData from '@/components/seo/StructuredData'
-import { generateSoftwareAppSchema } from '@/lib/seo/schemas'
+import { generateSoftwareAppSchema, generateHowToSchema } from '@/lib/seo/schemas'
 import { withCanonicalMetadata } from '@/lib/seo/metadata'
+import AdBanner from '@/components/ads/AdBanner'
+import AdSidebar from '@/components/ads/AdSidebar'
 
 const pageMetadata: Metadata = {
   title: 'IBAN Generator - Generate Valid Test IBANs for 80+ Countries | RawTools',
@@ -43,143 +45,102 @@ export default function IBANGeneratorPage() {
     url: 'https://rawtools.io/iban-generator',
   })
 
+  const howToSchema = generateHowToSchema({
+    name: 'IBAN Generator',
+    description: 'How to generate valid test IBANs for development and testing',
+    url: 'https://rawtools.io/iban-generator',
+  }, [
+    'Select a country from the dropdown list',
+    'Optionally specify bank and branch codes',
+    'Choose how many IBANs to generate (1-100)',
+    'Click "Generate IBANs" button',
+    'Copy or export generated IBANs in CSV or JSON format'
+  ])
+
   return (
-    <>
+    <div className="w-full">
       <StructuredData data={schema} />
-      
-      <div className="min-h-screen">
-        <div className="max-w-7xl mx-auto px-4 py-8">
-          <Breadcrumbs category="IBAN Tools" toolName="IBAN Generator" currentHref="/iban-generator" />
-          
-          <div className="text-center mb-8">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-              IBAN Generator
-            </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Generate valid test IBANs for development, testing, and educational purposes. 
-              Supporting 80+ countries with mathematically correct MOD-97 checksums.
-            </p>
-          </div>
+      <StructuredData data={howToSchema} />
+      <AdBanner dataAdSlot="9999999999" className="mb-6" />
 
-          <IBANGenerator />
-
-          {/* Educational Content */}
-          <div className="mt-16 max-w-4xl mx-auto">
-            <div className="prose dark:prose-invert max-w-none">
-              <h2 className="text-2xl font-bold text-foreground mb-4">
-                IBAN Generator for Testing & Development
-              </h2>
-              <p className="text-muted-foreground mb-6">
-                Our IBAN generator creates mathematically valid IBANs that pass all format and 
-                checksum validations. These are perfect for testing payment systems, validating 
-                forms, or educational demonstrations.
+      <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          <div className="lg:col-span-3">
+            <Breadcrumbs category="IBAN Tools" toolName="IBAN Generator" currentHref="/iban-generator" />
+            <div className="mb-6">
+              <h1 className="text-4xl font-bold text-foreground mb-2">IBAN Generator</h1>
+              <p className="text-muted-foreground">
+                Generate valid test IBANs for development, testing, and educational purposes
               </p>
+            </div>
 
-              <h3 className="text-xl font-bold text-foreground mb-3">
-                How It Works
-              </h3>
-              <ol className="list-decimal pl-6 text-muted-foreground space-y-2 mb-6">
-                <li>Select a country from our list of 80+ supported countries</li>
-                <li>Optionally specify bank and branch codes, or let the generator randomize them</li>
+            <IBANGenerator />
+
+            <div className="mt-12 prose prose-lg max-w-none">
+              <h2 className="text-2xl font-bold text-foreground">How to Generate Test IBANs</h2>
+              <ol className="text-muted-foreground space-y-2">
+                <li>Select a country from the dropdown list</li>
+                <li>Optionally specify bank and branch codes</li>
                 <li>Choose how many IBANs to generate (1-100)</li>
-                <li>Click generate to create valid IBANs with correct MOD-97 checksums</li>
-                <li>Export results to CSV or JSON for use in your projects</li>
+                <li>Click "Generate IBANs" button</li>
+                <li>Copy or export generated IBANs in CSV or JSON format</li>
               </ol>
 
-              <h3 className="text-xl font-bold text-foreground mb-3">
-                Use Cases
-              </h3>
-              <div className="grid md:grid-cols-2 gap-4 mb-6">
-                <div className="p-4 bg-blue-500/10 dark:bg-blue-500/20 border border-blue-500/20 rounded">
-                  <h4 className="font-semibold text-blue-700 dark:text-blue-300 mb-2">🧪 Software Testing</h4>
-                  <p className="text-sm text-blue-600 dark:text-blue-400">
-                    Generate test data for payment processing systems, banking applications, 
-                    and financial software QA.
-                  </p>
-                </div>
-
-                <div className="p-4 bg-green-500/10 dark:bg-green-500/20 border border-green-500/20 rounded">
-                  <h4 className="font-semibold text-green-700 dark:text-green-300 mb-2">🔧 API Development</h4>
-                  <p className="text-sm text-green-600 dark:text-green-400">
-                    Create sample IBANs for API documentation, integration testing, and 
-                    development environments.
-                  </p>
-                </div>
-
-                <div className="p-4 bg-purple-500/10 dark:bg-purple-500/20 border border-purple-500/20 rounded">
-                  <h4 className="font-semibold text-purple-700 dark:text-purple-300 mb-2">📚 Education</h4>
-                  <p className="text-sm text-purple-600 dark:text-purple-400">
-                    Demonstrate IBAN structure, validation algorithms, and international 
-                    banking standards in training materials.
-                  </p>
-                </div>
-
-                <div className="p-4 bg-orange-500/10 dark:bg-orange-500/20 border border-orange-500/20 rounded">
-                  <h4 className="font-semibold text-orange-700 dark:text-orange-300 mb-2">✅ Form Validation</h4>
-                  <p className="text-sm text-orange-600 dark:text-orange-400">
-                    Test form validation logic, input masks, and error handling for 
-                    IBAN entry fields.
-                  </p>
-                </div>
-              </div>
-
-              <h3 className="text-xl font-bold text-foreground mb-3">
-                Features
-              </h3>
-              <ul className="list-disc pl-6 text-muted-foreground space-y-2 mb-6">
-                <li><strong className="text-foreground">Valid Checksums:</strong> All generated IBANs pass MOD-97 validation</li>
-                <li><strong className="text-foreground">Country-Specific:</strong> Follows exact format rules for each country</li>
-                <li><strong className="text-foreground">Bulk Generation:</strong> Create up to 100 IBANs at once</li>
-                <li><strong className="text-foreground">Custom Codes:</strong> Specify bank and branch codes or randomize</li>
-                <li><strong className="text-foreground">Export Options:</strong> Download as CSV or JSON for easy integration</li>
-                <li><strong className="text-foreground">Copy Functions:</strong> Copy individual IBANs or all at once</li>
+              <h3 className="text-xl font-bold text-foreground mt-8">Why Use Our IBAN Generator?</h3>
+              <ul className="text-muted-foreground space-y-2">
+                <li><strong>100% Free:</strong> No hidden costs or subscriptions</li>
+                <li><strong>Mathematically Valid:</strong> All IBANs pass MOD-97 checksum validation</li>
+                <li><strong>Country-Specific:</strong> Follows exact format rules for each country</li>
+                <li><strong>Bulk Generation:</strong> Create up to 100 IBANs at once</li>
+                <li><strong>Export Options:</strong> Download as CSV or JSON</li>
+                <li><strong>Developer-Friendly:</strong> Perfect for testing and development</li>
               </ul>
 
-              <div className="p-6 bg-yellow-500/10 dark:bg-yellow-500/20 border-2 border-yellow-500/30 rounded-lg mb-6">
-                <h3 className="text-xl font-bold text-yellow-700 dark:text-yellow-300 mb-3">
-                  ⚠️ Important Disclaimer
-                </h3>
-                <div className="space-y-2 text-sm text-yellow-700 dark:text-yellow-300">
-                  <p>
-                    <strong>Generated IBANs are for testing purposes only.</strong> While they are 
-                    mathematically valid and pass all format checks, they do not correspond to real 
-                    bank accounts.
-                  </p>
-                  <p>
-                    <strong>Never use generated IBANs for:</strong>
-                  </p>
-                  <ul className="list-disc pl-6 space-y-1">
-                    <li>Actual financial transactions</li>
-                    <li>Production payment processing</li>
-                    <li>Real money transfers</li>
-                    <li>Fraudulent activities</li>
-                  </ul>
-                  <p className="font-semibold">
-                    Always use legitimate IBANs provided by authorized financial institutions 
-                    for real transactions.
-                  </p>
-                </div>
+              <h3 className="text-xl font-bold text-foreground mt-8">Features of Our IBAN Generator</h3>
+              <ul className="text-muted-foreground space-y-2">
+                <li><strong>80+ Countries:</strong> Support for all IBAN-using countries</li>
+                <li><strong>Custom Bank Codes:</strong> Specify bank and branch codes or randomize</li>
+                <li><strong>Batch Generation:</strong> Generate multiple IBANs simultaneously</li>
+                <li><strong>Valid Checksums:</strong> Correct MOD-97 check digits</li>
+                <li><strong>Copy Functions:</strong> Copy individual or all IBANs at once</li>
+                <li><strong>Export Formats:</strong> CSV and JSON for easy integration</li>
+              </ul>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">What is Test IBAN Generation?</h3>
+              <p className="text-muted-foreground">
+                Test IBAN generation creates mathematically valid IBANs that pass all format and checksum validations but do not correspond to real bank accounts. This is essential for software testing, API development, form validation, and educational purposes. Our generator follows country-specific format rules and calculates correct MOD-97 check digits, ensuring generated IBANs behave identically to real ones in validation logic. For example, generating a German IBAN produces a 22-character string starting with DE, followed by 2 check digits and an 18-character BBAN (8-digit bank code + 10-digit account). The check digits are calculated using the official MOD-97 algorithm, so the IBAN passes all validation checks. This allows developers to test payment systems without using real bank account data, QA engineers to create test datasets, and educators to demonstrate international banking standards safely.
+              </p>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Common Use Cases for IBAN Generation</h3>
+              <ul className="text-muted-foreground space-y-2">
+                <li><strong>Software Testing:</strong> Generate test data for payment processing systems and banking applications.</li>
+                <li><strong>API Development:</strong> Create sample IBANs for API documentation and integration testing.</li>
+                <li><strong>Form Validation:</strong> Test IBAN entry fields, input masks, and error handling.</li>
+                <li><strong>Educational Materials:</strong> Demonstrate IBAN structure and validation algorithms.</li>
+                <li><strong>QA Automation:</strong> Populate test databases with valid but non-real IBANs.</li>
+                <li><strong>Development Environments:</strong> Use test IBANs in staging and development systems.</li>
+              </ul>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Important Disclaimer</h3>
+              <div className="p-6 bg-yellow-500/10 dark:bg-yellow-500/20 border-2 border-yellow-500/30 rounded-lg">
+                <p className="text-yellow-700 dark:text-yellow-300">
+                  <strong>Generated IBANs are for testing purposes only.</strong> While mathematically valid and passing all format checks, they do not correspond to real bank accounts. Never use generated IBANs for actual financial transactions, production payment processing, real money transfers, or fraudulent activities. Always use legitimate IBANs provided by authorized financial institutions for real transactions.
+                </p>
               </div>
 
-              <h3 className="text-xl font-bold text-foreground mb-3">
-                Technical Details
-              </h3>
-              <p className="text-muted-foreground mb-4">
-                Our generator creates IBANs using the following process:
+              <h3 className="text-xl font-bold text-foreground mt-8">Privacy & Security</h3>
+              <p className="text-muted-foreground">
+                All IBAN generation is performed entirely in your web browser. No generated IBANs are sent to our servers or stored anywhere. This tool is designed solely for creating test data and educational purposes, ensuring complete privacy and security.
               </p>
-              <ol className="list-decimal pl-6 text-muted-foreground space-y-2">
-                <li>Retrieves the IBAN specification for the selected country</li>
-                <li>Generates a random BBAN (Basic Bank Account Number) following the country's format</li>
-                <li>Applies custom bank/branch codes if specified</li>
-                <li>Calculates the correct check digits using the MOD-97 algorithm</li>
-                <li>Validates the generated IBAN to ensure correctness</li>
-                <li>Formats the IBAN according to country-specific standards</li>
-              </ol>
             </div>
+          </div>
+
+          <div className="lg:col-span-1">
+            <AdSidebar dataAdSlot="1010101010" />
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

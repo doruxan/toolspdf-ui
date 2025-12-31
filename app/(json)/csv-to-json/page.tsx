@@ -3,7 +3,7 @@ import CSVToJSON from '@/components/tools/json/CSVToJSON';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareApplicationSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
@@ -57,10 +57,38 @@ export default function CSVToJSONPage() {
     'Download JSON file or copy the output'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'What delimiter types are supported?',
+      answer: 'The tool supports comma (,), semicolon (;), tab (\\t), and pipe (|) delimiters. Commas are the standard CSV format, but many European systems use semicolons. Tab-separated values (TSV) are common for data exports, and pipes are used when data contains commas. The tool auto-detects delimiters in most cases.'
+    },
+    {
+      question: 'How are CSV headers handled?',
+      answer: 'If your CSV has a header row (column names in the first row), enable the "Has Headers" option. The headers become JSON object keys. Without headers, the tool generates generic keys (column1, column2, etc.) or outputs arrays. Proper header handling is crucial for meaningful JSON output.'
+    },
+    {
+      question: 'Can I convert JSON back to CSV?',
+      answer: 'Yes. The tool supports bidirectional conversion. JSON arrays of objects convert cleanly to CSV with object keys becoming column headers. Nested JSON objects are flattened using dot notation (e.g., user.name becomes a column). Complex nested structures may require manual adjustment.'
+    },
+    {
+      question: 'What happens to empty cells in CSV?',
+      answer: 'Empty CSV cells convert to empty strings ("") in JSON by default. Some tools convert them to null values. If your application requires null instead of empty strings, you will need to post-process the JSON or use data type inference if the tool provides that option.'
+    },
+    {
+      question: 'How are data types handled during conversion?',
+      answer: 'CSV is a text format with no inherent data types. By default, all values convert to strings in JSON. Some tools offer automatic type inference, detecting numbers (123 becomes integer), booleans (true/false), and null values. For precise type control, manually edit the JSON after conversion or use a schema-aware import tool.'
+    },
+    {
+      question: 'Is there a file size limit for CSV conversion?',
+      answer: 'Browser-based tools typically handle CSV files up to 10-50MB depending on device memory. Very large files (100,000+ rows) may cause performance issues or browser crashes. For enterprise-scale CSV processing (millions of rows), consider server-side tools or command-line utilities like csvkit or jq.'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="1234567890" className="mb-6" />
       
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

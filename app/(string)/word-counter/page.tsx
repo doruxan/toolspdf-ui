@@ -3,7 +3,7 @@ import WordCounter from '@/components/tools/string/WordCounter';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareApplicationSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
@@ -56,10 +56,38 @@ export default function WordCounterPage() {
     'Use metrics for content planning and optimization'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'How does word counting work?',
+      answer: 'Words are counted by splitting text at whitespace boundaries (spaces, tabs, line breaks) and counting non-empty segments. Hyphenated words like "twenty-one" count as one word. Contractions like "don\'t" count as one word. Numbers (123) count as words. URLs and email addresses count as single words. Punctuation is ignored when attached to words ("hello," = 1 word).'
+    },
+    {
+      question: 'What is the difference between characters and characters without spaces?',
+      answer: '"Characters" counts everything: letters, numbers, punctuation, and spaces. "Characters without spaces" excludes all whitespace (spaces, tabs, line breaks). For "Hello World!", characters = 12 (including space), characters without spaces = 11. This metric is useful for character limits on platforms that exclude spaces (e.g., Twitter for some languages).'
+    },
+    {
+      question: 'How is reading time calculated?',
+      answer: 'Reading time assumes 200 words per minute (WPM), the average silent reading speed for adults in English. For a 1000-word article, reading time is 1000 / 200 = 5 minutes. This is an estimate; actual reading speed varies by text complexity, reader proficiency, and language. Technical content averages 150-175 WPM; simple content can reach 250+ WPM.'
+    },
+    {
+      question: 'How is speaking time calculated?',
+      answer: 'Speaking time assumes 130 words per minute, the average conversational speaking pace. For a 1000-word script, speaking time is 1000 / 130 ≈ 7.7 minutes. Professional presentations average 120-150 WPM. Podcasters and audiobook narrators often target 150-160 WPM for clarity. Adjust estimates based on your speaking style and content complexity.'
+    },
+    {
+      question: 'What counts as a sentence?',
+      answer: 'Sentences are counted by detecting terminal punctuation: periods (.), exclamation marks (!), and question marks (?). Each occurrence increments the sentence count. Abbreviations (Dr., U.S.) may cause inaccuracies. Ellipses (...) count as sentence endings. For most use cases, the count is accurate within 5-10% for standard prose.'
+    },
+    {
+      question: 'What counts as a paragraph?',
+      answer: 'Paragraphs are counted by detecting double line breaks (\\n\\n) or single line breaks depending on formatting. A blank line typically separates paragraphs. Single-line text counts as 1 paragraph. List items separated by single line breaks may count as separate paragraphs. For accurate counts, ensure your text uses standard paragraph spacing (blank lines between paragraphs).'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="1234567898" className="mb-6" />
       
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

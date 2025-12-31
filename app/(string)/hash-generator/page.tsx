@@ -3,7 +3,7 @@ import HashGenerator from '@/components/tools/string/HashGenerator';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareApplicationSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
@@ -56,10 +56,38 @@ export default function HashGeneratorPage() {
     'Copy desired hash'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'What is a cryptographic hash?',
+      answer: 'A cryptographic hash is a one-way function that converts input data of any size into a fixed-size output (hash or digest). Key properties: deterministic (same input = same hash), irreversible (cannot recover input from hash), avalanche effect (tiny input change = completely different hash), collision-resistant (hard to find two inputs with same hash). Example: SHA-256("hello") always produces "2cf24dba5fb0a30e...".'
+    },
+    {
+      question: 'What is the difference between MD5, SHA-1, SHA-256, and SHA-512?',
+      answer: 'MD5 (128-bit) and SHA-1 (160-bit) are deprecated due to collision vulnerabilities; use only for non-security checksums. SHA-256 (256-bit) is the current standard for most applications: file integrity, digital signatures, blockchain. SHA-512 (512-bit) offers higher security for long-term cryptographic needs but is slower. Recommendation: SHA-256 for general use, SHA-512 for high-security/long-term data, never MD5/SHA-1 for security.'
+    },
+    {
+      question: 'Can I use hashes for password storage?',
+      answer: 'No. Never use fast hashes (MD5, SHA-256) for passwords. Attackers can test billions of hashes per second using GPUs. Use password-specific algorithms: bcrypt, scrypt, Argon2. These are intentionally slow (adaptive cost factor) and include salts (random data preventing rainbow table attacks). Example: Argon2 takes 100ms per hash, limiting attackers to 10 guesses/second vs 10 billion/second with SHA-256.'
+    },
+    {
+      question: 'What are common use cases for hashes?',
+      answer: 'File integrity verification: compare file hash before/after transfer to detect corruption or tampering. Digital signatures: hash documents before signing (faster than signing entire document). Data deduplication: identify duplicate files by comparing hashes. Git version control: commit IDs are SHA-1 hashes. Blockchain: block integrity via hash chains. Caching: use hash of request as cache key. NOT for passwords (use bcrypt/Argon2).'
+    },
+    {
+      question: 'What is a hash collision?',
+      answer: 'A hash collision occurs when two different inputs produce the same hash output. Collisions are inevitable (infinite inputs → finite outputs) but should be computationally infeasible. MD5 collisions can be found in seconds (broken algorithm). SHA-1 collisions cost $100K to generate (deprecated). SHA-256 collisions are theoretically possible but require 2^128 operations (impossible with current technology). For practical purposes, SHA-256 is collision-free.'
+    },
+    {
+      question: 'How do I verify file integrity with hashes?',
+      answer: 'Download the file and its published hash (often on the official website). Generate the hash of your downloaded file using the same algorithm (e.g., SHA-256). Compare the two hashes character-by-character. If identical, the file is intact and authentic. If different, the file is corrupted or tampered with—do not use it. Example: Linux ISOs publish SHA-256 checksums; users verify downloads before installation to ensure no malware injection during transit.'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="1234567904" className="mb-6" />
       
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

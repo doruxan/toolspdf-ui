@@ -3,7 +3,7 @@ import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import RelatedTools from '@/components/tools/RelatedTools';
 import { FeesCalculator } from '@/components/tools/ecommerce/FeesCalculator';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareAppSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareAppSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
@@ -59,10 +59,38 @@ export default function Page() {
     'Calculate fees for different plans to compare costs'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'What fees does Shopify charge per transaction?',
+      answer: 'Shopify charges two types of fees: credit card processing fees and transaction fees. With Shopify Payments, you pay only processing fees (2.9% + 30¢ for Basic, 2.7% + 0¢ for Advanced). With third-party gateways (Stripe, PayPal), you pay both their processing fees AND Shopify transaction fees (2% for Basic, 1% for Shopify plan, 0.5% for Advanced, 0.15% for Plus).'
+    },
+    {
+      question: 'Are Shopify fees cheaper with higher-tier plans?',
+      answer: 'Yes. Basic ($39/month) charges 2.9% + 30¢ per online transaction. Shopify ($105/month) charges 2.7% + 0¢. Advanced ($399/month) charges 2.5% + 0¢. Plus (custom pricing) charges 2.25% + 0¢. For a store doing $10,000/month in sales, upgrading from Basic to Shopify saves approximately $220/month in fees, more than covering the $66 plan difference.'
+    },
+    {
+      question: 'What is the difference between processing fees and transaction fees?',
+      answer: 'Processing fees are charged by payment processors (Shopify Payments, Stripe, PayPal) for handling credit card transactions—typically 2.5-3% + 30¢. Transaction fees are additional charges Shopify adds when you use third-party payment gateways instead of Shopify Payments. Using Shopify Payments eliminates transaction fees, saving 0.5-2% per sale.'
+    },
+    {
+      question: 'Does Shopify charge fees on shipping costs?',
+      answer: 'Yes. Shopify processing fees apply to the entire order total, including shipping and taxes. For a $50 order with $10 shipping, fees are calculated on $60. This can significantly impact profit margins if you charge high shipping rates. Some merchants separate shipping charges or increase product prices to offset this.'
+    },
+    {
+      question: 'Can I avoid Shopify transaction fees?',
+      answer: 'Yes, by using Shopify Payments as your payment gateway. Shopify waives the 0.5-2% transaction fee when you process payments through their native gateway. However, Shopify Payments is only available in select countries (US, Canada, UK, Australia, and 20+ others). If unavailable, you must use third-party gateways and pay transaction fees.'
+    },
+    {
+      question: 'How do Shopify fees compare to other e-commerce platforms?',
+      answer: 'Shopify fees (2.5-2.9% + 30¢) are competitive. WooCommerce charges gateway fees only (2.9% + 30¢ for Stripe) but requires paid hosting ($20-100/month). BigCommerce charges similar rates (2.59-2.9% + 30¢). Squarespace charges 3% + 0¢. Shopify Plus (2.25% + 0¢) is significantly cheaper than most platforms for high-volume stores (100,000+ monthly sales).'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="3333333333" className="mb-6" />
 
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

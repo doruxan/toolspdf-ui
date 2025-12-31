@@ -3,7 +3,7 @@ import CaseConverter from '@/components/tools/string/CaseConverter';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareApplicationSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
@@ -56,10 +56,38 @@ export default function CaseConverterPage() {
     'Copy the converted text with one click'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'What is the difference between camelCase and PascalCase?',
+      answer: 'camelCase starts with a lowercase letter (e.g., userName), while PascalCase starts with an uppercase letter (e.g., UserName). Both remove spaces and capitalize subsequent words. camelCase is common for JavaScript variables and functions. PascalCase is used for class names, React components, and C# naming conventions.'
+    },
+    {
+      question: 'When should I use snake_case vs kebab-case?',
+      answer: 'snake_case uses underscores (user_name) and is standard in Python, Ruby, and database column names. kebab-case uses hyphens (user-name) and is used in URLs, CSS class names, and HTML attributes. Most file systems and databases prefer snake_case. Web URLs and front-end code prefer kebab-case for SEO and readability.'
+    },
+    {
+      question: 'What is SCREAMING_SNAKE_CASE used for?',
+      answer: 'SCREAMING_SNAKE_CASE (ALL_CAPS_WITH_UNDERSCORES) is used for constants and environment variables in most programming languages. Examples: MAX_RETRY_COUNT in Python, API_KEY in Node.js, DATABASE_URL in config files. This convention signals that values should not change during program execution.'
+    },
+    {
+      question: 'Can I convert multiple lines of text at once?',
+      answer: 'Yes. Paste multiline text and the converter processes each line independently. This is useful for converting variable lists, converting CSV column headers, or batch-processing code identifiers. Each line maintains its own conversion, preserving the structure of your input.'
+    },
+    {
+      question: 'How does the converter handle special characters?',
+      answer: 'Special characters (!, @, #, $, %, etc.) are typically removed during conversion since programming identifiers do not support them. Numbers are preserved (user2Name → user2Name). Spaces, hyphens, and underscores are used as word delimiters and then replaced with the target format conventions (spaces become underscores in snake_case, removed in camelCase).'
+    },
+    {
+      question: 'Is case conversion reversible?',
+      answer: 'Partially. Converting from camelCase or PascalCase back to separate words works well (userName → user name). However, converting from UPPERCASE or lowercase loses word boundary information, making reverse conversion imperfect (username → user name requires manual adjustment). Always keep original text if you need exact reversibility.'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="1234567896" className="mb-6" />
       
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

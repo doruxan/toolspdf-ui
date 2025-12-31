@@ -3,7 +3,7 @@ import PasswordGenerator from '@/components/tools/string/PasswordGenerator';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareApplicationSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
@@ -56,10 +56,38 @@ export default function PasswordGeneratorPage() {
     'Check strength meter, copy secure password'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'How long should my password be?',
+      answer: 'Minimum 12 characters for basic security; 16+ characters for high-security accounts (banking, email, work). Each additional character exponentially increases cracking difficulty. A 12-character password with mixed characters has 62^12 possible combinations (3.2 quadrillion). At 16 characters, it becomes 62^16 (47 sextillion). For critical accounts, use 20+ characters.'
+    },
+    {
+      question: 'What makes a password strong?',
+      answer: 'Strong passwords combine four elements: length (16+ characters), character variety (uppercase, lowercase, numbers, symbols), randomness (avoid dictionary words, patterns like "123", "abc"), and uniqueness (never reuse across sites). Example strong password: "7nQ#m9$Lp2@xR4wZ" (16 chars, all types, completely random). Weak: "Password123!" (common word + predictable pattern).'
+    },
+    {
+      question: 'Should I include symbols in my password?',
+      answer: 'Yes. Symbols (!, @, #, $, %, etc.) significantly increase password complexity and cracking resistance. However, prioritize length over complexity. A 20-character password with only letters and numbers is stronger than a 12-character password with all character types. Ideal: both length (16+) and symbols. Avoid: overusing symbols in short passwords; some sites restrict certain symbols.'
+    },
+    {
+      question: 'Can I trust browser-based password generators?',
+      answer: 'Yes, if they use cryptographically secure random number generators (crypto.getRandomValues() in browsers). Our generator runs entirely in your browser—passwords are never sent to servers. Browser generators are safer than creating passwords manually (which often contain predictable patterns). For maximum security, use dedicated password managers (1Password, Bitwarden) which generate AND securely store passwords.'
+    },
+    {
+      question: 'How do I remember strong random passwords?',
+      answer: 'Do not try to remember them—use a password manager. Password managers (1Password, Bitwarden, LastPass) securely store unlimited passwords behind one master password. They auto-fill credentials, sync across devices, and generate strong passwords. Memorize only 1-2 passwords: master password for your password manager and possibly one backup for critical recovery accounts. Write unique passwords on paper only as last resort; never digital notes.'
+    },
+    {
+      question: 'Should I change my passwords regularly?',
+      answer: 'No, unless there is evidence of compromise. Modern security guidance (NIST, NCSC) recommends changing passwords only when breached, not on schedules (e.g., every 90 days). Forced regular changes lead to weaker passwords (users increment patterns: "Password1", "Password2"). Instead: use strong unique passwords, enable two-factor authentication (2FA), monitor breach alerts (Have I Been Pwned), and change immediately if a service reports a data breach.'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="1234567916" className="mb-6" />
       
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

@@ -2,8 +2,10 @@ import { Metadata } from 'next'
 import { BatchIBANValidator } from '@/components/tools/iban/BatchIBANValidator'
 import Breadcrumbs from '@/components/layout/Breadcrumbs'
 import StructuredData from '@/components/seo/StructuredData'
-import { generateSoftwareAppSchema } from '@/lib/seo/schemas'
+import { generateSoftwareAppSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas'
 import { withCanonicalMetadata } from '@/lib/seo/metadata'
+import AdBanner from '@/components/ads/AdBanner'
+import AdSidebar from '@/components/ads/AdSidebar'
 
 const pageMetadata: Metadata = {
   title: 'Batch IBAN Validator - Validate Multiple IBANs at Once | RawTools',
@@ -43,133 +45,123 @@ export default function BatchIBANValidatorPage() {
     url: 'https://rawtools.io/batch-iban-validator',
   })
 
+  const howToSchema = generateHowToSchema({
+    name: 'Batch IBAN Validator',
+    description: 'How to validate multiple International Bank Account Numbers at once',
+    url: 'https://rawtools.io/batch-iban-validator',
+  }, [
+    'Upload a CSV file or paste multiple IBANs (one per line)',
+    'Click the "Validate All" button to process the batch',
+    'View validation results with status indicators for each IBAN',
+    'Use filters to show only valid or invalid IBANs',
+    'Export results as CSV, JSON, or print for documentation'
+  ])
+
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'How many IBANs can I validate at once?',
+      answer: 'The tool handles up to 1000 IBANs per batch. For typical use cases (100-500 IBANs), validation completes in seconds. Larger batches take longer but remain fully functional. For enterprise needs exceeding 1000 IBANs, split your dataset into multiple batches or consider server-side batch processing solutions.'
+    },
+    {
+      question: 'What CSV format does the tool accept?',
+      answer: 'The tool accepts CSV files with IBANs in any column. It automatically detects IBAN-like patterns (2 letters + 2 digits + alphanumeric characters). You can include headers, additional columns (customer IDs, names), and the parser will extract IBANs. Supported delimiters: comma, semicolon, tab.'
+    },
+    {
+      question: 'Can I export validation results?',
+      answer: 'Yes. Export options include CSV (for Excel/spreadsheets), JSON (for programmatic processing), and print-friendly format (for documentation). CSV exports include all columns: IBAN, validation status (valid/invalid), error messages, country code, SEPA membership, and parsed components (bank code, account number).'
+    },
+    {
+      question: 'How does filtering work?',
+      answer: 'After validation, use filters to show only valid IBANs, only invalid IBANs, or all IBANs. This helps you quickly identify problematic entries that need correction. For example, filtering to "Invalid only" in a batch of 500 IBANs might show 12 entries requiring customer follow-up, saving time reviewing 488 valid ones.'
+    },
+    {
+      question: 'What error details are provided for invalid IBANs?',
+      answer: 'Each invalid IBAN receives a specific error message: "Invalid country code," "Incorrect length for [country]," "MOD-97 checksum failed," "Invalid characters," or "Country-specific format violation." These messages help you identify the exact issue—whether it is a typo, truncation, wrong country, or data corruption.'
+    },
+    {
+      question: 'Is batch validation secure?',
+      answer: 'Yes. All validation happens entirely in your browser. The CSV file is processed locally using JavaScript. Your IBAN data never leaves your device, is never uploaded to our servers, and is never stored. This client-side approach ensures complete privacy for sensitive financial data, making it safe for enterprise use.'
+    }
+  ])
+
   return (
-    <>
+    <div className="w-full">
       <StructuredData data={schema} />
-      
-      <div className="min-h-screen">
-        <div className="max-w-7xl mx-auto px-4 py-8">
-          <Breadcrumbs category="IBAN Tools" toolName="Batch IBAN Validator" currentHref="/batch-iban-validator" />
-          
-          <div className="text-center mb-8">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Batch IBAN Validator
-            </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Validate multiple IBANs efficiently. Process up to 1000 IBANs at once with 
-              CSV import/export, filtering, and comprehensive validation reports.
-            </p>
+      <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
+      <AdBanner dataAdSlot="5555555555" className="mb-6" />
+
+      <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          <div className="lg:col-span-3">
+            <Breadcrumbs category="IBAN Tools" toolName="Batch IBAN Validator" currentHref="/batch-iban-validator" />
+            <div className="mb-6">
+              <h1 className="text-4xl font-bold text-foreground mb-2">Batch IBAN Validator</h1>
+              <p className="text-muted-foreground">
+                Validate multiple IBANs simultaneously with CSV import/export and comprehensive validation reports
+              </p>
+            </div>
+
+            <BatchIBANValidator />
+
+            <div className="mt-12 prose prose-lg max-w-none">
+              <h2 className="text-2xl font-bold text-foreground">How to Batch Validate IBANs</h2>
+              <ol className="text-muted-foreground space-y-2">
+                <li>Upload a CSV file or paste multiple IBANs (one per line)</li>
+                <li>Click the "Validate All" button to process the batch</li>
+                <li>View validation results with status indicators for each IBAN</li>
+                <li>Use filters to show only valid or invalid IBANs</li>
+                <li>Export results as CSV, JSON, or print for documentation</li>
+              </ol>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Why Use Our Batch IBAN Validator?</h3>
+              <ul className="text-muted-foreground space-y-2">
+                <li><strong>High Volume Processing:</strong> Validate up to 1000 IBANs in seconds</li>
+                <li><strong>CSV Import/Export:</strong> Upload files and download detailed reports</li>
+                <li><strong>Smart Filtering:</strong> Quickly isolate valid or invalid IBANs</li>
+                <li><strong>Detailed Statistics:</strong> See success rates and error breakdowns</li>
+                <li><strong>No Server Upload:</strong> All processing happens in your browser</li>
+                <li><strong>Multiple Export Formats:</strong> CSV, JSON, and printable reports</li>
+              </ul>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Validation Features</h3>
+              <ul className="text-muted-foreground space-y-2">
+                <li><strong>Format Verification:</strong> Checks IBAN structure (2 letters + 2 digits + BBAN)</li>
+                <li><strong>Length Validation:</strong> Ensures correct length per country (15-34 characters)</li>
+                <li><strong>MOD-97 Checksum:</strong> Mathematical integrity check for each IBAN</li>
+                <li><strong>Country Recognition:</strong> Validates against 80+ country-specific rules</li>
+                <li><strong>Progress Tracking:</strong> Real-time progress bar for large batches</li>
+                <li><strong>Error Details:</strong> Specific error messages for each invalid IBAN</li>
+              </ul>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">What is Batch IBAN Validation?</h3>
+              <p className="text-muted-foreground">
+                Batch IBAN validation is the process of verifying multiple International Bank Account Numbers simultaneously rather than one at a time. This approach is essential for organizations handling large volumes of payment data. In a typical scenario, a company migrating from a legacy accounting system to a modern ERP needs to validate 5,000 customer IBANs before go-live. Manual validation would take days; batch validation completes in minutes. The validation process checks each IBAN against multiple criteria: country code validity (2-letter ISO 3166-1 alpha-2), correct length for the specific country (e.g., 22 for Germany, 27 for France), MOD-97 checksum accuracy (remainder must equal 1), and adherence to country-specific format patterns. Real-world example: A payment processor receives a CSV file with 500 supplier IBANs for monthly disbursements. Using batch validation, they identify 12 invalid IBANs (2.4% error rate) before processing, preventing rejected transactions and associated fees. The validator also flags IBANs from non-SEPA countries, helping the finance team separate cross-border payments that require different processing workflows.
+              </p>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Common Use Cases</h3>
+              <ul className="text-muted-foreground space-y-2">
+                <li><strong>Data Migration Projects:</strong> Validate customer IBANs before importing to a new banking system.</li>
+                <li><strong>Database Quality Audits:</strong> Identify and correct invalid IBANs in existing customer records.</li>
+                <li><strong>Pre-Payment Validation:</strong> Verify recipient IBANs before executing batch payment runs.</li>
+                <li><strong>Regulatory Compliance:</strong> Ensure IBAN data meets banking standards for audit requirements.</li>
+                <li><strong>Customer Data Cleanup:</strong> Detect and flag IBANs that need re-verification from customers.</li>
+                <li><strong>Integration Testing:</strong> Validate test datasets before connecting to payment gateway APIs.</li>
+              </ul>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Privacy & Security</h3>
+              <p className="text-muted-foreground">
+                Your privacy is our top priority. All batch validation is performed entirely in your web browser using client-side JavaScript. This means your banking data never leaves your device and is never uploaded to our servers. You can validate thousands of IBANs with complete confidence, knowing your sensitive financial information remains private and secure throughout the entire process.
+              </p>
+            </div>
           </div>
 
-          <BatchIBANValidator />
-
-          {/* Educational Content */}
-          <div className="mt-16 max-w-4xl mx-auto">
-            <div className="prose dark:prose-invert max-w-none">
-              <h2 className="text-2xl font-bold text-foreground mb-4">
-                Efficient Batch IBAN Validation
-              </h2>
-              <p className="text-muted-foreground mb-6">
-                Process large volumes of IBANs quickly and accurately. Perfect for data migration, 
-                customer database validation, payment processing verification, and quality assurance.
-              </p>
-
-              <h3 className="text-xl font-bold text-foreground mb-3">
-                Key Features
-              </h3>
-              
-              <div className="grid md:grid-cols-2 gap-4 mb-6">
-                <div className="p-4 bg-blue-500/10 dark:bg-blue-500/20 border border-blue-500/20 rounded">
-                  <h4 className="font-semibold text-blue-700 dark:text-blue-300 mb-2">📊 Bulk Processing</h4>
-                  <p className="text-sm text-blue-600 dark:text-blue-400">
-                    Validate up to 1000 IBANs in a single operation with real-time progress tracking.
-                  </p>
-                </div>
-
-                <div className="p-4 bg-green-500/10 dark:bg-green-500/20 border border-green-500/20 rounded">
-                  <h4 className="font-semibold text-green-700 dark:text-green-300 mb-2">📁 CSV Import/Export</h4>
-                  <p className="text-sm text-green-600 dark:text-green-400">
-                    Upload CSV files and export validation results with detailed error messages.
-                  </p>
-                </div>
-
-                <div className="p-4 bg-purple-500/10 dark:bg-purple-500/20 border border-purple-500/20 rounded">
-                  <h4 className="font-semibold text-purple-700 dark:text-purple-300 mb-2">🔍 Smart Filtering</h4>
-                  <p className="text-sm text-purple-600 dark:text-purple-400">
-                    Filter results by validation status to quickly identify and fix invalid IBANs.
-                  </p>
-                </div>
-
-                <div className="p-4 bg-orange-500/10 dark:bg-orange-500/20 border border-orange-500/20 rounded">
-                  <h4 className="font-semibold text-orange-700 dark:text-orange-300 mb-2">📈 Statistics</h4>
-                  <p className="text-sm text-orange-600 dark:text-orange-400">
-                    Get instant summary statistics including total, valid, invalid counts and success rate.
-                  </p>
-                </div>
-              </div>
-
-              <h3 className="text-xl font-bold text-foreground mb-3">
-                Use Cases
-              </h3>
-              <ul className="list-disc pl-6 text-muted-foreground space-y-2 mb-6">
-                <li><strong className="text-foreground">Data Migration:</strong> Validate IBANs before importing into new systems</li>
-                <li><strong className="text-foreground">Database Cleanup:</strong> Identify and fix invalid IBANs in customer databases</li>
-                <li><strong className="text-foreground">Payment Processing:</strong> Pre-validate recipient IBANs before batch payments</li>
-                <li><strong className="text-foreground">Compliance Audits:</strong> Verify IBAN data quality for regulatory requirements</li>
-                <li><strong className="text-foreground">Customer Onboarding:</strong> Validate IBANs during bulk customer imports</li>
-                <li><strong className="text-foreground">Quality Assurance:</strong> Test payment systems with large datasets</li>
-              </ul>
-
-              <h3 className="text-xl font-bold text-foreground mb-3">
-                CSV File Format
-              </h3>
-              <p className="text-muted-foreground mb-4">
-                Upload CSV files with IBANs in any column. Our parser automatically detects IBAN-like 
-                patterns. Example formats:
-              </p>
-              
-              <div className="bg-muted p-4 rounded font-mono text-xs mb-6 text-foreground">
-                <div className="mb-2">Simple list:</div>
-                <div>GB29NWBK60161331926819</div>
-                <div>DE89370400440532013000</div>
-                <div>FR1420041010050500013M02606</div>
-                <div className="mt-4 mb-2">With headers:</div>
-                <div>customer_id,iban,name</div>
-                <div>1001,GB29NWBK60161331926819,John Doe</div>
-                <div>1002,DE89370400440532013000,Jane Smith</div>
-              </div>
-
-              <h3 className="text-xl font-bold text-foreground mb-3">
-                Validation Details
-              </h3>
-              <p className="text-muted-foreground mb-4">
-                Each IBAN is validated against:
-              </p>
-              <ul className="list-disc pl-6 text-muted-foreground space-y-2 mb-6">
-                <li>Country code recognition (80+ countries)</li>
-                <li>Length validation for specific country</li>
-                <li>MOD-97 checksum verification</li>
-                <li>Country-specific format rules</li>
-                <li>Character set validation</li>
-                <li>SEPA membership identification</li>
-              </ul>
-
-              <h3 className="text-xl font-bold text-foreground mb-3">
-                Export Options
-              </h3>
-              <p className="text-muted-foreground mb-4">
-                Export validation results in multiple formats:
-              </p>
-              <ul className="list-disc pl-6 text-muted-foreground space-y-2">
-                <li><strong className="text-foreground">CSV:</strong> Spreadsheet-compatible format with all validation details</li>
-                <li><strong className="text-foreground">JSON:</strong> Structured data format for programmatic processing</li>
-                <li><strong className="text-foreground">Print:</strong> Formatted report for documentation and review</li>
-              </ul>
-            </div>
+          <div className="lg:col-span-1">
+            <AdSidebar dataAdSlot="6666666666" />
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

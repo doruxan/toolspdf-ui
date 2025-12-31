@@ -2,8 +2,10 @@ import { Metadata } from 'next'
 import { IBANFormatter } from '@/components/tools/iban/IBANFormatter'
 import Breadcrumbs from '@/components/layout/Breadcrumbs'
 import StructuredData from '@/components/seo/StructuredData'
-import { generateSoftwareAppSchema } from '@/lib/seo/schemas'
+import { generateSoftwareAppSchema, generateHowToSchema } from '@/lib/seo/schemas'
 import { withCanonicalMetadata } from '@/lib/seo/metadata'
+import AdBanner from '@/components/ads/AdBanner'
+import AdSidebar from '@/components/ads/AdSidebar'
 
 const pageMetadata: Metadata = {
   title: 'IBAN Formatter - Format IBANs for Print or Electronic Use | RawTools',
@@ -43,106 +45,95 @@ export default function IBANFormatterPage() {
     url: 'https://rawtools.io/iban-formatter',
   })
 
+  const howToSchema = generateHowToSchema({
+    name: 'IBAN Formatter',
+    description: 'How to format International Bank Account Numbers for different use cases',
+    url: 'https://rawtools.io/iban-formatter',
+  }, [
+    'Enter or paste one or more IBANs into the input field',
+    'Select your desired output format: Electronic, Print, or Country-Specific',
+    'Click the "Format" button to process the IBANs',
+    'View formatted results with proper spacing and grouping',
+    'Copy formatted IBANs or download results for batch operations'
+  ])
+
   return (
-    <>
+    <div className="w-full">
       <StructuredData data={schema} />
-      
-      <div className="min-h-screen">
-        <div className="max-w-7xl mx-auto px-4 py-8">
-          <Breadcrumbs category="IBAN Tools" toolName="IBAN Formatter" currentHref="/iban-formatter" />
-          
-          <div className="text-center mb-8">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-              IBAN Formatter
-            </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Format IBANs for different use cases. Convert between electronic and print formats, 
-              apply country-specific grouping, or batch format multiple IBANs at once.
-            </p>
+      <StructuredData data={howToSchema} />
+      <AdBanner dataAdSlot="3333333333" className="mb-6" />
+
+      <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          <div className="lg:col-span-3">
+            <Breadcrumbs category="IBAN Tools" toolName="IBAN Formatter" currentHref="/iban-formatter" />
+            <div className="mb-6">
+              <h1 className="text-4xl font-bold text-foreground mb-2">IBAN Formatter</h1>
+              <p className="text-muted-foreground">
+                Format IBANs for print or electronic use with country-specific grouping and batch processing
+              </p>
+            </div>
+
+            <IBANFormatter />
+
+            <div className="mt-12 prose prose-lg max-w-none">
+              <h2 className="text-2xl font-bold text-foreground">How to Format IBANs</h2>
+              <ol className="text-muted-foreground space-y-2">
+                <li>Enter or paste one or more IBANs into the input field</li>
+                <li>Select your desired output format: Electronic, Print, or Country-Specific</li>
+                <li>Click the "Format" button to process the IBANs</li>
+                <li>View formatted results with proper spacing and grouping</li>
+                <li>Copy formatted IBANs or download results for batch operations</li>
+              </ol>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Why Use Our IBAN Formatter?</h3>
+              <ul className="text-muted-foreground space-y-2">
+                <li><strong>Multiple Format Options:</strong> Electronic, print, and country-specific formats</li>
+                <li><strong>Batch Processing:</strong> Format multiple IBANs simultaneously</li>
+                <li><strong>80+ Countries:</strong> Support for all IBAN-using countries</li>
+                <li><strong>Instant Results:</strong> Real-time formatting without delays</li>
+                <li><strong>No Registration:</strong> Use immediately without creating an account</li>
+                <li><strong>Copy or Download:</strong> Export results in your preferred format</li>
+              </ul>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Format Types Available</h3>
+              <ul className="text-muted-foreground space-y-2">
+                <li><strong>Electronic Format:</strong> Continuous string without spaces (GB29NWBK60161331926819)</li>
+                <li><strong>Print Format:</strong> Groups of 4 characters separated by spaces (GB29 NWBK 6016 1331 9268 19)</li>
+                <li><strong>Country-Specific:</strong> Official format per country standards (varies by country)</li>
+                <li><strong>Custom Grouping:</strong> Flexible spacing options for specific requirements</li>
+                <li><strong>Case Normalization:</strong> Automatic conversion to uppercase standard</li>
+                <li><strong>Whitespace Removal:</strong> Cleans input IBANs before formatting</li>
+              </ul>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">What is IBAN Formatting?</h3>
+              <p className="text-muted-foreground">
+                IBAN formatting refers to the presentation of International Bank Account Numbers in different visual layouts depending on the use case. While the underlying data remains identical, the format affects readability and system compatibility. Electronic format (no spaces) is the ISO 13616 standard for machine processing: it eliminates human error from whitespace inconsistencies and is required by most banking APIs and payment systems. Print format groups characters into blocks of 4, improving readability on invoices and bank statements. For example, a German IBAN DE89370400440532013000 becomes DE89 3704 0044 0532 0130 00 in print format. Country-specific formatting follows local banking conventions: some countries use different grouping (e.g., French IBANs often group by bank identifier sections). Real-world scenario: A payment processor receives IBANs with varying formats from web forms (some with spaces, some without). Before validation and processing, all IBANs are normalized to electronic format, then reformatted for display in customer-facing interfaces.
+              </p>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Common Use Cases</h3>
+              <ul className="text-muted-foreground space-y-2">
+                <li><strong>Database Migration:</strong> Convert stored IBANs from print format to electronic format for system upgrades.</li>
+                <li><strong>Invoice Generation:</strong> Format IBANs in print format for better readability on customer invoices.</li>
+                <li><strong>Payment File Preparation:</strong> Ensure IBANs are in electronic format before uploading to payment gateways.</li>
+                <li><strong>Customer Communications:</strong> Display IBANs in country-specific format for official correspondence.</li>
+                <li><strong>Data Entry Validation:</strong> Normalize user input by removing spaces and converting to uppercase.</li>
+                <li><strong>Report Generation:</strong> Present IBANs in consistent print format across all financial reports.</li>
+              </ul>
+
+              <h3 className="text-xl font-bold text-foreground mt-8">Privacy & Security</h3>
+              <p className="text-muted-foreground">
+                All IBAN formatting is performed entirely in your web browser. Your banking information never leaves your device and is never transmitted to our servers. You can format IBANs with complete confidence, knowing your data remains private throughout the entire process.
+              </p>
+            </div>
           </div>
 
-          <IBANFormatter />
-
-          {/* Educational Content */}
-          <div className="mt-16 max-w-4xl mx-auto">
-            <div className="prose dark:prose-invert max-w-none">
-              <h2 className="text-2xl font-bold text-foreground mb-4">
-                IBAN Formatting Standards
-              </h2>
-              <p className="text-muted-foreground mb-6">
-                IBANs can be represented in different formats depending on the use case. 
-                Understanding when to use each format ensures compatibility and readability.
-              </p>
-
-              <h3 className="text-xl font-bold text-foreground mb-3">
-                Format Types Explained
-              </h3>
-              
-              <div className="space-y-4 mb-6">
-                <div className="p-4 border-l-4 border-blue-500 bg-blue-500/10 dark:bg-blue-500/20">
-                  <h4 className="font-semibold text-foreground mb-2">Electronic Format</h4>
-                  <p className="text-sm text-muted-foreground mb-2">
-                    No spaces, uppercase only. Used for electronic transactions, APIs, and databases.
-                  </p>
-                  <code className="text-xs bg-background border border-border px-2 py-1 rounded text-foreground">GB29NWBK60161331926819</code>
-                  <div className="mt-2 text-xs text-muted-foreground">
-                    <strong className="text-foreground">When to use:</strong> Payment processing, API requests, database storage
-                  </div>
-                </div>
-
-                <div className="p-4 border-l-4 border-green-500 bg-green-500/10 dark:bg-green-500/20">
-                  <h4 className="font-semibold text-foreground mb-2">Print Format (4-char groups)</h4>
-                  <p className="text-sm text-muted-foreground mb-2">
-                    Grouped in 4-character blocks for readability. Standard format for paper documents.
-                  </p>
-                  <code className="text-xs bg-background border border-border px-2 py-1 rounded text-foreground">GB29 NWBK 6016 1331 9268 19</code>
-                  <div className="mt-2 text-xs text-muted-foreground">
-                    <strong className="text-foreground">When to use:</strong> Invoices, statements, printed forms, user interfaces
-                  </div>
-                </div>
-
-                <div className="p-4 border-l-4 border-purple-500 bg-purple-500/10 dark:bg-purple-500/20">
-                  <h4 className="font-semibold text-foreground mb-2">Country-Specific Format</h4>
-                  <p className="text-sm text-muted-foreground mb-2">
-                    Follows official formatting rules for each country. Grouping may vary.
-                  </p>
-                  <code className="text-xs bg-background border border-border px-2 py-1 rounded block mb-1 text-foreground">DE89 3704 0044 0532 0130 00</code>
-                  <code className="text-xs bg-background border border-border px-2 py-1 rounded block text-foreground">FR14 2004 1010 0505 0001 3M02 606</code>
-                  <div className="mt-2 text-xs text-muted-foreground">
-                    <strong className="text-foreground">When to use:</strong> Official communications, regulatory compliance, local standards
-                  </div>
-                </div>
-              </div>
-
-              <h3 className="text-xl font-bold text-foreground mb-3">
-                Best Practices
-              </h3>
-              <ul className="list-disc pl-6 text-muted-foreground space-y-2 mb-6">
-                <li>Always store IBANs in electronic format (no spaces) in databases</li>
-                <li>Display IBANs in print format for user interfaces and documents</li>
-                <li>Use country-specific format for official banking communications</li>
-                <li>Validate IBANs before formatting to ensure data quality</li>
-                <li>Remove spaces before processing IBANs in payment systems</li>
-              </ul>
-
-              <h3 className="text-xl font-bold text-foreground mb-3">
-                Batch Formatting
-              </h3>
-              <p className="text-muted-foreground mb-4">
-                Our batch formatter allows you to process multiple IBANs simultaneously. 
-                This is particularly useful for:
-              </p>
-              <ul className="list-disc pl-6 text-muted-foreground space-y-2">
-                <li>Data migration and cleanup projects</li>
-                <li>Preparing customer lists for mailings</li>
-                <li>Converting between system formats</li>
-                <li>Quality assurance and validation tasks</li>
-              </ul>
-            </div>
+          <div className="lg:col-span-1">
+            <AdSidebar dataAdSlot="4444444444" />
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

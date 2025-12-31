@@ -3,7 +3,7 @@ import JSONSchemaValidator from '@/components/tools/json/JSONSchemaValidator';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareApplicationSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
@@ -57,10 +57,38 @@ export default function JSONSchemaValidatorPage() {
     'Review validation results with detailed error messages'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'What is JSON Schema?',
+      answer: 'JSON Schema is a vocabulary that allows you to annotate and validate JSON documents. It defines the structure, data types, required fields, and constraints for JSON data. For example, a schema can specify that an API response must include a "name" field (string, required) and an "age" field (integer, minimum 0). JSON Schema follows the specification at json-schema.org.'
+    },
+    {
+      question: 'Which JSON Schema versions are supported?',
+      answer: 'Most validators support JSON Schema Draft 7 (2019), Draft 6 (2017), and Draft 4 (2013). Draft 7 is the most widely adopted. Some tools also support Draft 2019-09 and Draft 2020-12. Check the validator documentation for specific version support. Draft 7 is recommended for new projects due to broad compatibility.'
+    },
+    {
+      question: 'What happens if validation fails?',
+      answer: 'The validator returns detailed error messages indicating which fields failed validation and why. For example: "property \\"age\\" must be >= 0" or "required property \\"email\\" is missing". Error messages include JSON paths (e.g., /users/0/age) pointing to the exact location of violations, making debugging straightforward.'
+    },
+    {
+      question: 'Can I auto-generate a schema from JSON data?',
+      answer: 'Yes. Many validators include schema generation features that analyze sample JSON and create a corresponding schema. However, auto-generated schemas are starting points. They infer types from examples but cannot detect business rules (e.g., email format, age ranges). Always review and enhance auto-generated schemas with custom validation rules.'
+    },
+    {
+      question: 'How do I validate nested objects and arrays?',
+      answer: 'JSON Schema supports nested validation using the "properties" keyword for objects and "items" keyword for arrays. You can define schemas for nested structures at any depth. For example, a user object with an address object inside validates both levels. Array validation can specify that all items must conform to a specific schema or allow mixed types.'
+    },
+    {
+      question: 'Can JSON Schema validate API responses?',
+      answer: 'Yes. JSON Schema is widely used for API contract validation. Define schemas for request/response payloads, then validate actual API data against those schemas in tests or production. This catches breaking changes early. Tools like Postman, Swagger/OpenAPI, and API testing frameworks integrate JSON Schema validation natively.'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="1234567800" className="mb-6" />
       
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">
