@@ -3,7 +3,7 @@ import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import RelatedTools from '@/components/tools/RelatedTools';
 import { RoasCalculator } from '@/components/tools/ecommerce/RoasCalculator';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareAppSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareAppSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
@@ -59,10 +59,38 @@ export default function Page() {
     'Set target ROAS above break-even for profitability'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'What is break-even ROAS and why does it matter?',
+      answer: 'Break-even ROAS is the minimum return on ad spend where revenue equals costs. Formula: Selling Price / (Selling Price - All Costs). Example: $100 product with $60 total costs (COGS $40 + fees $10 + shipping $10) = $100 / ($100 - $60) = 2.5 break-even ROAS. Spending $40 on ads must generate $100 in sales (2.5x return) to break even. Target ROAS should be 30-50% above break-even for profit. If break-even is 2.5, target 3.5-4.0 ROAS.'
+    },
+    {
+      question: 'What costs should I include in break-even ROAS calculations?',
+      answer: 'Include ALL variable costs per sale: product cost (COGS), Shopify fees (2-3%), payment processing (2.9% + 30¢), shipping (actual carrier cost or customer-paid), packaging, and fulfillment labor. Exclude fixed costs (rent, salaries, monthly subscriptions). Example: $50 product, $20 COGS, $1.50 Shopify fee, $1.75 payment fee, $5 shipping = $28.25 total costs. Break-even ROAS = $50 / ($50 - $28.25) = 2.3.'
+    },
+    {
+      question: 'How do I set profitable target ROAS above break-even?',
+      answer: 'Add 30-50% margin above break-even for profit. If break-even ROAS is 2.5, target 3.5 (40% buffer). This buffer covers: ad spend fluctuations, returns/refunds (2-5% of sales), customer acquisition costs amortized across purchases, and desired profit margin. Conservative approach: target 2x break-even ROAS. Aggressive (scale mode): target 1.3x break-even. Most e-commerce operates at 1.5-2x break-even for sustainable growth.'
+    },
+    {
+      question: 'Does break-even ROAS differ by product or margin?',
+      answer: 'Yes, dramatically. High-margin products (50%+ margin) have low break-even ROAS (2.0). Low-margin products (20% margin) require high ROAS (5.0+). Example: $100 product with $80 costs = 5.0 break-even ROAS vs $100 product with $50 costs = 2.0 break-even. Implication: low-margin products need highly efficient ads or will not scale profitably. Focus ad spend on high-margin products for easier profitability.'
+    },
+    {
+      question: 'How often should I recalculate break-even ROAS?',
+      answer: 'Recalculate when key costs change: supplier price increases, shipping rate changes, Shopify plan upgrades, or payment processor fee adjustments. Monitor monthly. Example scenario: supplier raises product cost from $30 to $35 (+16%). Break-even ROAS increases from 2.5 to 2.9. Ads that were profitable (3.0 ROAS) now barely break even. Adjust ad budgets or raise prices immediately to maintain profitability.'
+    },
+    {
+      question: 'Can I use average order value (AOV) for break-even ROAS?',
+      answer: 'Yes, for blended calculations. If AOV is $150 with average $90 costs across all products, blended break-even ROAS = $150 / ($150 - $90) = 2.5. This simplifies portfolio-level ad decisions. However, track individual product ROAS for optimization. High-margin products (jewelry, digital goods) can sustain lower ROAS; low-margin items (electronics) need higher ROAS. Optimize campaigns by pausing ads on below-break-even products and scaling winners.'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="9999999999" className="mb-6" />
 
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

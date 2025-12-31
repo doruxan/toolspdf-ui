@@ -3,7 +3,7 @@ import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import RelatedTools from '@/components/tools/RelatedTools';
 import { SpeedChecklist } from '@/components/tools/ecommerce/SpeedChecklist';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareAppSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareAppSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
@@ -59,10 +59,38 @@ export default function Page() {
     'Track your progress and measure speed improvements'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'Why is site speed important for Shopify stores?',
+      answer: 'Site speed directly impacts revenue. Research shows: 1-second delay reduces conversions by 7%, 40% of users abandon sites that take 3+ seconds to load, and Google ranks faster sites higher in search. Real impact: a store loading in 1.5 seconds vs 3 seconds sees 20-30% higher conversion rates. For a store with $100K monthly revenue, a 2-second improvement could generate $20-30K additional revenue monthly. Speed affects mobile users most (slower connections). Google Core Web Vitals (LCP, FID, CLS) now influence SEO rankings directly.'
+    },
+    {
+      question: 'What is a good page speed score for Shopify stores?',
+      answer: 'Target benchmarks: Mobile (most critical): 50-70 PageSpeed Insights score (good), 70-90 (excellent), 90+ (rare, minimalist stores). Desktop: 80-90 (good), 90+ (excellent). Real-world load times: under 2 seconds (excellent), 2-3 seconds (acceptable), 3-5 seconds (needs improvement), 5+ seconds (urgent fix required). Note: PageSpeed Insights scores are strict; focus on real-world metrics (Google Analytics speed reports, GTmetrix). A 60 mobile score with 2-second load time is better than a 90 score with 4-second load time.'
+    },
+    {
+      question: 'What are the biggest speed killers on Shopify stores?',
+      answer: 'Top culprits: Unoptimized images (70% of page weight; resize to max 2000px, compress to under 200 KB), Too many apps (each adds 50-200 KB code; audit and remove unused apps), Large theme files (use lightweight themes; Dawn theme is fastest), Uncompressed code (minify CSS/JS), External scripts (Facebook Pixel, analytics, chat widgets slow pages; load asynchronously), Hero videos (use thumbnail images with click-to-play), and Carousels (load off-screen slides lazily). Fix images and apps first for 50-70% speed gain.'
+    },
+    {
+      question: 'How do I optimize images without losing quality?',
+      answer: 'Image optimization workflow: Resize first (max 2000px width for product images, 1500px for thumbnails), Compress using tools (TinyPNG, Shopify Image Optimizer app, ImageOptim), Use WebP format (80% smaller than JPEG, supported on all browsers), Implement lazy loading (images load as user scrolls), and Use Shopify CDN (automatic delivery from nearest server). Example: 5 MB original → resize to 1500px → compress → 150 KB final (97% size reduction, no visible quality loss). Aim for under 200 KB per image.'
+    },
+    {
+      question: 'Should I limit the number of apps on my store?',
+      answer: 'Yes. Each app adds code that slows your site. Guidelines: under 10 apps (ideal), 10-15 apps (acceptable), 15-20 apps (performance impact likely), 20+ apps (severe slowdown). Audit regularly: uninstall unused apps (they often leave code behind; manually remove remnants), combine functionality (use one multi-feature app instead of five single-purpose apps), and evaluate necessity (is this app worth 0.5 seconds load time?). Check app impact using Shopify Speed Score or GTmetrix before installing.'
+    },
+    {
+      question: 'Can changing my Shopify theme improve speed?',
+      answer: 'Significantly. Theme speed comparison: Dawn (Shopify default): 80-90 PageSpeed score, lightweight, fast. Debutify, Turbo: optimized for speed, 70-85 score. PageFly, GemPages (page builders): 50-70 score, feature-rich but slower. Heavily customized themes: 40-60 score, often bloated. Before switching themes, test speed using theme preview mode. Expect 20-40% speed improvement switching from a slow custom theme to Dawn. Lightweight does not mean less functionality—prioritize themes built for performance with minimal code.'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="1515151515" className="mb-6" />
 
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

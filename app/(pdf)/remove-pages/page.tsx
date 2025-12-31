@@ -3,7 +3,7 @@ import RemovePages from '@/components/tools/RemovePages';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareApplicationSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
@@ -57,10 +57,38 @@ export default function RemovePagesPage() {
     'Download your modified PDF file'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'What is the difference between removing and deleting PDF pages?',
+      answer: 'Removing pages creates a new PDF without the specified pages—the original file remains unchanged. Deleting pages modifies the original file directly (requires desktop software with save/overwrite capability). Browser-based tools "remove" pages by creating new PDFs. The practical effect is identical: unwanted pages are gone. Always keep backups before removing pages from important documents.'
+    },
+    {
+      question: 'Can I remove multiple non-consecutive pages at once?',
+      answer: 'Yes. Most tools accept ranges (5-10), individual pages (3, 7, 15), and combinations (1-5, 12, 20-25). The remaining pages are automatically renumbered. For example, removing pages 2, 5, and 10 from a 20-page PDF leaves 17 pages, and the old page 3 becomes the new page 2. Specify all pages to remove in a single operation to avoid multiple processing steps.'
+    },
+    {
+      question: 'Does removing pages reduce file size proportionally?',
+      answer: 'Usually yes, but not always exactly. Removing 10 pages from a 100-page 5 MB PDF typically reduces it to ~4.5 MB (90% of original). However, if removed pages share resources with remaining pages (embedded fonts, images), those resources stay in the file. Removing 10 mostly-blank pages saves more than removing 10 image-heavy pages. For maximum size reduction, remove pages then compress the PDF.'
+    },
+    {
+      question: 'Will removing pages affect page numbers?',
+      answer: 'Yes. The PDF is automatically renumbered sequentially after removal. If your document has printed page numbers (embedded in the content), those remain unchanged, causing mismatches. For example, a document with "Page 15" printed on page 15—if you remove pages 1-10, "Page 15" now appears on PDF page 5. This is unavoidable. For documents with critical page references, consider extracting desired pages instead of removing unwanted ones.'
+    },
+    {
+      question: 'Can I undo page removal after downloading the PDF?',
+      answer: 'No. Once pages are removed and the new PDF is generated, the operation is irreversible. The removed pages are gone from the file structure. This is why keeping backups is essential. If you accidentally remove the wrong pages, return to the original PDF and re-do the operation. Do NOT overwrite your original file until you verify the removal was correct.'
+    },
+    {
+      question: 'What happens to bookmarks and links when I remove pages?',
+      answer: 'Bookmarks pointing to removed pages are deleted from the bookmark tree. Bookmarks pointing to remaining pages are updated with new page numbers. Internal links (hyperlinks to other pages) pointing to removed pages become broken links. External links (URLs) and links within the same page are unaffected. For documents with extensive bookmarks/links, verify navigation still works after removal.'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="2020202020" className="mb-6" />
       
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

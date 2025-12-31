@@ -3,7 +3,7 @@ import CropPDF from '@/components/tools/CropPDF';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareApplicationSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
@@ -57,10 +57,38 @@ export default function CropPDFPage() {
     'Click "Crop PDF" and download'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'What is the difference between cropping and trimming a PDF?',
+      answer: 'Cropping removes outer margins and white space, making the visible content area smaller. The content itself is not deleted—only the view area changes. Trimming physically removes content outside the crop area, reducing file size. Most PDF crop tools adjust the MediaBox (viewable area) without deleting data. True trimming modifies the TrimBox and removes invisible data, which can reduce file size by 10-30% for heavily cropped documents.'
+    },
+    {
+      question: 'Does cropping reduce PDF file size?',
+      answer: 'Not usually. Standard cropping changes only the visible page boundaries (MediaBox), but all original content remains in the file. File size stays nearly identical. To reduce size, use a "trim and compress" option that removes cropped-out content and recompresses the PDF. Alternatively, crop first, then use a PDF compression tool. Cropping alone is useful for presentation; trimming + compression is needed for file size reduction.'
+    },
+    {
+      question: 'Can I crop different margins for different pages?',
+      answer: 'Most basic crop tools apply uniform margins to all pages. For per-page custom cropping, use advanced PDF editors (Adobe Acrobat Pro, PDFtk) or split the PDF into sections, crop each section differently, then merge. Common workflow: scan a book with inconsistent margins, split odd/even pages, crop each set appropriately, then recombine. Batch tools save time for large documents with repeating patterns.'
+    },
+    {
+      question: 'What units should I use for cropping?',
+      answer: 'Millimeters (mm) for A4/A3 international paper sizes. Inches for US Letter/Legal sizes. Points (pt) for precise digital work (1 point = 1/72 inch). Choose based on your source: scanned documents match physical paper units (mm or inches), digital-born PDFs work well with points. For removing scanner black edges, 5-10mm margins typically suffice. For presentation cropping, 0.25-0.5 inches creates clean borders.'
+    },
+    {
+      question: 'Will cropping affect PDF text selectability?',
+      answer: 'No. Cropping only changes the visible area; it does not convert text to images or affect text layers. Searchable PDFs remain searchable, selectable text remains selectable, and form fields stay functional. However, if you crop so tightly that text is cut off at page edges, that partial text may become unselectable or cause rendering issues in some PDF viewers. Leave small margins (2-5mm) to avoid edge problems.'
+    },
+    {
+      question: 'Why does my cropped PDF still show old margins in some viewers?',
+      answer: 'Some PDF viewers cache page layouts or use different bounding boxes (MediaBox vs CropBox vs TrimBox). Try: refreshing the viewer, reopening the PDF, using a different reader (Adobe Acrobat vs browser), or downloading the file again. To force consistency, open the cropped PDF in Adobe Acrobat and re-save it with "Optimize for Fast Web View" enabled. This normalizes all bounding boxes.'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="3030303030" className="mb-6" />
       
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

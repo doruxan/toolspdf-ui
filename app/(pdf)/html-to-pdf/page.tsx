@@ -3,7 +3,7 @@ import HTMLToPDF from '@/components/tools/HTMLToPDF';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareApplicationSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
@@ -57,10 +57,38 @@ export default function HTMLToPDFPage() {
     'Click "Convert to PDF" and download'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'Will CSS styles be preserved in the PDF?',
+      answer: 'Most HTML-to-PDF converters support basic CSS: colors, fonts (web-safe fonts), margins, padding, text alignment, and background colors. Advanced CSS may not work: animations, transforms, complex positioning, CSS Grid (may convert to basic layout). For best results, use inline CSS or simple external stylesheets. Test with sample HTML to verify styling. Print-specific CSS (@page, @media print) is often supported for page breaks and margins.'
+    },
+    {
+      question: 'Can I convert entire web pages to PDF?',
+      answer: 'If the tool accepts URLs (some do, some do not), it will attempt to fetch and convert the page. However, dynamic content loaded by JavaScript (React, Vue, AJAX) may not render. Static HTML works best. For complex web pages, use browser "Print to PDF" (Ctrl+P) or dedicated web scraping tools. For HTML snippets or emails, paste the HTML source directly into the converter.'
+    },
+    {
+      question: 'What happens to images in the HTML?',
+      answer: 'Embedded images (Base64 data URIs: <img src="data:image/png;base64...">) convert reliably. External images (URLs: <img src="https://...">) may not load if the converter cannot fetch them or if URLs are broken. For guaranteed image inclusion, use Base64-encoded images or host images on accessible URLs. Images are embedded in the PDF at their original resolution.'
+    },
+    {
+      question: 'How do I control page breaks in the PDF?',
+      answer: 'Use CSS page-break properties: "page-break-before: always" (force new page before element), "page-break-after: always" (new page after element), "page-break-inside: avoid" (prevent element from spanning pages). Example: <div style="page-break-after: always;">Section 1</div>. This works in most HTML-to-PDF converters. For precise control, use @page CSS rules (supported by some converters).'
+    },
+    {
+      question: 'Can I include hyperlinks in the PDF?',
+      answer: 'Yes. Standard HTML links (<a href="https://example.com">Link</a>) convert to clickable PDF links. Internal anchor links (<a href="#section2">) may work if the converter supports them. Email links (mailto:) typically work. JavaScript-based links (onclick handlers) do NOT work—PDFs do not execute JavaScript. Use standard HTML href attributes for reliable link conversion.'
+    },
+    {
+      question: 'What font options are available?',
+      answer: 'Most converters support web-safe fonts: Arial, Times New Roman, Courier, Helvetica, Georgia, Verdana. Custom fonts via @font-face or Google Fonts may work if the converter can fetch font files. For guaranteed font rendering, use standard fonts or Base64-embed fonts in CSS. If a specified font is unavailable, the converter falls back to a default font (usually Arial or serif).'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="2828282828" className="mb-6" />
       
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

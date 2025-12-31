@@ -3,7 +3,7 @@ import JSONEscape from '@/components/tools/json/JSONEscape';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareApplicationSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
@@ -57,10 +57,38 @@ export default function JSONEscapePage() {
     'Copy the escaped or unescaped output'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'What characters need to be escaped in JSON?',
+      answer: 'JSON requires escaping: double quotes (\\" for "), backslashes (\\\\ for \\), forward slashes (\\/ for /, optional but common), and control characters (\\n for newline, \\t for tab, \\r for carriage return). Unicode characters can be escaped as \\uXXXX. Example: "He said \\"Hello\\"" becomes valid JSON. Without escaping, quotes would break JSON structure. Escaping ensures special characters are treated as data, not syntax.'
+    },
+    {
+      question: 'Why do I need to escape JSON for logging or config files?',
+      answer: 'Embedding JSON inside JSON, logs, or config files creates nesting conflicts. Example: storing API response JSON as a string value requires escaping all quotes and backslashes. Without escaping: {"response": {"name": "John"}} breaks the outer JSON. With escaping: {"response": "{\\"name\\":\\"John\\"}"}. Escaped JSON treats the inner JSON as a plain string value, preventing parsing errors.'
+    },
+    {
+      question: 'What is the difference between JSON escaping and URL encoding?',
+      answer: 'JSON escaping uses backslashes for special characters (\\" for quotes). URL encoding uses percent-encoding (%20 for space, %22 for quotes). JSON escaping is for embedding strings in JSON. URL encoding is for passing JSON in query parameters (e.g., ?data={"name":"John"} becomes ?data=%7B%22name%22%3A%22John%22%7D). Use JSON escaping for JSON-inside-JSON. Use URL encoding for JSON-in-URLs. They solve different problems.'
+    },
+    {
+      question: 'Can I escape entire JSON objects or only strings?',
+      answer: 'Escaping applies to JSON strings (text values). To escape an entire JSON object, first stringify it (convert to a JSON string), then escape that string. Example: object {"name": "John"} → stringified "{\\"name\\":\\"John\\"}" → escaped as a value in another JSON: {"data": "{\\"name\\":\\"John\\"}"}. You are essentially nesting JSON by treating inner JSON as a string value.'
+    },
+    {
+      question: 'Why does my unescaped JSON still look weird?',
+      answer: 'Common issues: 1) Double-escaping (escaping already-escaped JSON creates \\\\\\" instead of \\"). Solution: unescape once, verify, then use. 2) Mixed encoding (JSON escaping + URL encoding). Solution: decode URL first, then unescape JSON. 3) Invalid escape sequences (\\q is invalid; only \\", \\\\, \\/, \\n, \\t, \\r, \\uXXXX are valid). Validate JSON after unescaping using a JSON parser.'
+    },
+    {
+      question: 'When should I use Base64 encoding vs JSON escaping?',
+      answer: 'JSON escaping: when embedding JSON strings in other JSON (config files, logs, nested API responses). Base64 encoding: when transmitting binary data (images, PDFs) or JSON through systems that only accept alphanumeric text (email, XML attributes, some legacy APIs). Base64 is not human-readable; JSON escaping maintains readability. Choose based on use case: nested JSON → escape; binary data or restrictive systems → Base64.'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="1234567804" className="mb-6" />
       
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

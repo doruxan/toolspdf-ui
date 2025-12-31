@@ -3,7 +3,7 @@ import ExtractPages from '@/components/tools/ExtractPages';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareApplicationSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
@@ -57,10 +57,38 @@ export default function ExtractPagesPage() {
     'Download your new PDF with extracted pages'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'What is the difference between extracting and splitting PDF pages?',
+      answer: 'Extracting creates a new PDF containing only the selected pages (e.g., pages 5, 10, 15 from a 50-page document become a 3-page PDF). The original PDF remains unchanged. Splitting divides a PDF into multiple separate files (e.g., splitting a 50-page PDF into 50 single-page files). Use extraction for selective pages; use splitting for breaking a document into sections or individual pages.'
+    },
+    {
+      question: 'Can I extract non-consecutive pages?',
+      answer: 'Yes. Most extraction tools support ranges (1-5), individual pages (7, 12, 18), and combinations (1-3, 8, 15-20). The extracted PDF maintains the page order you specify. For example, extracting "10, 5, 20" creates a 3-page PDF with pages in that exact order: page 10 becomes page 1, page 5 becomes page 2, page 20 becomes page 3.'
+    },
+    {
+      question: 'Does extracting pages reduce file size?',
+      answer: 'Yes, proportionally. If you extract 10 pages from a 100-page 5 MB PDF, the new PDF will be approximately 500 KB (10% of original size). However, if the PDF contains shared resources (fonts, images used across pages), the extracted PDF includes those resources, so size reduction may be less than proportional. Extracting 10 pages might yield 600-700 KB instead of exactly 500 KB.'
+    },
+    {
+      question: 'Will extracted pages retain their original quality?',
+      answer: 'Yes. Page extraction is a lossless operation. Text, images, fonts, links, and formatting remain identical to the original. Resolution is preserved. The only difference is file structure—the extracted PDF contains fewer pages. Bookmarks and links pointing to pages outside the extraction range are removed, but internal content quality is unchanged.'
+    },
+    {
+      question: 'Can I extract pages from password-protected PDFs?',
+      answer: 'If the PDF requires a password to open (user password), you cannot extract pages without unlocking it first. If the PDF has editing restrictions (owner password) but opens without a password, extraction may work depending on the restrictions and tool capabilities. For best results, unlock the PDF first using an unlock tool, then extract pages.'
+    },
+    {
+      question: 'What happens to form fields and annotations on extracted pages?',
+      answer: 'Form fields, annotations, comments, and highlights on extracted pages are preserved. JavaScript actions and document-level scripts may not function if they reference pages outside the extracted range. Cross-page form calculations will break. For forms spanning multiple pages, extract all related pages to maintain functionality. Single-page forms extract cleanly without issues.'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="2222222222" className="mb-6" />
       
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

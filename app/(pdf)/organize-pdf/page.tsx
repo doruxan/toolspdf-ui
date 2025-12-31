@@ -3,7 +3,7 @@ import OrganizePDF from '@/components/tools/OrganizePDF';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareApplicationSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
@@ -57,10 +57,38 @@ export default function OrganizePDFPage() {
     'Download your reorganized PDF'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'Can I reorder pages visually or only by entering page numbers?',
+      answer: 'Browser tools typically require entering page numbers (e.g., "3, 1, 2, 5, 4" to move page 3 to the front). Desktop PDF editors (Adobe Acrobat) offer drag-and-drop visual reordering. For complex reordering (50+ pages), visual tools are faster. For simple reordering (swapping a few pages), entering numbers works fine. Some tools offer "reverse all" buttons for quick reversal without manual numbering.'
+    },
+    {
+      question: 'Does reordering pages affect file size?',
+      answer: 'No. Reordering only changes page sequence metadata; it does not modify content, compress images, or remove data. File size remains nearly identical (may vary by 1-5 KB due to internal PDF structure changes). Reordering is purely organizational—think of it as reshuffling a deck of cards. The cards (pages) stay the same; only their order changes.'
+    },
+    {
+      question: 'What happens to page numbers when I reorder pages?',
+      answer: 'Physical page order changes, but printed page numbers (embedded in content) do not update automatically. If your PDF has "Page 10" printed on page 10, and you move it to position 5, the PDF page numbering becomes 5, but the printed text still shows "Page 10". This causes confusion. Solution: reorder first, then add new sequential page numbers using a page numbering tool.'
+    },
+    {
+      question: 'Can I duplicate pages while reordering?',
+      answer: 'Some tools allow duplication by repeating page numbers (e.g., "1, 2, 2, 3" creates a 4-page PDF with page 2 duplicated). This is useful for inserting copies of forms or signature pages. If your tool does not support duplication via reordering, extract the page you want to duplicate as a separate PDF, then merge it back into the desired location.'
+    },
+    {
+      question: 'Will reordering break bookmarks and links?',
+      answer: 'Bookmarks and internal links are updated to point to the new page locations. If page 10 had a bookmark and you moved it to position 5, the bookmark now points to position 5. However, printed page numbers in bookmark names ("Chapter 3, Page 10") become misleading. External links (URLs) are unaffected. Form field calculations referencing page numbers may break—test thoroughly after reordering.'
+    },
+    {
+      question: 'Why would I need to reverse all pages in a PDF?',
+      answer: 'Common scenario: scanning a document stack with an automatic document feeder (ADF) that produces pages in reverse order. Instead of manually entering "50, 49, 48... 2, 1", the "reverse all" feature flips the entire document instantly. Also useful for: reversing accidentally scanned backwards, reordering appendices, or creating mirror-order documents for printing (e.g., booklet assembly).'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="2626262626" className="mb-6" />
       
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

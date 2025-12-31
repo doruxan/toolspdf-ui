@@ -3,7 +3,7 @@ import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import RelatedTools from '@/components/tools/RelatedTools';
 import { ReturnsCalculator } from '@/components/tools/ecommerce/ReturnsCalculator';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareAppSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareAppSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
@@ -59,10 +59,38 @@ export default function Page() {
     'Analyze how return rate changes affect profitability'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'What is a normal return rate for e-commerce?',
+      answer: 'Industry averages: apparel 20-30% (sizing issues, fit preferences), electronics 5-10% (defects, buyer remorse), home goods 5-15% (damage, expectations mismatch), footwear 25-35% (highest due to fit), beauty/cosmetics 5-10% (hygiene restrictions limit returns). If your store exceeds category norms by 5-10%, investigate root causes: inaccurate product descriptions, poor sizing guides, low-quality products, or inadequate photos. Track by product SKU to identify problematic items.'
+    },
+    {
+      question: 'What are the hidden costs of processing returns?',
+      answer: 'Beyond refund amount: return shipping ($7-15 per return), restocking labor ($5-10 per item), inspection/testing ($2-5), repackaging ($1-3), inventory shrinkage (10-20% of returns unsellable), payment processing fees (non-refundable), customer service time ($8-12 per interaction). Real example: $50 product return costs $15 shipping + $8 labor + $2 repackage + $1.75 payment fee = $26.75 (53% of product value). High return rates devastate profit margins. Aim to keep total return costs under 5% of revenue.'
+    },
+    {
+      question: 'How can I reduce my return rate?',
+      answer: 'Proven strategies: detailed product descriptions (measurements, materials, use cases), high-quality photos (6+ angles, zoom, lifestyle shots), size guides with fit charts, video demonstrations, customer reviews with photos, accurate color representation, clear shipping/delivery times, and realistic expectations. Fashion-specific: virtual try-on tools, fit quizzes. For high-return products, offer exchanges instead of refunds (keeps revenue). Track: reviews mentioning "not as expected" or "too small/large" indicate description/sizing problems.'
+    },
+    {
+      question: 'Should I offer free returns?',
+      answer: 'Depends on margin and competition. High-margin products (50%+ margin): free returns increase conversions 10-20% and customer trust, offsetting return costs. Low-margin products (< 30%): free returns destroy profitability. Compromise: offer store credit for free returns (keeps revenue), charge $5-10 restocking fee for refunds, or offer free returns over $100 order value (encourages larger orders). Test A/B: conversion rate increase vs return cost increase. Amazon trains customers to expect free returns; niche brands can educate on sustainability/cost.'
+    },
+    {
+      question: 'How do returns affect inventory and forecasting?',
+      answer: 'Returns create inventory volatility. Returned items: may be unsellable (damaged, worn), need cleaning/inspection (delays restocking), or are out-of-season (clearance pricing). Forecast demand accounting for returns: if you sell 100 units and 20% return, you effectively sold 80 units, but must stock 100+ to meet demand. Use Shopify apps (Loop Returns, Returnly) to track return reasons and timing. Seasonal spike: post-holiday returns (January) can flood warehouses; plan storage and labor capacity.'
+    },
+    {
+      question: 'What return policies balance customer satisfaction and profitability?',
+      answer: 'Balanced policies: 30-day return window (industry standard, reduces fraud vs 60-90 days), original condition required (prevents wear-and-return abuse), exchange preferred over refund (keeps revenue), customer pays return shipping for remorse, free shipping for defects/errors. Strict for final sale: clearance items, custom/personalized products, hygiene items (underwear, cosmetics). Communicate clearly: 50% of returns stem from misunderstood policies. Use apps like Returnly or AfterShip Returns to automate and streamline the process.'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="1111111112" className="mb-6" />
 
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

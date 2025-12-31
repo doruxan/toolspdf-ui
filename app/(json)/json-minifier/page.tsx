@@ -3,7 +3,7 @@ import JSONMinifier from '@/components/tools/json/JSONMinifier';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareApplicationSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
@@ -57,10 +57,38 @@ export default function JSONMinifierPage() {
     'Copy the minified JSON output'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'What is JSON minification?',
+      answer: 'JSON minification removes all unnecessary whitespace (spaces, tabs, line breaks) from JSON data to reduce file size. For example, a 10 KB formatted JSON might minify to 6 KB (40% reduction). Minified JSON is functionally identical to formatted JSON—both parse to the same data structure. Minification is essential for production: reducing network transfer time, API response sizes, and storage costs. Development uses formatted JSON for readability; production uses minified JSON for performance.'
+    },
+    {
+      question: 'Does minifying JSON change its structure or data?',
+      answer: 'No. Minification only removes whitespace; it does NOT alter keys, values, structure, or data types. {"name": "John", "age": 30} minifies to {"name":"John","age":30}—the data is identical. JSON parsers ignore whitespace, so minified and formatted versions parse to the same JavaScript object. The only difference is file size and human readability. Minification is a safe, reversible operation.'
+    },
+    {
+      question: 'How much file size reduction can I expect from minification?',
+      answer: 'Typical reduction: 20-60% depending on formatting style. Heavily indented JSON (4-space indents, blank lines) sees 50-60% reduction. Simply formatted JSON (2-space indents) sees 20-30% reduction. For a real example: a 1 MB config file minifies to ~400-600 KB. File size reduction is greater for deeply nested JSON with many indentation levels. Flat JSON sees minimal reduction.'
+    },
+    {
+      question: 'Should I minify JSON before storing in databases?',
+      answer: 'It depends. PostgreSQL JSONB columns automatically compress data, so pre-minification provides minimal benefit. MongoDB stores BSON (binary JSON), which is already compact. For TEXT/VARCHAR columns storing JSON as strings, minification saves storage. For NoSQL document stores, minification reduces storage and network costs. Rule of thumb: minify for storage in text columns or file-based storage; skip for native JSON column types.'
+    },
+    {
+      question: 'Can minification break my JSON?',
+      answer: 'No, if done correctly. Minification tools preserve valid JSON structure. However, manually removing whitespace can cause errors if you accidentally delete quotes, commas, or brackets. Always use automated minification tools. After minification, validate the JSON to confirm it parses correctly. For mission-critical systems, test minified JSON in staging environments before production deployment.'
+    },
+    {
+      question: 'Is there a difference between minification and compression?',
+      answer: 'Yes. Minification removes whitespace (lossless transformation of the JSON itself). Compression (gzip, Brotli) uses algorithms to encode data more efficiently (requires decompression before use). For APIs: minify JSON first (permanent size reduction), then enable gzip compression on the server (further 70-80% reduction during transfer). Combined: a 10 KB formatted JSON → 6 KB minified → 1-2 KB gzipped. Both techniques complement each other.'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="1234567896" className="mb-6" />
       
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

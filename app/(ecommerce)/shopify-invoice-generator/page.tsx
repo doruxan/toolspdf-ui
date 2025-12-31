@@ -3,7 +3,7 @@ import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import RelatedTools from '@/components/tools/RelatedTools';
 import { InvoiceGenerator } from '@/components/tools/ecommerce/InvoiceGenerator';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareAppSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareAppSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
@@ -59,10 +59,38 @@ export default function Page() {
     'Preview and download your professional invoice'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'What information must be included on an invoice?',
+      answer: 'Legal requirements (varies by jurisdiction): invoice number (unique identifier), date issued, seller information (business name, address, tax ID/EIN), buyer information (name, billing address), itemized list (descriptions, quantities, unit prices), subtotal, tax amount (if applicable), total amount due, and payment terms (Net 30, due on receipt). Optional but recommended: payment methods accepted, late fee policy, return policy, and thank you message. Missing required fields can delay payment or cause tax compliance issues.'
+    },
+    {
+      question: 'What is the difference between an invoice and a receipt?',
+      answer: 'Invoice: sent BEFORE payment to request payment (e.g., "You owe $500, due by March 15"). Use for: B2B sales, wholesale orders, services, or payment terms (Net 30). Receipt: issued AFTER payment as proof of transaction (e.g., "Paid $500 on March 10"). Use for: retail sales, completed transactions. Shopify automatically generates receipts for online orders. Use invoices for custom orders, draft orders, or B2B customers who pay via bank transfer or terms.'
+    },
+    {
+      question: 'How do I handle taxes on invoices?',
+      answer: 'Include sales tax if: you have tax nexus in the customer state (physical presence, economic nexus thresholds), the product is taxable in that jurisdiction (most goods; some services/digital products exempt), and the customer is not tax-exempt (businesses with valid resale certificates are exempt). Display tax separately: Subtotal $100, Tax (8%) $8, Total $108. Use Shopify tax settings or apps like Avalara/TaxJar for automatic calculation. For international invoices, include VAT if selling to EU customers (reverse charge for B2B sales).'
+    },
+    {
+      question: 'What payment terms should I set on invoices?',
+      answer: 'Common terms: Due on Receipt (immediate payment, retail), Net 15 (15 days to pay, fast turnaround), Net 30 (30 days, industry standard B2B), Net 60/90 (large enterprises, slow). For new customers: require 50% deposit upfront, balance due on delivery. For trusted clients: offer Net 30. Include late fee clause: "1.5% monthly interest on overdue balances" (legal in most states). Enforce consistently. Use accounting software (QuickBooks, Xero) to track aging invoices and send automated reminders.'
+    },
+    {
+      question: 'Can I customize invoice design with my branding?',
+      answer: 'Yes. Most invoice generators allow: uploading logo, customizing colors/fonts, adding header/footer (tagline, social media links, website), and including business branding. Professional touches: use brand colors, include "Thank you for your business," add payment instructions clearly, and ensure mobile-friendly PDF format. Shopify invoice templates can be customized via Settings → Notifications → Customer notifications. For advanced customization, use apps like Order Printer Pro or Sufio.'
+    },
+    {
+      question: 'How do I send invoices to customers?',
+      answer: 'Methods: Email (PDF attachment, most common, instant delivery), Print and mail (formal, required for some government/enterprise clients), or Invoice links (hosted URL, convenient for online payment). Best practice: email PDF with clear subject line ("Invoice #1234 from YourStore"), include payment instructions in email body, provide multiple payment methods (bank transfer, credit card link, PayPal), and set calendar reminder for due date. Use Shopify draft orders to email invoices directly or apps like Invoice Falcon for automated sending.'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="1313131313" className="mb-6" />
 
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

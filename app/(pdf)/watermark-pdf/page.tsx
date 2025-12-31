@@ -3,7 +3,7 @@ import WatermarkPDF from '@/components/tools/WatermarkPDF';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareApplicationSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
@@ -57,10 +57,38 @@ export default function WatermarkPDFPage() {
     'Click "Add Watermark" and download'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'Can I add image watermarks or only text?',
+      answer: 'Currently, the tool supports text watermarks with customizable opacity, font size, and positioning. Text watermarks are most common for copyright notices, "CONFIDENTIAL" stamps, or company names. For image watermarks (logos), you would need to use dedicated PDF editing software like Adobe Acrobat. Text watermarks are sufficient for most document protection and branding needs.'
+    },
+    {
+      question: 'Will the watermark appear on every page?',
+      answer: 'Yes. The watermark is applied to all pages in the PDF document uniformly. This ensures consistent branding or protection across the entire document. If you need selective watermarking (e.g., only first and last pages), first split the PDF into sections, watermark the desired pages, then merge them back together using our PDF tools.'
+    },
+    {
+      question: 'Can watermarks be removed from PDFs?',
+      answer: 'Text watermarks added by overlay tools can potentially be removed with PDF editing software, which is why they are considered "visual deterrents" rather than absolute security. For true document protection, use password encryption (Protect PDF tool) or digital signatures. Watermarks work best for copyright notices, draft stamps, or indicating document status, not for preventing unauthorized use.'
+    },
+    {
+      question: 'Does adding a watermark increase file size significantly?',
+      answer: 'No. Text watermarks add minimal file size—typically 5-20 KB regardless of PDF length, because the watermark text is stored once and referenced on each page. A 50-page PDF might increase from 2.5 MB to 2.52 MB. Image watermarks (if supported) add more—roughly the image file size multiplied by page count. Text watermarks are extremely efficient.'
+    },
+    {
+      question: 'What opacity should I use for my watermark?',
+      answer: 'For subtle watermarks that do not obstruct readability: 10-30% opacity (faint, professional). For visible but non-intrusive watermarks: 40-60% opacity (noticeable, balanced). For prominent watermarks (DRAFT, CONFIDENTIAL): 70-90% opacity (bold, attention-grabbing). Experiment based on background color: lighter backgrounds need higher opacity, darker backgrounds need lower opacity. 50% is a safe default.'
+    },
+    {
+      question: 'Can I position the watermark diagonally across the page?',
+      answer: 'Diagonal watermarks are a common request for "DRAFT" or "CONFIDENTIAL" stamps. Some tools support rotation angles (e.g., 45°). If this tool does not support diagonal placement, position the watermark centered with increased font size to span the page. Alternatively, create a diagonal watermark image externally and use a watermarking tool that supports image overlays.'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="1818181818" className="mb-6" />
       
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

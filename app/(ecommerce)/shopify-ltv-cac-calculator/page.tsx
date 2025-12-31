@@ -3,7 +3,7 @@ import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import RelatedTools from '@/components/tools/RelatedTools';
 import { LtvCacCalculator } from '@/components/tools/ecommerce/LtvCacCalculator';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareAppSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareAppSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
@@ -59,10 +59,38 @@ export default function Page() {
     'View your LTV, LTV:CAC ratio, and profitability insights'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'What is a good LTV:CAC ratio for e-commerce?',
+      answer: 'Healthy benchmark: 3:1 or higher (customer lifetime value is 3x acquisition cost). Example: LTV $300, CAC $100 = 3:1 ratio. Interpretation: 1:1 ratio (break-even, unsustainable), 2:1 (marginally profitable, risky), 3:1 (healthy, sustainable growth), 5:1+ (excellent, scale aggressively). SaaS companies target 5:1+, but e-commerce typically operates at 3-4:1 due to lower repeat rates. If ratio < 3:1, focus on retention (increase LTV) or reduce ad spend (lower CAC).'
+    },
+    {
+      question: 'How do I calculate customer lifetime value (LTV)?',
+      answer: 'Formula: Average Order Value × Purchase Frequency × Customer Lifespan. Example: AOV $75, customers buy 4x/year, stay 2 years = $75 × 4 × 2 = $600 LTV. For Shopify: use analytics to find AOV (Orders ÷ Customers), repeat purchase rate (returning customers / total customers), and average retention (cohort analysis). Simplify: LTV ≈ AOV × (1 + Repeat Purchase Rate × Years Active). Real case: AOV $100, 30% repurchase rate, 1.5 years = $100 × (1 + 0.3 × 1.5) = $145 LTV.'
+    },
+    {
+      question: 'How do I calculate customer acquisition cost (CAC)?',
+      answer: 'Formula: Total Marketing Spend ÷ New Customers Acquired. Include: paid ads (Facebook, Google, TikTok), influencer fees, agency costs, creative production, and promotional discounts. Exclude: general brand awareness spend. Example: $10,000 ad spend acquires 200 new customers = $50 CAC. Track by channel: Facebook CAC $45, Google CAC $60, influencers CAC $80. Allocate budget to lowest-CAC channels. Shopify reports: use UTM parameters and attribution to track per-channel CAC accurately.'
+    },
+    {
+      question: 'Why is my LTV:CAC ratio low and how do I improve it?',
+      answer: 'Low ratio causes: high ad costs (competitive niches), low repeat rates (poor retention), or low AOV (cheap products). Solutions: Increase LTV (launch subscriptions, upsell bundles, email retention campaigns, loyalty programs), Lower CAC (optimize ad creative, target high-intent keywords, improve landing page conversion), or Both (retain customers longer AND reduce acquisition costs). Real fix: store with 2:1 ratio ($200 LTV, $100 CAC) launches subscription, increasing LTV to $350. New ratio: 3.5:1.'
+    },
+    {
+      question: 'How often should I track LTV:CAC ratio?',
+      answer: 'Calculate monthly for trend analysis, but use quarterly data for strategic decisions (monthly fluctuations can mislead). Track by cohort: January 2024 customers vs February 2024 customers. Monitor changes: if ratio drops from 4:1 to 2.5:1 over 3 months, investigate immediately (rising ad costs? declining retention?). Use cohort reports in Shopify or tools like Lifetimely, Peel, or Littledata for automated LTV:CAC tracking.'
+    },
+    {
+      question: 'Does LTV:CAC ratio vary by product category?',
+      answer: 'Significantly. Subscription products (coffee, supplements): 5-8:1 (high retention). Fashion/apparel: 2-3:1 (trend-driven, lower loyalty). Furniture/home goods: 1.5-2.5:1 (infrequent repurchase). Digital products: 8-10:1 (low COGS, high margins). Pet supplies: 4-6:1 (recurring needs, loyal buyers). Benchmark against your category, not all e-commerce. If your coffee subscription achieves 4:1 but industry average is 6:1, there is improvement opportunity.'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="5555555555" className="mb-6" />
 
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

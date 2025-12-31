@@ -3,7 +3,7 @@ import ProtectPDF from '@/components/tools/ProtectPDF';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareApplicationSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
@@ -57,10 +57,38 @@ export default function ProtectPDFPage() {
     'Download your password-protected PDF'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'What encryption level does PDF password protection use?',
+      answer: 'Most PDF tools use 128-bit or 256-bit AES (Advanced Encryption Standard) encryption, the same encryption used by banks and government agencies. 128-bit AES provides strong protection for most use cases. 256-bit AES offers higher security for sensitive documents. Both are considered unbreakable with current technology when using strong passwords. Older 40-bit RC4 encryption is obsolete and should not be used.'
+    },
+    {
+      question: 'What makes a strong PDF password?',
+      answer: 'Strong PDF passwords should be: 12+ characters long, include uppercase and lowercase letters, contain numbers and symbols, avoid dictionary words or personal info (names, birthdates), and be unique (not reused from other accounts). Example strong password: "7mQ#nP9$xR2@wZ4L". Weak password: "MyName2024!". Use a password manager to generate and store complex passwords securely.'
+    },
+    {
+      question: 'Can password-protected PDFs be cracked?',
+      answer: 'With a strong password (16+ random characters), modern PDF encryption is effectively unbreakable. However, weak passwords (short, dictionary words, common patterns) can be cracked using brute-force attacks or password lists. A 6-character lowercase password can be cracked in minutes. A 16-character mixed-case password with symbols would take billions of years. Always use strong, random passwords for sensitive documents.'
+    },
+    {
+      question: 'What is the difference between owner and user passwords?',
+      answer: 'User password (open password) controls who can open the PDF. Recipients must enter this password to view the document. Owner password (permissions password) controls editing, printing, and copying, but allows viewing without a password. Use user passwords for confidential documents. Use owner passwords to prevent editing while allowing distribution. Many tools set the same password for both.'
+    },
+    {
+      question: 'Can I remove password protection if I forget the password?',
+      answer: 'No. If you forget the password, the PDF is permanently inaccessible (that is the point of encryption). There are no legitimate "backdoors." Password recovery services use brute-force attacks and only work on weak passwords. For important documents: store passwords in a password manager, maintain unencrypted backups in secure locations, or use password recovery hints (but not obvious ones).'
+    },
+    {
+      question: 'Does password protection reduce PDF compatibility?',
+      answer: 'No. Password-protected PDFs are widely supported by all major PDF viewers (Adobe Acrobat, Foxit, Chrome, Edge, macOS Preview). The recipient only needs to enter the password to view the document. However, very old PDF readers (pre-2010) may not support modern encryption standards like 256-bit AES. For maximum compatibility, use 128-bit AES encryption and share the password securely with recipients.'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="1616161616" className="mb-6" />
       
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

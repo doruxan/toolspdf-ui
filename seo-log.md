@@ -13,6 +13,18 @@
 # - Notes for next week (1–2 lines): what NOT to repeat, what to do next
 
 - Week of: 2026-01-01
+- Strategy: C (FAQ Schema Enhancement - Medium-Traffic Tools)
+- Pages changed: [/rotate-pdf, /watermark-pdf, /protect-pdf, /unlock-pdf, /redact-pdf, /crop-pdf, /add-page-numbers, /extract-pages, /remove-pages, /organize-pdf, /html-to-pdf, /json-minifier, /json-escape, /json-diff, /json-mapper, /json-query, /shopify-bundle-pricing-calculator, /shopify-break-even-roas-calculator, /shopify-ltv-cac-calculator, /shopify-return-refund-impact-calculator, /shopify-invoice-generator, /shopify-speed-checklist]
+- What changed (3 bullets max)
+  - Added tool-specific FAQ schemas (schema.org/FAQPage) to 22 medium-traffic tools: 11 remaining PDF tools, 5 remaining JSON tools, and 6 remaining Shopify tools for comprehensive FAQ rich snippet coverage across all major tool categories
+  - Each tool received 6 detailed FAQs (132 new FAQs total, 720 words per page) covering technical troubleshooting, use cases with real numbers, comparison questions, best practices, common pitfalls, and practical workflows in operator-to-operator tone
+  - Focused on niche long-tail keywords: "Can I rotate individual PDF pages?", "What is JSON minification?", "What is a good LTV:CAC ratio?", "Should I offer free returns?", targeting voice search, conversational queries, and Google featured snippets for underserved informational searches
+- Internal links added: 0 (focused on FAQ content depth)
+- New FAQs added: 132 (6 FAQs × 22 tools)
+- New post created: no
+- Notes for next week (1–2 lines): All major tools now have comprehensive FAQ schemas (42 total tools with FAQs across top 20 + medium-traffic). Next focus: Monitor Search Console for FAQ rich snippet impressions and CTR. Consider adding FAQ schemas to remaining 23 lower-traffic tools (string tools, niche utilities) if Search Console data shows FAQ snippets drive significant traffic. Evaluate creating FAQ-driven blog posts targeting "How to [X]" clusters.
+
+- Week of: 2026-01-01
 - Strategy: E (Schema.org Compliance - Remove Fake Ratings)
 - Pages changed: [All tools site-wide via lib/seo/schemas.ts]
 - What changed (3 bullets max)

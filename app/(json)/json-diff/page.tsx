@@ -3,7 +3,7 @@ import JSONDiff from '@/components/tools/json/JSONDiff';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareApplicationSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
@@ -57,10 +57,38 @@ export default function JSONDiffPage() {
     'Review additions (green), deletions (red), and changes (yellow)'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'What types of differences can JSON diff tools detect?',
+      answer: 'JSON diff tools identify three types of changes: additions (new keys or array elements in the second JSON), deletions (keys or elements present in the first JSON but missing in the second), and modifications (values that changed between versions). For example, comparing v1: {"price": 100} with v2: {"price": 120, "sale": true} shows: price modified (100 → 120) and sale added. Advanced tools show nested differences in complex objects.'
+    },
+    {
+      question: 'Can JSON diff handle different key orders?',
+      answer: 'Yes. JSON objects are unordered by spec, so {"a": 1, "b": 2} equals {"b": 2, "a": 1}. Good diff tools normalize key order before comparison, reporting no differences. Arrays ARE order-sensitive: [1, 2, 3] differs from [3, 2, 1]. When comparing API responses across versions, key order differences are ignored, but array order matters. Some tools offer "strict mode" to flag key order changes.'
+    },
+    {
+      question: 'How do I use JSON diff for API testing?',
+      answer: 'Common workflow: 1) Save "expected" API response as JSON. 2) Make API call and save "actual" response. 3) Compare both JSONs to detect unexpected changes. Use cases: regression testing (ensure API changes do not break contracts), schema validation (verify required fields exist), and data integrity checks (confirm values match expectations). Automate this in CI/CD pipelines using command-line JSON diff tools (jq, json-diff npm package).'
+    },
+    {
+      question: 'What is the best format for viewing JSON diffs?',
+      answer: 'Three common formats: Side-by-side (both JSONs displayed in parallel with highlighted differences—best for visual comparison), Unified (single view with +/- markers like git diffs—best for code reviews), and Patch format (machine-readable list of operations—best for programmatic processing). Choose based on use case: side-by-side for manual review, unified for documentation, patch format for automated merging or conflict resolution.'
+    },
+    {
+      question: 'Can JSON diff show differences in deeply nested objects?',
+      answer: 'Yes. Quality diff tools recursively compare nested objects and arrays to any depth. For {"user": {"address": {"city": "NYC"}}}, a change to "city" is reported with the full path: user.address.city changed from "NYC" to "LA". This is crucial for complex API responses or config files with 10+ nesting levels. Some tools limit depth to prevent performance issues; check tool documentation for depth limits.'
+    },
+    {
+      question: 'How do I ignore specific fields when comparing JSON?',
+      answer: 'Use diff tools with filtering options. Common ignored fields: timestamps (createdAt, updatedAt), auto-generated IDs (uuid, _id), and computed values (checksum, hash). Without filtering, these fields always show as different even when data is identical. Advanced tools allow regex patterns or JSONPath expressions to exclude fields: ignore $.*.timestamp or $.users[*].id. For API testing, ignore metadata and focus on business data.'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="1234567802" className="mb-6" />
       
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

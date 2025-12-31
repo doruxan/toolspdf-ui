@@ -3,7 +3,7 @@ import RotatePDF from '@/components/tools/RotatePDF';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareApplicationSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
@@ -57,10 +57,38 @@ export default function RotatePDFPage() {
     'Download your rotated PDF file'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'Can I rotate individual pages or only all pages at once?',
+      answer: 'The tool allows you to rotate all pages uniformly or select specific pages to rotate. For selective rotation, upload your PDF, preview all pages, and select only the pages you want to rotate. Each page can be rotated independently at 90°, 180°, or 270° intervals. This is useful when scanning documents produces mixed orientations.'
+    },
+    {
+      question: 'Will rotating a PDF reduce image quality?',
+      answer: 'No. PDF rotation is a lossless operation that changes only the page orientation metadata, not the actual content. Images, text, and vector graphics retain their original resolution and quality. The file size remains nearly identical. Rotation simply tells PDF viewers to display pages at a different angle—no recompression or quality loss occurs.'
+    },
+    {
+      question: 'What do the rotation angles mean?',
+      answer: '90° clockwise rotates the page a quarter turn to the right (portrait to landscape). 180° flips the page upside down. 270° clockwise (or 90° counterclockwise) rotates a quarter turn to the left. Most scanned documents need 90° or 270° rotation when fed incorrectly into scanners. For upside-down pages, use 180°.'
+    },
+    {
+      question: 'Can I rotate password-protected PDFs?',
+      answer: 'If the PDF has a password to open it, you must unlock it first using our Unlock PDF tool. If the PDF only restricts editing but opens without a password, you can usually rotate it depending on the restrictions and browser capabilities. Owner-password-protected PDFs (editing restrictions) may work, but open-password-protected PDFs require unlocking first.'
+    },
+    {
+      question: 'Does rotation affect PDF bookmarks and links?',
+      answer: 'Internal bookmarks pointing to rotated pages remain functional, but their visual alignment may shift since the page orientation changed. Internal links to specific page areas may become misaligned. External links (URLs) are unaffected. Form fields and annotations rotate with the page but may need repositioning. For forms, verify field placement after rotation.'
+    },
+    {
+      question: 'Why does my rotated PDF look wrong in some viewers?',
+      answer: 'Some PDF viewers cache page rendering or ignore rotation metadata. Try: closing and reopening the PDF, refreshing the viewer, using a different PDF reader (Adobe Acrobat, Foxit, browser built-in viewer), or downloading the PDF again. If the issue persists, the original PDF may have conflicting rotation metadata. Re-saving the PDF usually fixes viewer inconsistencies.'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="1212121212" className="mb-6" />
       
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

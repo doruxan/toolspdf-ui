@@ -3,7 +3,7 @@ import AddPageNumbers from '@/components/tools/AddPageNumbers';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareApplicationSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
@@ -57,10 +57,38 @@ export default function AddPageNumbersPage() {
     'Click "Add Page Numbers" and download'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'Can I start page numbering from a specific page?',
+      answer: 'Yes, most page numbering tools allow starting from page 2 or later (skipping cover pages or title pages). You can also customize the starting number. For example, if your PDF is Chapter 3 starting on page 50, set the first page to display "50". Common use case: academic papers where page 1 is the title page (no number), and numbering starts on page 2 as "1".'
+    },
+    {
+      question: 'Will adding page numbers overwrite existing numbers?',
+      answer: 'It depends on positioning. If your PDF already has page numbers in the same location you choose, the new numbers will overlay the old ones, potentially creating double numbers or clutter. Solution: choose a different position (e.g., move from footer-center to footer-right), remove existing numbers first, or use a larger font/different color to clearly distinguish new numbers.'
+    },
+    {
+      question: 'What page number formats are available?',
+      answer: 'Common formats include: Plain numbers (1, 2, 3), "Page X" (Page 1, Page 2), "Page X of Y" (Page 1 of 50), Roman numerals (i, ii, iii or I, II, III), and custom prefixes ("Chapter 2 - Page 5"). Choose based on document type: legal documents often use "Page X of Y", academic papers use plain numbers, and appendices might use Roman numerals.'
+    },
+    {
+      question: 'Does adding page numbers increase file size?',
+      answer: 'Minimally. Text-based page numbers add only 1-5 KB per page, so a 50-page PDF might increase by 50-250 KB total (negligible). The numbers are stored as text objects, not images. If you add page numbers as images or use complex fonts, file size may increase more. For most use cases, the size impact is unnoticeable.'
+    },
+    {
+      question: 'Can I use custom fonts for page numbers?',
+      answer: 'Advanced PDF editors allow custom fonts, but many browser-based tools use standard fonts (Arial, Times New Roman, Helvetica) for compatibility. Custom fonts require embedding font data, which increases file size. For professional documents, standard fonts are recommended for universal viewer support. If branding requires custom fonts, use desktop PDF software like Adobe Acrobat Pro.'
+    },
+    {
+      question: 'What if my PDF already has page numbers in a different location?',
+      answer: 'You have two options: 1) Add new numbers in a different position (e.g., if existing numbers are centered, add new numbers to the right). 2) Remove existing numbers first (use redact or crop tools to black out old numbers), then add new ones in the desired location. Option 2 is cleaner but more time-consuming. For multi-document merges with conflicting numbering, renumbering after merging is essential.'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="2424242424" className="mb-6" />
       
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

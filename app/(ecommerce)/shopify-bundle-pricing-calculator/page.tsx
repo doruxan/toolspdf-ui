@@ -3,7 +3,7 @@ import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import RelatedTools from '@/components/tools/RelatedTools';
 import { BundlePricingCalculator } from '@/components/tools/ecommerce/BundlePricingCalculator';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareAppSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareAppSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
@@ -59,10 +59,38 @@ export default function Page() {
     'Test different discount percentages to find optimal pricing'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'What discount percentage should I offer on bundles?',
+      answer: 'Common bundle discounts range from 10-25% depending on margin and perceived value. For low-margin products (apparel, electronics), 10-15% maintains profitability. For high-margin products (digital goods, cosmetics), 20-30% drives volume without hurting profit. Test A/B: 15% vs 20% and measure conversion rate impact. Real example: a $100 bundle (3 items at $40 each) with 15% discount = $102 bundle price. Customer saves $18, you maintain 85% of individual sale revenue.'
+    },
+    {
+      question: 'Is it better to show total savings or percentage discount?',
+      answer: 'Both. Display: "Save $25 (20% off)" for maximum impact. Dollar savings resonate with budget-conscious shoppers ($25 saved feels tangible). Percentage discounts appeal to value seekers (20% off sounds significant). For high-value bundles ($200+), emphasize dollar savings. For lower-value bundles ($50-100), emphasize percentages. Example: "$200 bundle, Save $50 (25% off)" converts better than either metric alone.'
+    },
+    {
+      question: 'Should bundle pricing be below individual item costs?',
+      answer: 'Not necessarily. Bundles succeed through perceived value, not just price cuts. Strategies: offer complementary products together (shampoo + conditioner), add free shipping (saves $10-15), include exclusive items (bundle-only variant), or provide bulk convenience (3-month supply). Example: $30 + $25 + $20 items = $75. Bundle at $70 (7% off) with free shipping ($10 value) = $80 total value for $70, strong perceived value.'
+    },
+    {
+      question: 'How do I calculate break-even on bundle discounts?',
+      answer: 'Formula: (Bundle Price × Contribution Margin) ≥ (Sum of Individual COGS + Fixed Costs per Order). Example: 3 items, individual prices $30 each ($90 total), COGS $10 each ($30 total). At 20% bundle discount ($72), contribution = $72 - $30 = $42. If fixed costs per order (shipping, processing) = $10, profit = $32. Compare to individual sales: $90 - $30 - $10 = $50. Bundle yields 64% of individual profit but potentially 2x conversion rate, increasing total revenue.'
+    },
+    {
+      question: 'Can I use dynamic pricing for different bundle sizes?',
+      answer: 'Yes. Tiered bundle discounts incentivize larger purchases. Example: 2-item bundle (10% off), 3-item bundle (15% off), 4+ items (20% off). This encourages customers to add more items. Real scenario: customer adds 2 items for 10% off, then adds a third to unlock 15% off, increasing order value $30 → $90. Shopify apps like Bold Bundles or Bundle Builder automate tiered pricing based on cart contents.'
+    },
+    {
+      question: 'How do bundles affect inventory and fulfillment?',
+      answer: 'Bundles sync inventory with component items. Selling a 3-item bundle decrements each item inventory by 1. Fulfillment: pre-assembled bundles (faster shipping, higher prep costs) vs pick-and-pack (slower, lower costs). For high-volume bundles (100+ orders/month), pre-assemble. For low-volume or customizable bundles, pick-and-pack. Use Shopify bundle apps to auto-sync inventory, preventing overselling when bundle components run low.'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="7777777777" className="mb-6" />
 
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

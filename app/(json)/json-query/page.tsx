@@ -3,7 +3,7 @@ import JSONQuery from '@/components/tools/json/JSONQuery';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareApplicationSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
@@ -57,10 +57,38 @@ export default function JSONQueryPage() {
     'View matched results and copy extracted data'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'What is JSONPath and how is it different from dot notation?',
+      answer: 'JSONPath is a query language for JSON, similar to XPath for XML. Dot notation (user.name) is simple but limited. JSONPath adds powerful features: wildcards ($.users[*].name gets all user names), filters ($.users[?(@.age > 21)] finds users over 21), recursive descent ($..email finds all emails at any depth), and array slicing ($.users[0:3] gets first three users). Use dot notation for simple access; use JSONPath for complex queries, filtering, and searching.'
+    },
+    {
+      question: 'What are common JSONPath expressions?',
+      answer: 'Essential expressions: $.store.book (all books), $.store.book[0] (first book), $.store.book[*].author (all authors), $.store.book[?(@.price < 10)] (books under $10), $.store..price (all prices at any depth), $.store.book[-1] (last book), $.store.book[0,2,4] (specific indices). The $ represents the root, @ represents the current item in filters. Combine operators for complex queries: $.users[?(@.active && @.age > 18)].email.'
+    },
+    {
+      question: 'How do I filter JSON arrays with conditions?',
+      answer: 'Use filter expressions with [?()]. Syntax: [?(@.field operator value)]. Examples: $.products[?(@.inStock == true)] (in-stock products), $.orders[?(@.total > 100)] (orders over $100), $.users[?(@.role == "admin")] (admin users). Combine conditions with && (AND) or || (OR): $.items[?(@.price < 50 && @.rating > 4)]. Supported operators: ==, !=, <, >, <=, >=. Filter expressions are crucial for extracting subsets from large datasets.'
+    },
+    {
+      question: 'What does the recursive descent operator (..) do?',
+      answer: 'The recursive descent operator (..) searches the entire JSON tree at any depth. Example: $..email finds all email fields regardless of nesting level. In {"user": {"email": "a@b.com", "contact": {"email": "c@d.com"}}}, $..email returns ["a@b.com", "c@d.com"]. Use cases: finding all occurrences of a field (IDs, timestamps, prices), debugging complex JSON, and extracting scattered data. Warning: can be slow on very large JSON (10,000+ nodes).'
+    },
+    {
+      question: 'Can JSONPath modify JSON data or only query it?',
+      answer: 'Standard JSONPath is read-only (querying/extraction). Some extended libraries (JSONPath Plus, jq) support mutations: setting values, deleting keys, or transforming data. For modifications, use: JavaScript (lodash set/update), Python (dict manipulation), or jq (powerful JSON processor with full transformation capabilities). For most use cases, query with JSONPath, then programmatically modify results. Pure querying keeps operations predictable and safe.'
+    },
+    {
+      question: 'Why does my JSONPath expression return no results?',
+      answer: 'Common issues: 1) Incorrect root ($. prefix required), 2) Case sensitivity (@.Name vs @.name), 3) Wrong filter syntax (use @ not $), 4) Invalid operators (use == not =), 5) Missing quotes (@.role == "admin" not @.role == admin for strings), 6) Path does not exist (verify JSON structure). Debug strategy: test simpler queries first ($.users before $.users[?(@.age > 21)]), validate JSON structure, and check for typos in field names.'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="1234567806" className="mb-6" />
       
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

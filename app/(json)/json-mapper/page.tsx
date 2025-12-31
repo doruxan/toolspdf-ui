@@ -3,7 +3,7 @@ import JSONMapper from '@/components/tools/json/JSONMapper';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareApplicationSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
@@ -57,10 +57,38 @@ export default function JSONMapperPage() {
     'Copy the extracted value or transformed JSON'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'What is JSON mapping and when do I need it?',
+      answer: 'JSON mapping extracts specific values from complex JSON structures. Common use case: API returns {"user": {"profile": {"name": "John", "age": 30, "address": {"city": "NYC"}}}}, but you only need the city. Instead of parsing the entire structure, use mapping: user.profile.address.city → "NYC". Essential for: extracting data from large API responses, transforming data between systems, and simplifying complex JSON for display or storage.'
+    },
+    {
+      question: 'What is dot notation in JSON mapping?',
+      answer: 'Dot notation uses periods to navigate nested objects. Format: outerKey.innerKey.deeperKey. Example: {"order": {"customer": {"email": "user@example.com"}}} → order.customer.email = "user@example.com". For arrays, use brackets: users[0].name accesses the first user name. Dot notation is simpler than writing loops or parsing logic manually. Supported by most programming languages (JavaScript, Python, jq).'
+    },
+    {
+      question: 'Can I extract multiple fields at once?',
+      answer: 'Yes, but method varies by tool. Some mappers allow multiple paths: [user.name, user.email, user.age] extracts all three. Others require separate extractions. For bulk extraction, use JSONPath (more powerful) or jq (command-line). Example JSONPath: $.users[*].[name,email] extracts name and email from all users. For API data transformation, mapping tools save time compared to manual parsing.'
+    },
+    {
+      question: 'How do I handle missing or null fields during mapping?',
+      answer: 'Good mappers return null or undefined for missing paths instead of throwing errors. Example: extracting user.address.city when address is null should return null, not crash. In production code, use optional chaining (JavaScript: user?.address?.city) or safe navigation (Python: user.get("address", {}).get("city")). Test mappings with incomplete data to ensure graceful degradation when expected fields are missing.'
+    },
+    {
+      question: 'What is the difference between JSON mapping and JSON transformation?',
+      answer: 'Mapping extracts existing values (user.name → "John"). Transformation restructures data ({"firstName": "John", "lastName": "Doe"} → {"fullName": "John Doe"}). Mapping is extraction; transformation is conversion. Some tools do both. For simple extraction, use mappers. For complex transformations (merging fields, calculations, filtering), use transformation libraries (jq, JSONPath, lodash) or custom code.'
+    },
+    {
+      question: 'Can JSON mapping handle arrays?',
+      answer: 'Yes. Access array elements by index: users[0].name (first user). Extract from all elements: users[*].name (all user names). Filter arrays: users[age > 21].name (users over 21, requires advanced tools). Standard dot notation handles simple array access. For complex array operations (filtering, mapping, reducing), use JSONPath or programmatic tools (JavaScript Array methods, Python list comprehensions, jq).'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="1234567898" className="mb-6" />
       
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

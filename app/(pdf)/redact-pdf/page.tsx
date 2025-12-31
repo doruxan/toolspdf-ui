@@ -3,7 +3,7 @@ import RedactPDF from '@/components/tools/RedactPDF';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareApplicationSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
@@ -58,10 +58,38 @@ export default function RedactPDFPage() {
     'Click "Apply Redactions" and download'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'What is the difference between redacting and deleting text?',
+      answer: 'Redaction permanently blacks out information by replacing it with solid blocks, making the original text unrecoverable. The text is removed from the file structure entirely. Deleting text leaves empty space but may leave recoverable data in metadata or file history. Highlighting or covering text with shapes is NOT redaction—the text remains underneath. True redaction is irreversible and meets legal privacy requirements.'
+    },
+    {
+      question: 'Can redacted text be recovered from a PDF?',
+      answer: 'If properly redacted, NO. Correct redaction removes the underlying text data and replaces it with black rectangles. The original information is gone from the file. However, improper "redaction" (using black highlights or boxes that overlay text) can be reversed by removing the shapes. Always verify redactions by: attempting to copy text from blacked-out areas (should copy nothing) and checking PDF properties for hidden metadata.'
+    },
+    {
+      question: 'What should I redact in legal or sensitive documents?',
+      answer: 'Common redactions include: personal identifiers (Social Security numbers, passport IDs, driver license numbers), financial information (account numbers, credit card info), protected health information (medical records per HIPAA), confidential business data (trade secrets, proprietary info), and legal privilege (attorney-client communications). Follow your organization policy or consult legal counsel for compliance with GDPR, HIPAA, or FOIA redaction requirements.'
+    },
+    {
+      question: 'Does redacting reduce PDF file size?',
+      answer: 'Usually yes, slightly. Redaction removes text data and fonts, replacing them with simple black rectangles. The file size reduction depends on how much content is redacted. Redacting 10 lines of text might reduce a 2 MB PDF by 10-50 KB. Redacting entire pages could save more. However, images are not affected—redacting text over images leaves the image intact, so size savings are minimal in image-heavy PDFs.'
+    },
+    {
+      question: 'Can I redact images in PDFs?',
+      answer: 'Yes. Redaction black boxes can cover any content: text, images, or both. To redact sensitive images (faces, signatures, photos), position redaction rectangles over the image areas. The image data beneath is permanently obscured. For precise image redaction, use coordinates to define exact boundaries. Note: large image redactions do not reduce file size significantly—the image data remains, just covered.'
+    },
+    {
+      question: 'How do I verify redactions were applied correctly?',
+      answer: 'Verification steps: 1) Attempt to select/copy text from redacted areas (should be impossible). 2) Check PDF Properties → Security → Document restrictions (should show no hidden layers). 3) Open in multiple PDF readers (Adobe, browser viewers) to confirm black boxes appear consistently. 4) Search the PDF for redacted keywords (should return no results). 5) For legal compliance, use Adobe Acrobat Pro built-in "Examine Document" feature.'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="3232323232" className="mb-6" />
       
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">

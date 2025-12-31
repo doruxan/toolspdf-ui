@@ -3,7 +3,7 @@ import UnlockPDF from '@/components/tools/UnlockPDF';
 import AdBanner from '@/components/ads/AdBanner';
 import AdSidebar from '@/components/ads/AdSidebar';
 import StructuredData from '@/components/seo/StructuredData';
-import { generateSoftwareApplicationSchema, generateHowToSchema } from '@/lib/seo/schemas';
+import { generateSoftwareApplicationSchema, generateHowToSchema, generateFAQSchema } from '@/lib/seo/schemas';
 import { withCanonicalMetadata } from '@/lib/seo/metadata';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 
@@ -56,10 +56,38 @@ export default function UnlockPDFPage() {
     'Download your unlocked PDF file'
   ]);
 
+  const faqSchema = generateFAQSchema([
+    {
+      question: 'Can I unlock a PDF without knowing the password?',
+      answer: 'It depends on the restriction type. If the PDF has editing/printing restrictions (owner password) but opens without a password, you can often remove these restrictions. If the PDF has an open password (user password) that prevents viewing, you CANNOT unlock it without the correct password—that would defeat the purpose of encryption. Password-protected PDFs with strong encryption are designed to be uncrackable.'
+    },
+    {
+      question: 'Is it legal to unlock password-protected PDFs?',
+      answer: 'It is legal to unlock PDFs you own or have permission to access. Common legitimate uses: you forgot the password to your own document, you received a work PDF with unnecessary restrictions, or you need to unlock for accessibility purposes. It is ILLEGAL to unlock copyrighted PDFs you do not own (e.g., textbooks, software manuals) or to bypass security on confidential documents without authorization.'
+    },
+    {
+      question: 'What types of PDF passwords can be removed?',
+      answer: 'Two types exist: Owner password (permissions/restrictions) prevents editing, printing, or copying but allows viewing without a password. These can usually be removed by unlocking tools. User password (open password) prevents opening the PDF entirely. These CANNOT be removed without entering the correct password. Unlocking tools work on permissions-locked PDFs, not encrypted-to-open PDFs.'
+    },
+    {
+      question: 'Will unlocking affect PDF quality or content?',
+      answer: 'No. Unlocking simply removes restriction metadata from the PDF file; it does not alter text, images, or formatting. The content quality remains identical. File size stays nearly the same (may decrease slightly by a few KB from removed encryption overhead). Fonts, images, links, and all document properties are preserved perfectly. Unlocking is a non-destructive operation.'
+    },
+    {
+      question: 'Why do some unlocked PDFs still show restrictions?',
+      answer: 'This happens when: the PDF has a user password (open password) that was not provided, the PDF uses advanced encryption that requires the password, browser PDF viewers cache security settings (try downloading and opening in Adobe Acrobat), or the PDF was not fully unlocked (try re-unlocking). For stubborn cases, open the unlocked PDF in Adobe Acrobat and re-save it as a new file.'
+    },
+    {
+      question: 'Can I unlock PDFs on mobile devices?',
+      answer: 'Yes, if using a mobile browser. Browser-based unlocking tools work on iOS Safari, Android Chrome, and other mobile browsers. However, performance may be slower for large PDFs (50+ pages) due to mobile processing limitations. For best results, use a desktop browser. Mobile apps specifically designed for PDF unlocking are available but often require subscriptions; browser-based tools are free alternatives.'
+    }
+  ]);
+
   return (
     <div className="w-full">
       <StructuredData data={toolSchema} />
       <StructuredData data={howToSchema} />
+      <StructuredData data={faqSchema} />
       <AdBanner dataAdSlot="1414141414" className="mb-6" />
       
       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12">
