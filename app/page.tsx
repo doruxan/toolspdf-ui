@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Hero from '@/components/home/Hero';
-import ToolsSection from '@/components/home/ToolsSection';
+import CategoryShowcase from '@/components/home/CategoryShowcase';
 import ClientSearch from '@/components/home/ClientSearch';
 import StructuredData from '@/components/seo/StructuredData';
 import { toolCategories } from '@/config/tools';
@@ -63,15 +63,10 @@ export default function Home() {
       {/* Client Search Component */}
       <ClientSearch />
 
-      {/* All Categories */}
-      {toolCategories.map((category, index) => (
-        <div key={category.id}>
-          <ToolsSection category={category} />
-          {index < toolCategories.length - 1 && (
-            <div className="border-t-2 border-border mx-auto max-w-7xl" />
-          )}
-        </div>
-      ))}
+      {/* Category Showcase */}
+      <div className="pt-8 pb-12">
+        <CategoryShowcase />
+      </div>
 
       {/* Features Section */}
       <section className="py-16 bg-gradient-to-br from-muted/30 to-muted/10 border-y-2 border-border">
