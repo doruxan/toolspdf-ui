@@ -118,6 +118,7 @@ When adding a **new tool category** or **significant number of new tools**, foll
 - [ ] Create tool components in `components/tools/[category]/`
 - [ ] Add business logic to `lib/[category]/` (if needed)
 - [ ] Ensure flat URL structure (NO nested paths!)
+- [ ] **Update `public/site.webmanifest`** - update tool count/description to reflect new tools
 
 ## 2. SEO & Metadata Updates (CRITICAL)
 - [ ] **Update `app/layout.tsx`:**
@@ -138,6 +139,10 @@ When adding a **new tool category** or **significant number of new tools**, foll
   - [ ] Add new tool category column
   - [ ] List top 5 tools from the new category
   - [ ] Update brand description if needed
+- [ ] **Update `public/site.webmanifest`:**
+  - [ ] Update `name` if tool categories changed significantly
+  - [ ] Update `description` to reflect current tool counts and categories
+  - [ ] Keep description consistent with app/layout.tsx metadata
 
 ## 3. Dynamic Systems Verification
 - [ ] **Sitemap (`app/sitemap.ts`):**
@@ -200,6 +205,7 @@ Essential (Always):
 - components/home/Hero.tsx
 - components/layout/Footer.tsx
 - lib/seo/schemas.ts
+- public/site.webmanifest (PWA description/name)
 - seo-log.md
 
 Situational:

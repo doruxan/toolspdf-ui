@@ -12,6 +12,18 @@
 # - New post created: (yes/no, slug)
 # - Notes for next week (1–2 lines): what NOT to repeat, what to do next
 
+- Week of: 2026-01-02
+- Strategy: F (Technical SEO - Favicon & Icon Optimization)
+- Pages changed: [app/layout.tsx, public/site.webmanifest]
+- What changed (3 bullets max)
+  - Added explicit favicon declarations in HTML head: .ico, .svg, apple-touch-icon, and mask-icon for better browser and search engine compatibility
+  - Created site.webmanifest file with PWA icon definitions for modern web app standards and improved mobile experience
+  - Updated Next.js metadata with comprehensive icons property declaring multiple formats to ensure Google and other search engines properly detect and display site favicon in search results
+- Internal links added: 0
+- New FAQs added: 0
+- New post created: no
+- Notes for next week (1–2 lines): Favicon changes deployed. Request re-indexing in Google Search Console for homepage. Monitor Search Console for favicon detection (Google can take 2-8 weeks to update favicons in search results). Consider creating PNG icon variants (192x192, 512x512) if SVG doesn't appear in search results after 4 weeks.
+
 - Week of: 2026-01-01
 - Strategy: C (FAQ Schema Enhancement - Medium-Traffic Tools)
 - Pages changed: [/rotate-pdf, /watermark-pdf, /protect-pdf, /unlock-pdf, /redact-pdf, /crop-pdf, /add-page-numbers, /extract-pages, /remove-pages, /organize-pdf, /html-to-pdf, /json-minifier, /json-escape, /json-diff, /json-mapper, /json-query, /shopify-bundle-pricing-calculator, /shopify-break-even-roas-calculator, /shopify-ltv-cac-calculator, /shopify-return-refund-impact-calculator, /shopify-invoice-generator, /shopify-speed-checklist]

@@ -30,6 +30,21 @@ export const metadata: Metadata = {
   description: "65+ free online tools: 16 PDF, 9 JSON, 7 IBAN, 8 Shopify, 25 String tools (case converter, base64, hash generator, regex tester). 100% free, works in your browser, your data never leaves your device.",
   keywords: "pdf tools, json tools, string tools, case converter, base64 encoder, csv to json, json formatter, iban validator, shopify calculator, free online tools",
   authors: [{ name: "RawTools" }],
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: '16x16 32x32' },
+      { url: '/logo.svg', type: 'image/svg+xml' },
+    ],
+    apple: [
+      { url: '/logo.svg', type: 'image/svg+xml' },
+    ],
+    other: [
+      {
+        rel: 'mask-icon',
+        url: '/logo.svg',
+      },
+    ],
+  },
   openGraph: {
     title: "RawTools - Free PDF, JSON, IBAN, Shopify & String Tools",
     description: "65+ free online tools: PDF processing, JSON converters, IBAN validation, Shopify calculators, and String manipulation. Works in your browser, 100% private.",
@@ -70,6 +85,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Favicon - Explicit declaration for better Google indexing */}
+        <link rel="icon" href="/favicon.ico" sizes="16x16 32x32" />
+        <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/logo.svg" />
+        <link rel="mask-icon" href="/logo.svg" color="#2563eb" />
+        <link rel="manifest" href="/site.webmanifest" />
+        
         {/* Google Search Console Verification */}
         <meta name="google-site-verification" content="b7OqIkKEhMevyeIBtktOgcFYit7uDdN8br0uH-C" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
